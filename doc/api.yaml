@@ -95,29 +95,61 @@ components:
         required: true
         schema: { $ref: "#/components/schemas/UserID" }
   schemas:
+    Ride_id:
+      description: Unique identifier representing a specific ride
+      type: string
+      pattern: '^[a-zA-Z0-9-_]*$'
+      minLength: 1
+      maxLength: 20
+      example: "U3dhZ2dlciByb2Nrcw"
+      readOnly: true
+
     Ride:
       type: object
       properties:
-        id:
-          type: string
+        id: 
+          $ref: '#/components/schemas/Ride_id'
         origin:
+          description: The starting point of the ride
           type: string
+          example: Via di Valle Giulia, 9, 00197 Roma RM
         destination:
+          description: The end point of the ride
           type: string
+          example: Piazzale Aldo Moro, 5, 00185 Roma RM
         driver:
+          description: The name of the user who is offering the ride
           type: string
+          example: John Doe
+          pattern: '^[a-zA-Z0-9-_]*$'
+          minLength: 3
+          maxLength: 16
+        available_seats:
+          description: The number of seats available in the car
+          type: integer
+          example: 3
+        
     Booking:
       type: object
       properties:
         ride_id:
+          $ref: '#/components/schemas/Ride_id'
+        booked_in:
+          description: When the booking was done
           type: string
+          format: date-time
+          example: 2022-11-04T19:35:22-04:00
+          minLength: 20
+          maxLength: 25
     BookingConfirmation:
       type: object
       properties:
         ride_id:
-          type: string
+          $ref: '#/components/schemas/Ride_id'
         confirmed:
+          description: Whether the booking was successful or not
           type: boolean
+          example: true
     Profile:
       type: object
       properties:

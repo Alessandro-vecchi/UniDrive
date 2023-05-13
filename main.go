@@ -47,6 +47,7 @@ func main() {
 	var err error
 	db, err = gorm.Open("postgres", "host=localhost user=gorm dbname=gorm password=gorm sslmode=disable")
 	if err != nil {
+		logger.Fatalf("failed to connect database: %v", err)
 		panic("failed to connect database")
 	}
 	defer func() {

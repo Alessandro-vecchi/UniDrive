@@ -85,7 +85,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/BookingConfirmation'
 
-  /profile:
+  /rides/{ride_id}:
+    parameters:
+      - $ref: '#/components/parameters/ride_id'
+
+    get:
+      tags:
+        - Rides
+      summary: View the details of a ride
+      responses:
+        '200':
+          description: The details of the ride
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ride'
+    
+    delete:
+      tags:
+        - Rides
+      summary: Delete a ride
+      responses:
+        '200':
+          description: Confirmation of the deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ride'
+  /profile/:
     get:
       tags:
           - Profile
@@ -97,16 +124,56 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+    
+  /profile/{username}:
+    parameters:
+      - $ref: '#/components/parameters/username'
+    get:
+      tags:
+          - Profile
+      summary: View the profile of another user
+      responses:
+        '200':
+          description: The user's profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+    put:
+      tags:
+          - Profile
+      summary: Update the user's profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+      responses:
+        '200':
+          description: Confirmation of the update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
 
 components:
   parameters:
-    depart_hour:
-      name: depart_hour
-      in: query
-      description: The date and time of the ride
-      required: false
+    ride_id:
+      name: ride_id
+      in: path
+      description: The ID of the ride
+      required: true
       schema:
-        $ref: '#/components/schemas/depart_hour'
+        $ref: '#/components/schemas/Ride_id'
+
+    username:
+      name: username
+      in: path
+      description: The name of the user
+      required: true
+      schema:
+        $ref: '#/components/schemas/username'
 
   schemas:
     depart_hour:
@@ -134,6 +201,14 @@ components:
       maxLength: 20
       example: "U3dhZ2dlciByb2Nrcw"
       readOnly: true
+
+    username:
+      description: The name of the user
+      type: string
+      example: Mario Rossi
+      pattern: '^[a-zA-Z0-9-_]*$'
+      minLength: 3
+      maxLength: 16
 
     Ride:
       type: object
@@ -189,12 +264,7 @@ components:
         id:
           $ref: '#/components/schemas/user_id'
         username:
-          description: The name of the user
-          type: string
-          example: Mario Rossi
-          pattern: '^[a-zA-Z0-9-_]*$'
-          minLength: 3
-          maxLength: 16
+          $ref: '#/components/schemas/username'
         age:
           description: Age of the user
           type: integer

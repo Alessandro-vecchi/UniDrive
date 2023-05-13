@@ -10,7 +10,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/sirupsen/logrus"
 )
 
@@ -45,7 +45,7 @@ func main() {
 
 	// Connect to the database
 	var err error
-	db, err = gorm.Open("postgres", "host=localhost user=gorm dbname=gorm password=gorm sslmode=disable")
+	db, err = gorm.Open("sqlite3", "/tmp/server.db")
 	if err != nil {
 		logger.Fatalf("failed to connect database: %v", err)
 		panic("failed to connect database")
@@ -59,7 +59,7 @@ func main() {
 	r := gin.Default()
 
 	// Define a simple route
-	r.GET("/ping", func(c *gin.Context) {
+	r.GET("/ping", func(c *gin.Context) { // curl -X GET "http://localhost:3000/ping"
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})

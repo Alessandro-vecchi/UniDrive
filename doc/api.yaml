@@ -9,7 +9,7 @@ info:
   license:
     name: Sapienza University
     url: https://www.uniroma1.it/it/
-  version: 1.0.11
+  version: 1.0.0
 externalDocs:
   description: Find out more about the project
   url: https://www.notion.so/REPORT-2dd4406f190846dba586faa224fff91e
@@ -29,53 +29,104 @@ tags:
   - name: Profile
     description: Represents the profile page of the user
     
-components:
-  parameters:
-    user_id:
-      description: User whose profile belongs to. 
-      name: user_id
-      in: path
-      required: true
-      schema: { $ref: "#/components/schemas/UserID" }
-          
-  schemas:
-    ShortProfile:
-        description: Represents the information displayed in the list of likes, followers, ecc...
-        type: object
-        properties:
-          username: {$ref: "#/components/schemas/Username"}
-          profile_picture_url:
-            description: URL of the profile picture. Accepting only ID attached with .png/.jpg/.jpeg extensions.
-            type: string
-            pattern: '^[a-zA-Z0-9-_]*\.(png|jpg|jpeg)$'
-            example: "Cksvy-ZXtXRE.jpeg"
-            minLength: 0
-            maxLength: 150
-  
+
 paths:
-  /rides/:
+
+  /rides/search:
     get:
-      tags:
-        - User
-      summary: Find drivers
-      description: |
-        The profile of an user contains the username, the number of photos it has, the number of follows/followers, a bio and a profile picture.
-      operationId: getUserProfile
+      summary: Search for a ride
       parameters:
-        - name: username
-          in: query
-          description: Username to filter by
-          required: false
-          explode: false
-          schema:
-              $ref: '#/components/schemas/Username'
+      - name: origin
+        in: query
+        description: The starting point of the ride
+        required: true
+        schema:
+          type: string
+      - name: destination
+        in: query
+        description: The end point of the ride
+        required: true
+        schema:
+          type: string
       responses:
         '200':
-          description: Successful operation. User profile given in the response body.
+          description: A list of rides that match the search parameters
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Profile'
-        "400": { description: Invalid username supplied }
-        "404": { description: User not found }
-        "500": { $ref: "#/components/responses/InternalServerError" }
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ride'
+
+  /rides/book:
+    post:
+      summary: Book a ride
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        '200':
+          description: Confirmation of the booking
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingConfirmation'
+
+  /profile:
+    get:
+      summary: View the user's profile
+      responses:
+        '200':
+          description: The user's profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+
+components:
+  parameters:
+      user_id:
+        description: User whose profile belongs to. 
+        name: user_id
+        in: path
+        required: true
+        schema: { $ref: "#/components/schemas/UserID" }
+  schemas:
+    Ride:
+      type: object
+      properties:
+        id:
+          type: string
+        origin:
+          type: string
+        destination:
+          type: string
+        driver:
+          type: string
+    Booking:
+      type: object
+      properties:
+        ride_id:
+          type: string
+    BookingConfirmation:
+      type: object
+      properties:
+        ride_id:
+          type: string
+        confirmed:
+          type: boolean
+    Profile:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        rides_booked:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ride'
+

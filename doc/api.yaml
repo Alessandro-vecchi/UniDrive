@@ -24,16 +24,18 @@ servers:
         default: https
   
 tags:
-  - name: User
-    description: Users actions
   - name: Profile
     description: Represents the profile page of the user
+  - name: Rides
+    description: Rides actions
     
 
 paths:
 
-  /rides/search:
+  /rides/:
     get:
+      tags:
+        - Rides
       summary: Search for a ride
       parameters:
       - name: origin
@@ -48,6 +50,12 @@ paths:
         required: true
         schema:
           type: string
+      - name: depart_hour
+        in: query
+        description: The date and time of the ride
+        required: false
+        schema:
+          $ref: '#/components/schemas/depart_hour'
       responses:
         '200':
           description: A list of rides that match the search parameters
@@ -58,8 +66,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Ride'
 
-  /rides/book:
     post:
+      tags:
+          - Rides
       summary: Book a ride
       requestBody:
         required: true
@@ -71,12 +80,15 @@ paths:
         '200':
           description: Confirmation of the booking
           content:
+
             application/json:
               schema:
                 $ref: '#/components/schemas/BookingConfirmation'
 
   /profile:
     get:
+      tags:
+          - Profile
       summary: View the user's profile
       responses:
         '200':
@@ -88,15 +100,34 @@ paths:
 
 components:
   parameters:
-      user_id:
-        description: User whose profile belongs to. 
-        name: user_id
-        in: path
-        required: true
-        schema: { $ref: "#/components/schemas/UserID" }
+    depart_hour:
+      name: depart_hour
+      in: query
+      description: The date and time of the ride
+      required: false
+      schema:
+        $ref: '#/components/schemas/depart_hour'
+
   schemas:
+    depart_hour:
+          description: When we want to book the ride
+          type: string
+          format: date-time
+          example: 2022-11-04T19:35:22-04:00
+          minLength: 20
+          maxLength: 25
+
     Ride_id:
       description: Unique identifier representing a specific ride
+      type: string
+      pattern: '^[a-zA-Z0-9-_]*$'
+      minLength: 1
+      maxLength: 20
+      example: "U3dhZ2dlciByb2Nrcw"
+      readOnly: true
+
+    user_id:
+      description: Unique identifier representing a specific user
       type: string
       pattern: '^[a-zA-Z0-9-_]*$'
       minLength: 1
@@ -134,6 +165,12 @@ components:
       properties:
         ride_id:
           $ref: '#/components/schemas/Ride_id'
+
+    BookingConfirmation:
+      type: object
+      properties:
+        ride_id:
+          $ref: '#/components/schemas/Ride_id'
         booked_in:
           description: When the booking was done
           type: string
@@ -141,24 +178,89 @@ components:
           example: 2022-11-04T19:35:22-04:00
           minLength: 20
           maxLength: 25
-    BookingConfirmation:
-      type: object
-      properties:
-        ride_id:
-          $ref: '#/components/schemas/Ride_id'
         confirmed:
           description: Whether the booking was successful or not
           type: boolean
           example: true
+
     Profile:
       type: object
       properties:
-        name:
+        id:
+          $ref: '#/components/schemas/user_id'
+        username:
+          description: The name of the user
           type: string
-        email:
+          example: Mario Rossi
+          pattern: '^[a-zA-Z0-9-_]*$'
+          minLength: 3
+          maxLength: 16
+        age:
+          description: Age of the user
+          type: integer
+          example: 21
+          minimum: 18
+        faculty:
+          description: Faculty of the university that the user belongs to
           type: string
+          example: Faculty of Economics
+        profile_picture_url:
+          description: URL of the profile picture. Accepting only ID attached with.png/.jpg/.jpeg extensions.
+          type: string
+          pattern: '^[a-zA-Z0-9-_]*\.(png|jpg|jpeg)$'
+          example: "Cksvy-ZXtXRE.jpg"
+          minLength: 0
+          maxLength: 150
+        bio:
+          description: Biography of the profile. |
+            Keeping the pattern simple. Not doing crazy things. Just allowing alphanumeric characters and basic punctuation.
+          type: string
+          pattern: '^[a-zA-Z0-9,._:;?!\x27\- ]*$'
+          example: "Mario, business student at Sapienza"
+          minLength: 0
+          maxLength: 150
+        rating:
+          description: The rating of the user
+          type: number
+          example: 3.8
+          minimum: 0
+          maximum: 5
+        reviews:
+          description: List of reviews received by the user
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
         rides_booked:
+          description: List of rides booked by the user
           type: array
           items:
             $ref: '#/components/schemas/Ride'
+        total_rides_given:
+          description: Total number of rides given by the user
+          type: integer
+          example: 50
+          minimum: 0
+
+    Review:
+      type: object
+      properties:
+        user_id:
+          $ref: '#/components/schemas/user_id'
+        rating:
+          description: The rating of the user
+          type: integer
+          example: 4
+          minimum: 0
+          maximum: 5
+        review:
+          description: The review of the user
+          type: string
+          example: "Mario is a great driver"
+          pattern: '^[a-zA-Z0-9,._:;?!\x27\- ]*$'
+          minLength: 0
+          maxLength: 300
+
+
+
+
 

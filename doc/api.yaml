@@ -28,6 +28,8 @@ tags:
     description: Represents the profile page of the user
   - name: Rides
     description: Rides actions
+  - name: Booking
+    description: Booking actions
     
 
 paths:
@@ -66,25 +68,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/Ride'
 
-    post:
-      tags:
-          - Rides
-      summary: Book a ride
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Booking'
-      responses:
-        '200':
-          description: Confirmation of the booking
-          content:
-
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BookingConfirmation'
-
   /rides/{ride_id}:
     parameters:
       - $ref: '#/components/parameters/ride_id'
@@ -101,17 +84,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ride'
     
-    delete:
-      tags:
-        - Rides
-      summary: Delete a ride
-      responses:
-        '200':
-          description: Confirmation of the deletion
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Ride'
   /profile/:
     post:
       tags:
@@ -163,15 +135,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/Profile'
 
+  /booking/:
+    post:
+      tags:
+          - Booking
+      summary: Book a ride
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ride_id'
+      responses:
+        '200':
+          description: Confirmation of the booking
+          content:
+
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingConfirmation'
+
     delete:
       tags:
-          - Profile
-      summary: Delete the user's profile
+        - Booking
+      summary: Delete a booking
       responses:
         '204':
-          description: No content. Profile deleted but didn't send back any representation or description.
-
-
+          description: No content. Cancellation of the booking
+          
 components:
   parameters:
     ride_id:
@@ -249,19 +240,15 @@ components:
           description: The number of seats available in the car
           type: integer
           example: 3
-        
-    Booking:
-      type: object
-      properties:
-        ride_id:
-          $ref: '#/components/schemas/Ride_id'
+        depart-hour:
+          $ref: '#/components/schemas/depart_hour'
 
     BookingConfirmation:
       type: object
       properties:
         ride_id:
           $ref: '#/components/schemas/Ride_id'
-        booked_in:
+        booked_in: # inutile?? 
           description: When the booking was done
           type: string
           format: date-time
@@ -304,22 +291,16 @@ components:
           example: "Mario, business student at Sapienza"
           minLength: 0
           maxLength: 150
-        rating:
-          description: The rating of the user
-          type: number
-          example: 3.8
-          minimum: 0
-          maximum: 5
         reviews:
           description: List of reviews received by the user
           type: array
           items:
             $ref: '#/components/schemas/Review'
-        rides_booked:
-          description: List of rides booked by the user
-          type: array
-          items:
-            $ref: '#/components/schemas/Ride'
+        #rides_booked:
+          #description: List of rides booked by the user
+         # type: array
+         # items:
+         #   $ref: '#/components/schemas/Ride'
         total_rides_given:
           description: Total number of rides given by the user
           type: integer
@@ -345,7 +326,8 @@ components:
           minLength: 0
           maxLength: 300
 
-
-
+# review post
+# login post
+# 
 
 

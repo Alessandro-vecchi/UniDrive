@@ -1,12 +1,9 @@
 package main
 
 import (
-	"context"
-	"net/http"
 	"os"
-	"os/signal"
-	"syscall"
-	"time"
+
+	"UniDrive/back-end/api"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -14,22 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type Web struct {
-	APIHost         string
-	DebugHost       string
-	ReadTimeout     time.Duration
-	WriteTimeout    time.Duration
-	ShutdownTimeout time.Duration
-}
-
 var db *gorm.DB
-var webConfig Web = Web{
-	APIHost:         "0.0.0.0:3000",
-	DebugHost:       "0.0.0.0:4000",
-	ReadTimeout:     5 * time.Second,
-	WriteTimeout:    5 * time.Second,
-	ShutdownTimeout: 5 * time.Second,
-}
 
 func main() {
 
@@ -58,41 +40,22 @@ func main() {
 	// Initialise Gin
 	r := gin.Default()
 
-	// Define a simple route
-	r.GET("/ping", func(c *gin.Context) { // curl -X GET "http://localhost:3000/ping"
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	/* 	// Define a simple route
+	   	r.GET("/ping", func(c *gin.Context) {
+	   		c.JSON(200, gin.H{
+	   			"message": "pong",
+	   		})
+	   	}) */
 
 	// Create the API server
-	apiserver := &http.Server{
-		Addr:         webConfig.APIHost,
-		Handler:      r,
-		ReadTimeout:  webConfig.ReadTimeout,
-		WriteTimeout: webConfig.WriteTimeout,
-	}
 
-	// Start the service listening for requests in a separate goroutine
-	go func() {
-		logger.Infof("API listening on %s", apiserver.Addr)
-		if err := apiserver.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			logger.Fatalf("listen: %s\n", err)
-		}
-		logger.Infof("stopping API server")
-	}()
+	// Initialise API handler and register routes
+	apiHandler := api.NewHandler()
+	apiHandler.RegisterRoutes(r)
 
-	// Wait for interrupt signal to gracefully shutdown the server with a timeout
-	quit := make(chan os.Signal, 1) // buffer size of 1
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
-	logger.Println("Shutting down server...")
-
-	ctx, cancel := context.WithTimeout(context.Background(), webConfig.ShutdownTimeout)
-	defer cancel()
-	if err := apiserver.Shutdown(ctx); err != nil {
-		logger.Fatal("Server forced to shutdown:", err)
-	}
+	// Start the service listening for requests
+	logger.Infof("API listening on %s", "0.0.0.0:3000")
+	r.Run("0.0.0.0:3000") // listens on 0.0.0.0:3000
 
 	logger.Println("Server exiting")
 }

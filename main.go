@@ -39,6 +39,9 @@ func main() {
 
 	// Initialise Gin
 	r := gin.Default()
+	
+	// Use the Logrus logger as the Gin router's logger
+	r.Use(gin.LoggerWithWriter(logger.Writer()))
 
 	/* 	// Define a simple route
 	   	r.GET("/ping", func(c *gin.Context) {

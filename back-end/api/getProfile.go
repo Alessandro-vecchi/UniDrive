@@ -22,6 +22,8 @@ func (h *Handler) getUserProfile(c *gin.Context) {
 		return
 	}
 
+	
+
 	// Use the DB instance for querying data
 	// ...
 }

@@ -36,9 +36,16 @@ func main() {
 		logger.Debug("database stopping")
 		_ = db.Close()
 	}()
+	
 
 	// Initialise Gin
 	r := gin.Default()
+
+	// Attach the DB to the Gin context using middleware
+	r.Use(func(c *gin.Context) {
+		c.Set("DB", db)
+		c.Next()
+	})
 
 	// Use the Logrus logger as the Gin router's logger
 	//r.Use(gin.LoggerWithWriter(logger.Writer()))

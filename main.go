@@ -43,13 +43,6 @@ func main() {
 	// Use the Logrus logger as the Gin router's logger
 	r.Use(gin.LoggerWithWriter(logger.Writer()))
 
-	/* 	// Define a simple route
-	   	r.GET("/ping", func(c *gin.Context) {
-	   		c.JSON(200, gin.H{
-	   			"message": "pong",
-	   		})
-	   	}) */
-
 	// Create the API server
 
 	// Initialise API handler and register routes

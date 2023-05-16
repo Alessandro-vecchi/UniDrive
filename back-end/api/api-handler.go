@@ -8,6 +8,7 @@ import (
 // RegisterRoutes registers the API routes
 func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	r.GET("/ping", h.ping)
+	
 }
 
 

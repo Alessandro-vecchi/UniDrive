@@ -27,7 +27,7 @@ func main() {
 
 	// Connect to the database
 	var err error
-	db, err = gorm.Open("sqlite3", "/tmp/server.db")
+	db, err = gorm.Open("sqlite3", "server.db")
 	if err != nil {
 		logger.Fatalf("failed to connect database: %v", err)
 		panic("failed to connect database")
@@ -39,7 +39,7 @@ func main() {
 
 	// Initialise Gin
 	r := gin.Default()
-	
+
 	// Use the Logrus logger as the Gin router's logger
 	r.Use(gin.LoggerWithWriter(logger.Writer()))
 

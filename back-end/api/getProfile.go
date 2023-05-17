@@ -4,6 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"strconv"
+	"net/http"
+	"UniDrive/back-end/database"
 )
 
 func (h *Handler) getUserProfile(c *gin.Context) {
@@ -30,7 +32,13 @@ func (h *Handler) getUserProfile(c *gin.Context) {
 		c.JSON(500, gin.H{"error": "cannot convert userid in int"})
 		return
 	}
-	// Use the DB instance for querying data
-	// ...
-	_ = gormDB
+	
+	profile,err := database.GetProfile(gormDB, userId)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "cannot get profile from database"})
+		return
+	}
+
+	c.JSON(http.StatusOK, profile)
+	return 
 }

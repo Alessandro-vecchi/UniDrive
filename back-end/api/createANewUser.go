@@ -38,11 +38,11 @@ func(h *Handler) crateANewUser(c *gin.Context) {
 		return
 	}
 
-	err = database.PostProfile(gormDB, profile)
+	user_id,err := database.PostProfile(gormDB, profile)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "User cannot be added to database"})
 		return
 	}
-
+	profile.Id = user_id
 	c.JSON(http.StatusOK, profile)
 }

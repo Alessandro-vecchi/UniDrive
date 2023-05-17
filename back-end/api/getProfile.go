@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
+	"strconv"
 )
 
 func (h *Handler) getUserProfile(c *gin.Context) {
@@ -24,8 +25,11 @@ func (h *Handler) getUserProfile(c *gin.Context) {
 		return
 	}
 
-
-
+	userId, err := strconv.Atoi(c.Params.ByName("user_id"))
+	if err!=nil {
+		c.JSON(500, gin.H{"error": "cannot convert userid in int"})
+		return
+	}
 	// Use the DB instance for querying data
 	// ...
 	_ = gormDB

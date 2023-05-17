@@ -46,11 +46,11 @@ func main() {
 		logger.Debug("database stopping")
 		_ = db.Close()
 	}()
+	
+	dbMiddleware := database.New(db)
 
 	// Initialise Gin
 	r := gin.Default()
-
-	dbMiddleware := database.New(db)
 
 	r.Use(dbMiddleware)
 

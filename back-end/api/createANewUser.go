@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"UniDrive/back-end/api/models"
+	"UniDrive/back-end/database"
 )
 
 func(h *Handler) crateANewUser(c *gin.Context) {
@@ -34,6 +35,12 @@ func(h *Handler) crateANewUser(c *gin.Context) {
 	if !ok {
 		// Handle incorrect DB instance type
 		c.JSON(500, gin.H{"error": "Invalid database connection type"})
+		return
+	}
+
+	err = database.PostProfile(gormDB, profile)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "User cannot be added to database"})
 		return
 	}
 

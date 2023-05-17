@@ -2,15 +2,14 @@ package main
 
 import (
 	"context"
+	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-	"log"
 
 	"UniDrive/back-end/api"
-	"UniDrive/back-end/api/models"
 	"UniDrive/back-end/database"
 
 	"github.com/gin-gonic/gin"
@@ -29,7 +28,7 @@ func init() {
 		log.Fatalf("failed to connect database: %s", err)
 	}
 	// automatically create the database schema based on the Review struct
-	db.AutoMigrate(&models.Review{})
+	//db.AutoMigrate(&models.Review{})
 }
 func main() {
 
@@ -46,7 +45,7 @@ func main() {
 		logger.Debug("database stopping")
 		_ = db.Close()
 	}()
-	
+
 	dbMiddleware := database.New(db)
 
 	// Initialise Gin
@@ -80,7 +79,7 @@ func main() {
 	/* Ensuring that in-progress tasks complete before the application or server stops.
 	Wait for interrupt signal to gracefully shutdown the server with a timeout */
 
-	quit := make(chan os.Signal, 1) // buffer size of 1
+	quit := make(chan os.Signal, 1)                      // buffer size of 1
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM) // Ctrl+C or kill
 	<-quit
 	logger.Println("Shutting down server gracefully...")

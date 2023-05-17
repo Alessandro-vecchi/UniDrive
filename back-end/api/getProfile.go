@@ -24,4 +24,5 @@ func (h *Handler) getUserProfile(c *gin.Context) {
 
 	// Use the DB instance for querying data
 	// ...
+	_ = gormDB
 }

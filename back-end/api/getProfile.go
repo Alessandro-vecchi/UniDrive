@@ -25,7 +25,7 @@ func (h *Handler) getUserProfile(c *gin.Context) {
 		return
 	}
 
-	userId, err := strconv.Atoi(c.Params.ByName("user_id"))
+	_, err := strconv.Atoi(c.Params.ByName("user_id"))
 	if err!=nil {
 		c.JSON(500, gin.H{"error": "cannot convert userid in int"})
 		return

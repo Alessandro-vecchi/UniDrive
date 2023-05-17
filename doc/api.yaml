@@ -103,9 +103,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Profile'
     
-  /profile/{username}:
+  /profile/{user_id}:
     parameters:
-      - $ref: '#/components/parameters/username'
+      - $ref: '#/components/schemas/user_id'
     get:
       tags:
           - Profile
@@ -228,9 +228,12 @@ components:
           description: The end point of the ride
           type: string
           example: Piazzale Aldo Moro, 5, 00185 Roma RM
-        driver:
+        driver_name:
           description: The name of the user who is offering the ride
           $ref: '#/components/schemas/username'
+        driver_id:
+          description: the id of the driver
+          $ref: '#/components/schemas/user_id'
         available_seats:
           description: The number of seats available in the car
           type: integer
@@ -243,17 +246,17 @@ components:
       properties:
         ride_id:
           $ref: '#/components/schemas/Ride_id'
-        booked_in: # inutile?? 
+        booking_timestamp: # inutile?? 
           description: When the booking was done
           type: string
           format: date-time
           example: 2022-11-04T19:35:22-04:00
           minLength: 20
           maxLength: 25
-        confirmed:
-          description: Whether the booking was successful or not
-          type: boolean
-          example: true
+        #confirmed:
+        #  description: Whether the booking was successful or not
+        #  type: boolean
+        #  example: true
         car_details:
           $ref: '#/components/schemas/Car_details'
 
@@ -312,13 +315,32 @@ components:
           maxLength: 14
         car_details:
           $ref: '#/components/schemas/Car_details'
-        place:
-          $ref: '#/components/schemas/Place'
-        social_links:
-          description: List of social links of the user
-          type: array
-          items:
-            $ref: '#/components/schemas/SocialLink'
+        city:
+          description: The place where the user lives
+          type: string
+          example: Rome
+          pattern: '^[a-zA-Z-_]*$'
+          minLength: 0
+          maxLength: 20
+        district:
+          description: The district where the user lives
+          type: string
+          example: Parioli
+          pattern: '^[a-zA-Z-_]*$'
+          minLength: 0
+          maxLength: 30
+        #social_links:
+        #  description: List of social links of the user
+        #  type: array
+        #  items:
+        #    $ref: '#/components/schemas/SocialLink'
+        instagram_url:
+          description: The url of the social link
+          type: string
+          example: https://www.instagram.com/mario_rossi/
+          pattern: '^(http|https):\/\/(www\.)?([a-zA-Z0-9-_]+)\.([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)\/?$'
+          minLength: 0
+          maxLength: 150
     
     Car_details:
       type: object
@@ -406,7 +428,7 @@ components:
           example: 2022-11-04T19:35:22-04:00
           minLength: 20
           maxLength: 25
-        author:
+        author_name:
           description: The name of the user who wrote the review
           type: string
           example: John Doe
@@ -443,7 +465,7 @@ components:
           example: 4.8
           minimum: 0
           maximum: 5
-        distance:
+        distance:  # boh?
           description: The distance between the user and the meeting point in metres
           type: number
           example: 250 #meters

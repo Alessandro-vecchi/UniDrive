@@ -46,16 +46,16 @@ func main() {
 		logger.Debug("database stopping")
 		_ = db.Close()
 	}()
+	
+	dbMiddleware := database.New(db)
 
 	// Initialise Gin
 	r := gin.Default()
 
-	dbMiddleware := database.New(db)
-
 	r.Use(dbMiddleware)
 
 	// Use the Logrus logger as the Gin router's logger
-	r.Use(gin.LoggerWithWriter(logger.Writer()))
+	//r.Use(gin.LoggerWithWriter(logger.Writer()))
 
 	// Create the API server
 

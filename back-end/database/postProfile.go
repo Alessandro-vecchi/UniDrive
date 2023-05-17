@@ -4,6 +4,8 @@ import (
 	"UniDrive/back-end/api/models"
 	"fmt"
 	"log"
+	"strconv"
+	"time"
 
 	"github.com/gofrs/uuid"
 	"github.com/jinzhu/gorm"
@@ -19,9 +21,11 @@ func CreateProfile(db *gorm.DB, profile *models.Profile_DB) error {
 	userId := rawUserId.String()
 
 	profile.ID = userId
-	// profile.JoinedIn = time.Now().Format(time.RFC3339) // TODO: must not be modified again
+	
+	t := time.Now()
+	profile.JoinedIn = t.Month().String() + " " + strconv.Itoa(t.Year()) // time.Now().Format(time.RFC3339) // TODO: must not be modified again
 
-	result := db.Save(profile)
+	result := db.Create(profile)
 	fmt.Println(result)
 	if result.Error != nil {
 		return result.Error

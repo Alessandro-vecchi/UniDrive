@@ -16,13 +16,15 @@ func (h *Handler) getUserProfile(c *gin.Context) {
 
 	// Access the DB instance using type assertion
 	gormDB, ok := db.(*gorm.DB)
+	
+
 	if !ok {
 		// Handle incorrect DB instance type
 		c.JSON(500, gin.H{"error": "Invalid database connection type"})
 		return
 	}
 
-	
+
 
 	// Use the DB instance for querying data
 	// ...

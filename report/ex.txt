@@ -1,0 +1,25 @@
+{
+   "username": "Mario Rossi",
+  "age": 21,
+  "faculty": "Faculty of Economics",
+  "profile_picture_url": "Cksvy-ZXtXRE.jpg",
+  "bio": "Mario, business student at Sapienza",
+  "reviews": [
+    {
+      "rating": 4,
+      "review": "Mario is a great driver",
+      "author_name": "John Doe",
+      "timestamp": "2022-11-04T23:35:22.000Z"
+    }
+  ],
+  "total_rides_given": 50,
+  "joined_in": "September 2022",
+  "car_details": {
+    "car_model": "Fiat 500",
+    "car_color": "Red",
+    "car_plate": "AB123CD"
+  },
+  "city": "Rome",
+  "district": "Parioli",
+  "instagram_url": "https://www.instagram.com/mario_rossi/"
+}

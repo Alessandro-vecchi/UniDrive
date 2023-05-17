@@ -1,27 +1,27 @@
 package api
 
 import (
-	"encoding/json"
-	"net/http"
-	"github.com/jinzhu/gorm"
-	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 	"UniDrive/back-end/api/models"
 	"UniDrive/back-end/database"
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
+	"github.com/sirupsen/logrus"
 )
 
-func(h *Handler) crateANewUser(c *gin.Context) {
-
+func (h *Handler) crateANewUser(c *gin.Context) {
 
 	logger := logrus.StandardLogger()
-	
-	var profile models.Profile
-	err := json.NewDecoder(c.Request.Body).Decode(&profile)
-	if err != nil {
-		c.Writer.WriteHeader(http.StatusBadRequest)
-		logger.Info("Failed to decode profile")
-	}
 
+	var profile models.Profile_DB
+	if err := c.ShouldBindJSON(&profile); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to decode profile"})
+		logger.Info("Failed to decode profile")
+		return
+	}
+	fmt.Println(profile)
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")
 	if !exists {
@@ -38,11 +38,11 @@ func(h *Handler) crateANewUser(c *gin.Context) {
 		return
 	}
 
-	err = database.PostProfile(gormDB, profile)
+	err := database.CreateProfile(gormDB, &profile)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "User cannot be added to database"})
 		return
 	}
 
-	c.JSON(http.StatusOK, profile)
+	c.JSON(201, profile)
 }

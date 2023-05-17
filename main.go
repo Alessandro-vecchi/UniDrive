@@ -28,7 +28,7 @@ func init() {
 		log.Fatalf("failed to connect database: %s", err)
 	}
 	// automatically create the database schema based on the Review struct
-	//db.AutoMigrate(&models.Review{})
+	// db.AutoMigrate(&models.Review{})
 }
 func main() {
 

@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/gin-gonic/gin v1.9.0
+	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/jinzhu/gorm v1.9.16
 	github.com/kr/pretty v0.3.0
 	github.com/sirupsen/logrus v1.9.0

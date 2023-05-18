@@ -8,10 +8,18 @@ import (
 func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	r.GET("/ping", h.ping)
 
-	r.POST("/feedback/", h.createReview)
-	r.GET("/feedback/:id", h.getReview)
-
+	/* USER PROFILE */
+	// Create an user profile
 	r.POST("/profile/", h.crateANewUser)
+	// Get user profile
 	r.GET("/profile/:id", h.getUserProfile)
+	// Update user profile
+	r.PUT("/profile/:id", h.updateUserProfile)
+
+	/* USER REVIEW */
+	// Create a review
+	r.POST("/feedback/", h.createReview)
+	// Get a list of reviews
+	r.GET("/feedback/", h.getReview)
 
 }

@@ -12,7 +12,7 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	// Create an user profile
 	r.POST("/profile/", h.crateANewUser)
 	// Get user profile
-	r.GET("/profile/:id", h.getUserProfile)
+	r.GET("/profile/:id", h.getProfileByID)
 	// Update user profile
 	r.PUT("/profile/:id", h.updateUserProfile)
 

@@ -22,4 +22,10 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	// Get a list of reviews
 	r.GET("/feedback/", h.getReview)
 
+	/* RIDES */
+	// Search for rides by origin, destination and time
+	r.GET("/rides/", h.searchRides)
+	// Get a ride
+	r.GET("/rides/:id", h.getRideByID)
+
 }

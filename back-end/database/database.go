@@ -52,10 +52,10 @@ func New(db *gorm.DB) gin.HandlerFunc {
 			id TEXT NOT NULL PRIMARY KEY,
 			origin TEXT NOT NULL,
 			destination TEXT NOT NULL,
+			depart_hour TEXT NOT NULL,
 			driver_name TEXT NOT NULL,
 			driver_id TEXT NOT NULL,
 			available_seats INTEGER NOT NULL,
-			depart_hour TEXT NOT NULL,
 			FOREIGN KEY (driver_id)
 				REFERENCES profile_dbs(id)
 				ON UPDATE CASCADE ON DELETE CASCADE

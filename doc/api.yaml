@@ -140,12 +140,18 @@ paths:
       tags:
           - Booking
       summary: Book a ride
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Ride_id'
+      parameters:
+      - in: query
+        name: user_id
+        schema:
+          $ref: '#/components/schemas/user_id'
+
+      - in: query
+        name: ride_id
+        schema:
+        
+          $ref: '#/components/schemas/Ride_id'
+
       responses:
         '200':
           description: Confirmation of the booking

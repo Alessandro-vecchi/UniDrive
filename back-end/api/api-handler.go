@@ -28,4 +28,9 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	// Get a ride
 	r.GET("/rides/:id", h.getRideByID)
 
+	/* BOOKING */
+	// book a ride
+	r.POST("/booking/", h.bookRide)
+	// delete a ride
+
 }

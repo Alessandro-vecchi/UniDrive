@@ -5,12 +5,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
+	"fmt"
 )
 
-func (h *Handler) bookRide(c *gin.Context) {
-	user_id := c.Query("user_id")
-	ride_id := c.Query("ride_id")
+func (h *Handler) deleteBooking(c *gin.Context) {
 
+	booking_id := c.Param("booking_id")
+	fmt.Println("fratemooooooooooo "+booking_id + "fin")
 	db, exists := c.Get("DB")
 	if !exists {
 		// Handle DB not found in the context
@@ -26,13 +27,13 @@ func (h *Handler) bookRide(c *gin.Context) {
 		return
 	}
 
-	booking, err := database.BookRide(gormDB, user_id, ride_id)
+	err := database.DeleteBooking(gormDB,booking_id)
 	if err != nil {
-		c.JSON(500, gin.H{"error":"cannot post to database"+err.Error()})
+		c.JSON(500, gin.H{"error": "cannot delete booking from database"})
 		return
 	}
 
-	c.JSON(201, booking)
-	
-	
+	c.JSON(200, gin.H{"message": "booking eliminated succesfully"})
+
+
 }

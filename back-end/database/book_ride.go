@@ -3,7 +3,6 @@ package database
 import (
 	"UniDrive/back-end/api/models"
 	"time"
-	"strconv"
 	"github.com/jinzhu/gorm"
 	"github.com/gofrs/uuid"
 )
@@ -17,10 +16,10 @@ func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, erro
 	uuid := rawUuid.String()
 	
 
-	t := time.Now()
-	timestamp := t.Month().String() + " " + strconv.Itoa(t.Year())
+	
+	timestamp := time.Now().Format(time.RFC3339)
 
-	result := db.Exec("INSERT INTO ride(id, ride_id, booking_timestamp, passenger_id) values (?,?,?,?) ",uuid,ride_id,timestamp,user_id)
+	result := db.Exec("INSERT INTO booking(id, ride_id, booking_timestamp, passenger_id) values (?,?,?,?) ",uuid,ride_id,timestamp,user_id)
 	if result.Error != nil {
 		return booking, result.Error
 	}
@@ -33,6 +32,10 @@ func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, erro
 		return booking, result.Error
 	}
 
+	result = db.Exec("UPDATE ride SET available_seats = available_seats - 1   WHERE id = ?", ride_id)
+	if result.Error != nil {
+		return booking, result.Error
+	}
 	
 	booking.RideId = ride_id
 	booking.BookingTimestamp = timestamp

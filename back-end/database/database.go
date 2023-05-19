@@ -16,7 +16,8 @@ func New(db *gorm.DB) gin.HandlerFunc {
 		`DROP TABLE IF EXISTS reviews;`,
 		`DROP TABLE IF EXISTS ride;`,
 		`DROP TABLE IF EXISTS booking;`, */
-		`CREATE TABLE IF NOT EXISTS profile_dbs (
+		`
+		CREATE TABLE IF NOT EXISTS profile_dbs (
 			id TEXT NOT NULL PRIMARY KEY,
 			username TEXT NOT NULL,
 			age INTEGER NOT NULL,
@@ -68,7 +69,13 @@ func New(db *gorm.DB) gin.HandlerFunc {
 			FOREIGN KEY (ride_id)
 				REFERENCES ride(id)
 				ON UPDATE CASCADE ON DELETE CASCADE
-		);`,
+		);
+
+		
+		
+		`,
+		//INSERT INTO car_details VALUES ('5484dfb1-dd85-40e5-ae90-d17f0d967ed4', 'spark', 'green', 'EPNFRATM');
+		//INSERT INTO ride VALUES('fratm', 'via fratellino', 'via sorellina','micio','5484dfb1-dd85-40e5-ae90-d17f0d967ed4', '4', '2002-10-02T10:00:00-05:00'   );
 	}
 
 	// Execute each SQL statement

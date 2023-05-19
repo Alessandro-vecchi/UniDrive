@@ -143,11 +143,13 @@ paths:
       parameters:
       - in: query
         name: user_id
+        required: true
         schema:
           $ref: '#/components/schemas/user_id'
 
       - in: query
         name: ride_id
+        required: true
         schema:
         
           $ref: '#/components/schemas/Ride_id'
@@ -160,7 +162,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BookingConfirmation'
-
+  
+  /booking/{booking_id}:
+    parameters:
+      - name: booking_id
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Booking_id'
     delete:
       tags:
         - Booking
@@ -198,6 +207,15 @@ components:
 
     Ride_id:
       description: Unique identifier representing a specific ride
+      type: string
+      pattern: '^[a-zA-Z0-9-_]*$'
+      minLength: 1
+      maxLength: 20
+      example: "U3dhZ2dlciByb2Nrcw"
+      readOnly: true
+
+    Booking_id:
+      description: Unique identifier representing a specific booking
       type: string
       pattern: '^[a-zA-Z0-9-_]*$'
       minLength: 1

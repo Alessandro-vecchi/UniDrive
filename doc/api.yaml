@@ -67,6 +67,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Ride'
+        '500': {$ref: "#/components/responses/InternalServerError" }
 
   /rides/{ride_id}:
     parameters:
@@ -83,6 +84,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Ride'
+
+        '500': {$ref: "#/components/responses/InternalServerError" }
     
   /profile/:
     post:
@@ -102,6 +105,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+        
+        '500': {$ref: "#/components/responses/InternalServerError" }
     
   /profile/{user_id}:
     parameters:
@@ -117,6 +122,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+        
+        '500': {$ref: "#/components/responses/InternalServerError" }
     put:
       tags:
           - Profile
@@ -134,6 +141,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+
+        '500': {$ref: "#/components/responses/InternalServerError" }
 
   /booking/:
     post:
@@ -162,6 +171,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BookingConfirmation'
+        
+        '500': {$ref: "#/components/responses/InternalServerError" }
   
   /booking/{booking_id}:
     parameters:
@@ -170,6 +181,7 @@ paths:
         required: true
         schema:
           $ref: '#/components/schemas/Booking_id'
+
     delete:
       tags:
         - Booking
@@ -177,6 +189,7 @@ paths:
       responses:
         '204':
           description: No content. Cancellation of the booking
+        '500': {$ref: "#/components/responses/InternalServerError" }
           
 components:
   parameters:
@@ -495,6 +508,18 @@ components:
           example: 250 #meters
           minimum: 0
           maximum: 10000
+
+  responses:
+    BadRequest: 
+        description: |-
+          The request was not compliant with the documentation
+          (eg. missing fields, etc).
+    InternalServerError: 
+      description: |-
+        The server encountered an internal error.
+        Further info in server logs.
+    UnauthorizedError:
+      description: Access token is missing or invalid.
 
 # review post
 # login post

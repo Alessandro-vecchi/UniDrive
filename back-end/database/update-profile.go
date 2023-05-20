@@ -8,7 +8,8 @@ import (
 func UpdateProfile(db *gorm.DB, profile models.Profile_DB) error {
 	// Update the desired fields in the profile
 	result := db.Model(&models.Profile_DB{}).Where("id = ?", profile.ID).Updates(models.Profile_DB{
-		Username:          profile.Username,
+		Name:          	profile.Name,
+		Surname: 		profile.Surname,
 		Age:               profile.Age,
 		Faculty:           profile.Faculty,
 		ProfilePictureUrl: profile.ProfilePictureUrl,

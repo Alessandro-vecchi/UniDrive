@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func (h *Handler) searchRides(c *gin.Context) {
+func (h *Handler) getRides(c *gin.Context) {
 	from := c.Query("from")
 	to := c.Query("to")
 	at := c.Query("at")

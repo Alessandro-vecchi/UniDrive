@@ -9,7 +9,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func (h *Handler) updateUserProfile(c *gin.Context) {
+func (h *Handler) updateProfile(c *gin.Context) {
 
 	var profile models.Profile_DB
 	if err := c.ShouldBindJSON(&profile); err != nil {
@@ -18,6 +18,7 @@ func (h *Handler) updateUserProfile(c *gin.Context) {
 	}
 	// Retrieve the ID from the path parameters
 	profile.ID = c.Param("id")
+	
 
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")

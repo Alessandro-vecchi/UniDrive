@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func (h *Handler) getProfileByID(c *gin.Context) {
+func (h *Handler) getProfile(c *gin.Context) {
 	id := c.Param("id")
 
 	// Retrieve the DB instance from the context

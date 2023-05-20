@@ -17,6 +17,7 @@ func New(db *gorm.DB) gin.HandlerFunc {
 		`DROP TABLE IF EXISTS ride;`,
 		`DROP TABLE IF EXISTS booking;`, */
 		`
+		
 		CREATE TABLE IF NOT EXISTS profile_dbs (
 			id TEXT NOT NULL PRIMARY KEY,
 			name TEXT NOT NULL,

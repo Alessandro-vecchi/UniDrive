@@ -38,7 +38,8 @@ paths:
     get:
       tags:
         - Rides
-      summary: Search for a ride
+      summary: getRides
+      description: Search for a ride
       parameters:
       - name: origin
         in: query
@@ -76,7 +77,8 @@ paths:
     get:
       tags:
         - Rides
-      summary: View the details of a ride
+      summary: getRide
+      description: View the details of a ride
       responses:
         '200':
           description: The details of the ride
@@ -91,7 +93,8 @@ paths:
     post:
       tags:
           - Profile
-      summary: Create a new user
+      summary: createUser
+      description: Create a new user
       requestBody:
         required: true
         content:
@@ -114,7 +117,8 @@ paths:
     get:
       tags:
           - Profile
-      summary: View the profile of another user
+      summary: getProfile
+      description: View the profile of another user
       responses:
         '200':
           description: The user's profile
@@ -127,7 +131,8 @@ paths:
     put:
       tags:
           - Profile
-      summary: Update the user's profile
+      summary: updateProfile
+      description:  Update the user's profile
       requestBody:
         required: true
         content:
@@ -148,20 +153,21 @@ paths:
     post:
       tags:
           - Booking
-      summary: Book a ride
-      parameters:
-      - in: query
-        name: user_id
+      summary: bookRide
+      description: Book a ride
+      requestBody:
         required: true
-        schema:
-          $ref: '#/components/schemas/user_id'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ride_id: 
+                  $ref: '#/components/schemas/Ride_id'
+                user_id:
+                  $ref: '#/components/schemas/user_id'
+                  
 
-      - in: query
-        name: ride_id
-        required: true
-        schema:
-        
-          $ref: '#/components/schemas/Ride_id'
 
       responses:
         '200':
@@ -185,11 +191,57 @@ paths:
     delete:
       tags:
         - Booking
-      summary: Delete a booking
+      summary: deleteBooking
+      description: Delete a booking
       responses:
         '204':
           description: No content. Cancellation of the booking
         '500': {$ref: "#/components/responses/InternalServerError" }
+
+  /profile/{user_id}/review:
+    parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/user_id'
+    
+    post:
+      tags:
+        - Review
+      summary: createReview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+
+      responses:
+        '201':
+          description: create a review
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+    
+    get: 
+      tags:
+        - Review
+      summary: getReview
+      responses:
+        '200':
+          description: The review
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+
+    
+
+
+
+  
           
 components:
   parameters:

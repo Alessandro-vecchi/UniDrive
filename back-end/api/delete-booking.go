@@ -5,13 +5,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"fmt"
 )
 
 func (h *Handler) deleteBooking(c *gin.Context) {
 
 	booking_id := c.Param("booking_id")
-	fmt.Println("fratemooooooooooo "+booking_id + "fin")
+	
 	db, exists := c.Get("DB")
 	if !exists {
 		// Handle DB not found in the context

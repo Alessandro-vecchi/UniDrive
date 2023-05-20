@@ -10,23 +10,23 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 
 	/* USER PROFILE */
 	// Create an user profile
-	r.POST("/profile/", h.crateANewUser)
+	r.POST("/profile/", h.createUser)
 	// Get user profile
-	r.GET("/profile/:id", h.getProfileByID)
+	r.GET("/profile/:id", h.getProfile)
 	// Update user profile
-	r.PUT("/profile/:id", h.updateUserProfile)
+	r.PUT("/profile/:id", h.updateProfile)
 
 	/* USER REVIEW */
 	// Create a review
-	r.POST("/feedback/", h.createReview)
+	r.POST("/profile/:user_id/review/", h.createReview)
 	// Get a list of reviews
 	r.GET("/feedback/", h.getReview)
 
 	/* RIDES */
 	// Search for rides by origin, destination and time
-	r.GET("/rides/", h.searchRides)
+	r.GET("/rides/", h.getRides)
 	// Get a ride
-	r.GET("/rides/:id", h.getRideByID)
+	r.GET("/rides/:id", h.getRide)
 
 	/* BOOKING */
 	// book a ride

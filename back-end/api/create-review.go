@@ -24,5 +24,5 @@ func (h *Handler) createReview(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": feedback})
+	c.JSON(201, gin.H{"data": feedback})
 }

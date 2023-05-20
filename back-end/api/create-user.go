@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func (h *Handler) crateANewUser(c *gin.Context) {
+func (h *Handler) createUser(c *gin.Context) {
 
 	logger := logrus.StandardLogger()
 

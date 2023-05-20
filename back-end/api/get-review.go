@@ -14,7 +14,7 @@ func (h *Handler) getReview(c *gin.Context) {
 	db, _ := c.Get("DB")
 	conn := db.(*gorm.DB)
 
-	id := c.Param("id")
+	id := c.Param("user_id")
 
 	var review models.Review
 	if err := conn.First(&review, id).Error; err != nil {

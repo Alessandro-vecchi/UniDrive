@@ -28,6 +28,10 @@ func CreateProfile(db *gorm.DB, profile *models.Profile_DB) error {
 	if result.Error != nil {
 		return result.Error
 	}
+	
+	//result = db.Raw("SELECT LAST_INSERT_ID()").Scan(&profile)
+
+	
 
 	return nil
 }

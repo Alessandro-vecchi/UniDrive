@@ -31,3 +31,4 @@ type Profile_DB struct {
 	District          string `json:"district"`
 	InstagramUrl      string `json:"instagram_url"`
 }
+

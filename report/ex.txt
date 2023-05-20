@@ -23,3 +23,15 @@
   "district": "Parioli",
   "instagram_url": "https://www.instagram.com/mario_rossi/"
 }
+
+{
+   "username": "Vecc3nz",
+  "age": 20,
+  "faculty": "Faculty of AI",
+  "profile_picture_url": "Cksvy-ZXtXRE.jpg",
+  "bio": "Simone, business student at Sapienza",
+  "joined_in": "",
+  "city": "Rome",
+  "district": "Colli Albani",
+  "instagram_url": "https://www.instagram.com/rotellini/"
+}

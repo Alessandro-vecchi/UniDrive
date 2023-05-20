@@ -67,6 +67,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Ride'
+        '500': {$ref: "#/components/responses/InternalServerError" }
 
   /rides/{ride_id}:
     parameters:
@@ -83,6 +84,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Ride'
+
+        '500': {$ref: "#/components/responses/InternalServerError" }
     
   /profile/:
     post:
@@ -102,6 +105,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+        
+        '500': {$ref: "#/components/responses/InternalServerError" }
     
   /profile/{user_id}:
     parameters:
@@ -117,6 +122,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+        
+        '500': {$ref: "#/components/responses/InternalServerError" }
     put:
       tags:
           - Profile
@@ -135,17 +142,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/Profile'
 
+        '500': {$ref: "#/components/responses/InternalServerError" }
+
   /booking/:
     post:
       tags:
           - Booking
       summary: Book a ride
-      requestBody:
+      parameters:
+      - in: query
+        name: user_id
         required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Ride_id'
+        schema:
+          $ref: '#/components/schemas/user_id'
+
+      - in: query
+        name: ride_id
+        required: true
+        schema:
+        
+          $ref: '#/components/schemas/Ride_id'
+
       responses:
         '200':
           description: Confirmation of the booking
@@ -154,6 +171,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BookingConfirmation'
+        
+        '500': {$ref: "#/components/responses/InternalServerError" }
+  
+  /booking/{booking_id}:
+    parameters:
+      - name: booking_id
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Booking_id'
 
     delete:
       tags:
@@ -162,6 +189,7 @@ paths:
       responses:
         '204':
           description: No content. Cancellation of the booking
+        '500': {$ref: "#/components/responses/InternalServerError" }
           
 components:
   parameters:
@@ -192,6 +220,15 @@ components:
 
     Ride_id:
       description: Unique identifier representing a specific ride
+      type: string
+      pattern: '^[a-zA-Z0-9-_]*$'
+      minLength: 1
+      maxLength: 20
+      example: "U3dhZ2dlciByb2Nrcw"
+      readOnly: true
+
+    Booking_id:
+      description: Unique identifier representing a specific booking
       type: string
       pattern: '^[a-zA-Z0-9-_]*$'
       minLength: 1
@@ -471,6 +508,18 @@ components:
           example: 250 #meters
           minimum: 0
           maximum: 10000
+
+  responses:
+    BadRequest: 
+        description: |-
+          The request was not compliant with the documentation
+          (eg. missing fields, etc).
+    InternalServerError: 
+      description: |-
+        The server encountered an internal error.
+        Further info in server logs.
+    UnauthorizedError:
+      description: Access token is missing or invalid.
 
 # review post
 # login post

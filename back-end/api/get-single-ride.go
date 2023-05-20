@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func (h *Handler) getProfileByID(c *gin.Context) {
+func (h *Handler) getRideByID(c *gin.Context) {
 	id := c.Param("id")
 
 	// Retrieve the DB instance from the context
@@ -25,11 +25,11 @@ func (h *Handler) getProfileByID(c *gin.Context) {
 		return
 	}
 
-	profile, err := database.GetProfileByID(gormDB, id)
+	ride, err := database.GetRideByID(gormDB, id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get profile"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get ride"})
 		return
 	}
 
-	c.JSON(http.StatusOK, profile)
+	c.JSON(http.StatusOK, ride)
 }

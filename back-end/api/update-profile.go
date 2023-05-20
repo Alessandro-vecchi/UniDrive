@@ -7,40 +7,37 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"github.com/sirupsen/logrus"
 )
 
-func (h *Handler) crateANewUser(c *gin.Context) {
-
-	logger := logrus.StandardLogger()
+func (h *Handler) updateUserProfile(c *gin.Context) {
 
 	var profile models.Profile_DB
 	if err := c.ShouldBindJSON(&profile); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to decode profile"})
-		logger.Info("Failed to decode profile")
 		return
 	}
+	// Retrieve the ID from the path parameters
+	profile.ID = c.Param("id")
+
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")
 	if !exists {
-		// Handle DB not found in the context
-		c.JSON(500, gin.H{"error": "Database connection not found"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database connection not found"})
 		return
 	}
 
 	// Access the DB instance using type assertion
 	gormDB, ok := db.(*gorm.DB)
 	if !ok {
-		// Handle incorrect DB instance type
-		c.JSON(500, gin.H{"error": "Invalid database connection type"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid database connection type"})
 		return
 	}
 
-	err := database.CreateProfile(gormDB, &profile)
+	err := database.UpdateProfile(gormDB, profile)
 	if err != nil {
-		c.JSON(500, gin.H{"error": "User cannot be added to database"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update profile"})
 		return
 	}
 
-	c.JSON(201, profile)
+	c.JSON(http.StatusOK, gin.H{"message": "Profile updated successfully"})
 }

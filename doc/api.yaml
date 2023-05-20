@@ -72,7 +72,11 @@ paths:
 
   /rides/{ride_id}:
     parameters:
-      - $ref: '#/components/parameters/ride_id'
+      - name: ride_id
+        in: path
+        required: true 
+        schema:
+          $ref: '#/components/parameters/ride_id'
 
     get:
       tags:
@@ -113,7 +117,11 @@ paths:
     
   /profile/{user_id}:
     parameters:
-      - $ref: '#/components/schemas/user_id'
+      - name: "user_id"
+        in: path
+        required: true
+        schema: 
+          $ref: '#/components/schemas/user_id'
     get:
       tags:
           - Profile

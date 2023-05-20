@@ -5,11 +5,24 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
+	"net/http"
 )
 
+type Body struct {
+	RideId string `json:"ride_id"`
+	UserId string `json:"user_id"`
+}
+
 func (h *Handler) bookRide(c *gin.Context) {
-	user_id := c.Query("user_id")
-	ride_id := c.Query("ride_id")
+	var body Body
+
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to decode body", "message": err})
+		return
+	}
+
+	user_id := body.UserId
+	ride_id := body.RideId
 
 	db, exists := c.Get("DB")
 	if !exists {
@@ -28,7 +41,7 @@ func (h *Handler) bookRide(c *gin.Context) {
 
 	booking, err := database.BookRide(gormDB, user_id, ride_id)
 	if err != nil {
-		c.JSON(500, gin.H{"error":"cannot post to database"+err.Error()})
+		c.JSON(500, gin.H{"error":"cannot post to database", "message":err.Error()})
 		return
 	}
 

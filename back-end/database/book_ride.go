@@ -15,7 +15,6 @@ func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, erro
 	}
 	uuid := rawUuid.String()
 	
-
 	
 	timestamp := time.Now().Format(time.RFC3339)
 

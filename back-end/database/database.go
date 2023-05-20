@@ -19,9 +19,11 @@ func New(db *gorm.DB) gin.HandlerFunc {
 		`
 		CREATE TABLE IF NOT EXISTS profile_dbs (
 			id TEXT NOT NULL PRIMARY KEY,
-			username TEXT NOT NULL,
+			name TEXT NOT NULL,
+			surname TEXT NOT NULL,
 			age INTEGER NOT NULL,
 			faculty TEXT NOT NULL,
+			university TEXT NOT NULL,
 			profile_picture_url TEXT,
 			bio TEXT,
 			joined_in TEXT NOT NULL,

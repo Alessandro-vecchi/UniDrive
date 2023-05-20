@@ -1,9 +1,11 @@
 package models
 
 type Profile struct {
-	Username          string `json:"username"`
+	Name          	  string `json:"name"`
+	Surname           string `json:"surname"`
 	Age               int    `json:"age"`
 	Faculty           string `json:"faculty"`
+	University        string `json:"university"`
 	ProfilePictureUrl string `json:"profile_picture_url"`
 	Bio               string `json:"bio"`
 	// Reviews []Review `json:"reviews"`
@@ -17,9 +19,11 @@ type Profile struct {
 
 type Profile_DB struct {
 	ID                string `json:"id"`
-	Username          string `json:"username"`
+	Name          	  string `json:"name"`
+	Surname           string `json:"surname"`
 	Age               int    `json:"age"`
 	Faculty           string `json:"faculty"`
+	University        string `json:"university"`
 	ProfilePictureUrl string `json:"profile_picture_url"`
 	Bio               string `json:"bio"`
 	JoinedIn          string `json:"joined_in"`

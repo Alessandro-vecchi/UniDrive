@@ -14,9 +14,6 @@ func DeleteBooking(db *gorm.DB, booking_id string) (error) {
 		return  result.Error
 	}
 
-	
-	
-
 	result = tx.Exec("DELETE FROM booking WHERE id = ?",booking_id)
 	if result.Error != nil {
 		tx.Rollback()
@@ -27,7 +24,6 @@ func DeleteBooking(db *gorm.DB, booking_id string) (error) {
 		tx.Rollback()
 		return errors.New("no rows affected")
 	}
-
 	
 	tx.Commit()
 	

@@ -3,15 +3,20 @@ package api
 import (
 	"UniDrive/back-end/database"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 )
 
 func (h *Handler) getRides(c *gin.Context) {
+	// Retrieving query parameters
 	from := c.Query("from")
 	to := c.Query("to")
-	at := c.Query("at")
+	at_hour := c.Query("at_h")
+	at_h, _ := strconv.Atoi(at_hour)
+	at_m := c.Query("at_min")
+	at_min, _ := strconv.Atoi(at_m)
 
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")
@@ -27,7 +32,7 @@ func (h *Handler) getRides(c *gin.Context) {
 		return
 	}
 
-	rides, err := database.SearchRides(gormDB, from, to, at)
+	rides, err := database.SearchRides(gormDB, from, to, at_h, at_min)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to search for rides"})
 		return

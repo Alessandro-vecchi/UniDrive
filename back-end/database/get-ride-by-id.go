@@ -2,6 +2,7 @@ package database
 
 import (
 	"UniDrive/back-end/api/models"
+	"fmt"
 
 	"github.com/jinzhu/gorm"
 )
@@ -9,8 +10,9 @@ import (
 func GetRideByID(db *gorm.DB, id string) (models.Ride, error) {
 	var ride models.Ride
 	result := db.Raw("SELECT * FROM ride WHERE id = ?", id).Scan(&ride)
+	fmt.Println(result)
 	if result.Error != nil {
-		return ride, result.Error
+		return models.Ride{}, result.Error
 	}
 	return ride, nil
 }

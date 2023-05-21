@@ -71,7 +71,7 @@ func New(db *gorm.DB) gin.HandlerFunc {
 				REFERENCES ride(id)
 				ON UPDATE CASCADE ON DELETE CASCADE
 		);
-		INSERT INTO ride VALUES('alpha', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
+		INSERT INTO ride VALUES('bro', 'viaFratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
 		
 		
 		`,

@@ -12,12 +12,12 @@ import (
 
 func (h *Handler) getRides(c *gin.Context) {
 	// Retrieving query parameters
-	from := c.Query("from")
-	to := c.Query("to")
+	from := c.Query("origin")
+	to := c.Query("destination")
 	date := c.Query("date")
-	at_hour := c.Query("at_h")
+	at_hour := c.Query("hour")
 	at_h, _ := strconv.Atoi(at_hour)
-	at_m := c.Query("at_min")
+	at_m := c.Query("mins")
 	at_min, _ := strconv.Atoi(at_m)
 
 	// Retrieve the DB instance from the context

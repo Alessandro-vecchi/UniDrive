@@ -11,6 +11,8 @@ import (
 )
 
 func (h *Handler) createReview(c *gin.Context) {
+	user_id := c.Param("user_id")
+
 	db, _ := c.Get("DB")
 	conn := db.(*gorm.DB)
 
@@ -23,16 +25,17 @@ func (h *Handler) createReview(c *gin.Context) {
 
 	var feedback models.Review
 	if err := c.BindJSON(&feedback); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Bad request", "error": err.Error()})
 		return
 	}
 
 	feedback.ID = reviewId
+	feedback.ReviewedUserID = user_id
 
 	if err := conn.Save(&feedback).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create feedback", "error": err.Error()})
 		return
 	}
 
-	c.JSON(201, gin.H{"data": feedback})
+	c.JSON(201, feedback)
 }

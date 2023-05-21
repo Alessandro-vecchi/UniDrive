@@ -2,7 +2,6 @@ package api
 
 import (
 	"UniDrive/back-end/database"
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -35,8 +34,9 @@ func (h *Handler) getRides(c *gin.Context) {
 	from = strings.ToLower(from)
 	to = strings.ToLower(to)
 	date_time := date + " " + at_h + ":" + at_min // 2006-01-02 15:30
-	fmt.Println(date_time, from, to)
-	rides, err := database.SearchRides(gormDB, from, to, date_time)
+	user_id := c.GetHeader("user_id")
+
+	rides, err := database.SearchRides(gormDB, from, to, date_time, user_id)
 	if err == gorm.ErrRecordNotFound {
 		c.JSON(http.StatusNotFound, gin.H{"message": "No rides found", "error": err.Error()})
 		return

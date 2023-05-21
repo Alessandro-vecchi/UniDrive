@@ -3,9 +3,10 @@ package api
 import (
 	"UniDrive/back-end/database"
 
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"net/http"
 )
 
 type Body struct {
@@ -17,7 +18,7 @@ func (h *Handler) bookRide(c *gin.Context) {
 	var body Body
 
 	if err := c.ShouldBindJSON(&body); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to decode body", "message": err})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Failed to decode body", "error": err})
 		return
 	}
 
@@ -39,13 +40,23 @@ func (h *Handler) bookRide(c *gin.Context) {
 		return
 	}
 
+	_, err := database.GetBookedRide(gormDB, user_id, ride_id)
+	if err == nil {
+		// The booking already exists.
+		// 204 No Content for idempotency.
+		c.JSON(204, gin.H{"message": "Already booked"})
+		return
+	} else if err != gorm.ErrRecordNotFound {
+		c.JSON(500, gin.H{"error": "cannot get from database", "message": err.Error()})
+		return
+	}
+
 	booking, err := database.BookRide(gormDB, user_id, ride_id)
 	if err != nil {
-		c.JSON(500, gin.H{"error":"cannot post to database", "message":err.Error()})
+		c.JSON(500, gin.H{"error": "cannot post to database", "message": err.Error()})
 		return
 	}
 
 	c.JSON(201, booking)
-	
-	
+
 }

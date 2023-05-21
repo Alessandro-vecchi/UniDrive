@@ -9,18 +9,19 @@ import (
 )
 
 func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, error) {
+	
 	var booking models.Booking
-	rawUuid, err := uuid.NewV4()
+	raw_booking_id, err := uuid.NewV4()
 	if err != nil {
 		return booking, err
 	}
-	uuid := rawUuid.String()
+	booking_id := raw_booking_id.String()
 
 	timestamp := time.Now().Format(time.RFC3339)
 
 	tx := db.Begin()
 
-	result := tx.Exec("INSERT INTO booking(id, ride_id, booking_timestamp, passenger_id) values (?,?,?,?) ", uuid, ride_id, timestamp, user_id)
+	result := tx.Exec("INSERT INTO booking(id, ride_id, booking_timestamp, passenger_id) values (?,?,?,?) ", booking_id, ride_id, timestamp, user_id)
 	if result.Error != nil {
 		tx.Rollback()
 		return booking, result.Error

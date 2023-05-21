@@ -18,7 +18,7 @@ func SearchRides(db *gorm.DB, from string, to string, date_time string) ([]model
 	defer rows.Close()
 	for rows.Next() {
 		var ride models.Ride
-		rows.Scan(&ride)
+		rows.Scan(&ride.ID, &ride.Origin, &ride.Destination, &ride.DepartDatetime, &ride.DriverName, &ride.DriverID, &ride.AvailableSeats)
 		rides = append(rides, ride)
 		fmt.Println(ride, rides)
 	}

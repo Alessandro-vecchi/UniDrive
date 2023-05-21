@@ -37,8 +37,11 @@ func (h *Handler) getRides(c *gin.Context) {
 	date_time := date + " " + at_h + ":" + at_min // 2006-01-02 15:30
 	fmt.Println(date_time, from, to)
 	rides, err := database.SearchRides(gormDB, from, to, date_time)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to search for rides", "error": err.Error()})
+	if err == gorm.ErrRecordNotFound {
+		c.JSON(http.StatusNotFound, gin.H{"message": "No rides found", "error": err.Error()})
+		return
+	} else if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to get profile from database", "error": err.Error()})
 		return
 	}
 

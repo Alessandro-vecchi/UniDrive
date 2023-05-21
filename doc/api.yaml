@@ -38,8 +38,9 @@ paths:
     get:
       tags:
         - Rides
-      summary: getRides
-      description: Search for a ride
+      summary: get list of rides
+      description: Search for a ride giving origin, destination and hour information
+      operationId: getRides
       parameters:
       - name: origin
         in: query
@@ -81,7 +82,8 @@ paths:
     get:
       tags:
         - Rides
-      summary: getRide
+      summary: visualize details of a ride
+      operationId: getRide
       description: View the details of a ride
       responses:
         '200':
@@ -97,7 +99,8 @@ paths:
     post:
       tags:
           - Profile
-      summary: createUser
+      summary: create an user profile
+      operationId: createUser
       description: Create a new user
       requestBody:
         required: true
@@ -125,7 +128,8 @@ paths:
     get:
       tags:
           - Profile
-      summary: getProfile
+      summary: visualize an user profile
+      operationId: getProfile
       description: View the profile of another user
       responses:
         '200':
@@ -139,7 +143,8 @@ paths:
     put:
       tags:
           - Profile
-      summary: updateProfile
+      summary: update an user profile
+      operationId: updateProfile
       description:  Update the user's profile
       requestBody:
         required: true
@@ -161,8 +166,8 @@ paths:
     post:
       tags:
           - Booking
-      summary: bookRide
-      description: Book a ride
+      summary: book a ride
+      operationId: bookRide
       requestBody:
         required: true
         content:
@@ -199,8 +204,8 @@ paths:
     delete:
       tags:
         - Booking
-      summary: deleteBooking
-      description: Delete a booking
+      summary: delete a booking
+      operationId: deleteBooking
       responses:
         '204':
           description: No content. Cancellation of the booking
@@ -217,7 +222,8 @@ paths:
     post:
       tags:
         - Review
-      summary: createReview
+      summary: create a review
+      operationId: createReview
       requestBody:
         required: true
         content:
@@ -236,7 +242,8 @@ paths:
     get: 
       tags:
         - Review
-      summary: getReview
+      summary: read a review
+      operationId: getReview
       responses:
         '200':
           description: The review

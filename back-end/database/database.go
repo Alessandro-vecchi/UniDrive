@@ -26,14 +26,14 @@ func New(db *gorm.DB) gin.HandlerFunc {
 			profile_picture_url TEXT,
 			bio TEXT,
 			joined_in TEXT NOT NULL,
-			city TEXT NOT NULL,
-			district TEXT NOT NULL,
+			city TEXT,
+			district TEXT,
 			instagram_url TEXT
 		);`,
 		`CREATE TABLE IF NOT EXISTS car_details (
 			user_id TEXT NOT NULL PRIMARY KEY,
-			car_model TEXT,
-			car_color TEXT,
+			car_model TEXT NOT NULL ,
+			car_color TEXT NOT NULL,
 			car_plate TEXT,
 			FOREIGN KEY (user_id)
 				REFERENCES profile_dbs(id)

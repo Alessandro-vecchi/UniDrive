@@ -27,7 +27,7 @@ func (h *Handler) getProfile(c *gin.Context) {
 
 	profile, err := database.GetProfileByID(gormDB, id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get profile"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to get profile from database", "error": err.Error()})
 		return
 	}
 

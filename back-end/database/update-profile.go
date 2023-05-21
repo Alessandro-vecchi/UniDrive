@@ -5,9 +5,9 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func UpdateProfile(db *gorm.DB, profile models.Profile_DB) error {
+func UpdateProfile(db *gorm.DB, profile models.Profile) error {
 	// Update the desired fields in the profile
-	result := db.Model(&models.Profile_DB{}).Where("id = ?", profile.ID).Updates(models.Profile_DB{
+	result := db.Model(&models.Profile_DB{}).Where("id = ?", profile.Id).Updates(models.Profile_DB{
 		Name:          	profile.Name,
 		Surname: 		profile.Surname,
 		Age:               profile.Age,
@@ -21,6 +21,16 @@ func UpdateProfile(db *gorm.DB, profile models.Profile_DB) error {
 	if result.Error != nil {
 		return result.Error
 	}
+
+	result = db.Model(&models.CarDetails{}).Where("user_id = ?", profile.Id).Updates(models.CarDetails{
+		CarModel: profile.CarDetails.CarModel,
+		CarColor: profile.CarDetails.CarColor,
+		CarPlate: profile.CarDetails.CarPlate,
+	})
+	if result.Error != nil {
+		return result.Error
+	}
+
 
 	return nil
 }

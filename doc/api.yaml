@@ -163,7 +163,7 @@ paths:
     put:
       tags:
           - Profile
-      summary: update an user profile
+      summary: update or create an user profile
       operationId: updateProfile
       description:  Update the user's profile
       requestBody:

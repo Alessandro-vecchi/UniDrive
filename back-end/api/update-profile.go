@@ -11,13 +11,13 @@ import (
 
 func (h *Handler) updateProfile(c *gin.Context) {
 
-	var profile models.Profile_DB
+	var profile models.Profile
 	if err := c.ShouldBindJSON(&profile); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to decode profile"})
 		return
 	}
 	// Retrieve the ID from the path parameters
-	profile.ID = c.Param("user_id")
+	profile.Id = c.Param("user_id")
 	
 
 	// Retrieve the DB instance from the context
@@ -36,7 +36,7 @@ func (h *Handler) updateProfile(c *gin.Context) {
 
 	err := database.UpdateProfile(gormDB, profile)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update profile"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "message": "Failed to update profile"})
 		return
 	}
 

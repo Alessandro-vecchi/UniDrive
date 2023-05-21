@@ -1,6 +1,7 @@
 package models
 
 type Profile struct {
+	Id string `json:"id"`
 	Name          	  string `json:"name"`
 	Surname           string `json:"surname"`
 	Age               int    `json:"age"`
@@ -14,7 +15,8 @@ type Profile struct {
 	CarDetails      CarDetails `json:"car_details"`
 	City            string     `json:"city"`
 	District        string     `json:"district"`
-	Instagram_url   string     `json:"instagram_url"`
+	InstagramUrl   string     `json:"instagram_url"`
+	
 }
 
 type Profile_DB struct {

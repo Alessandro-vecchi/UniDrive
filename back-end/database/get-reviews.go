@@ -21,7 +21,7 @@ func GetReviews(db *gorm.DB, id string) ([]models.Review, error) {
 	found := false
 	for rows.Next() {
 		var review models.Review
-		rows.Scan(&review.ID, &review.ReviewedUserID, &review.Rating, &review.Review, &review.Timestamp, &review.AuthorName)
+		rows.Scan(&review.ID, &review.ReviewedUserID, &review.Rating, &review.Body, &review.Timestamp, &review.AuthorName)
 		reviews = append(reviews, review)
 		found = true
 	}

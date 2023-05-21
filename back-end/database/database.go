@@ -43,7 +43,7 @@ func New(db *gorm.DB) gin.HandlerFunc {
 			id TEXT NOT NULL PRIMARY KEY,
 			reviewed_user_id TEXT NOT NULL,
 			rating INTEGER NOT NULL,
-			review TEXT,
+			body TEXT,
 			timestamp TEXT NOT NULL,
 			author_name TEXT NOT NULL,
 			FOREIGN KEY (reviewed_user_id)
@@ -72,13 +72,12 @@ func New(db *gorm.DB) gin.HandlerFunc {
 				REFERENCES ride(id)
 				ON UPDATE CASCADE ON DELETE CASCADE
 		);
-		INSERT INTO ride VALUES('gamma', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','f279fde7-4976-4d41-ab4b-e99568236d90', '4');
-		INSERT INTO ride VALUES('delta', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
-
+		
 		
 		`,
 		//INSERT INTO car_details VALUES ('e50490db-c90d-4fb6-b593-c9c76b0ba616', 'spark', 'green', 'EPNFRATM');
-		//INSERT INTO ride VALUES('alpha', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');INSERT INTO ride VALUES('betha', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
+		//INSERT INTO ride VALUES('gamma', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','f279fde7-4976-4d41-ab4b-e99568236d90', '4');
+		//INSERT INTO ride VALUES('delta', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
 	}
 
 	// Execute each SQL statement

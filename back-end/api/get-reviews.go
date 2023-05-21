@@ -1,27 +1,39 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
-	"UniDrive/back-end/api/models"
+	"UniDrive/back-end/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 )
 
 func (h *Handler) getReviews(c *gin.Context) {
-	db, _ := c.Get("DB")
-	conn := db.(*gorm.DB)
-
-	id := c.Param("user_id")
-
-	var review models.Review
-	if err := conn.First(&review, id).Error; err != nil {
-		fmt.Println(err, id, review)
-		c.JSON(http.StatusNotFound, gin.H{"error": "Review not found"})
+	// Retrieve the DB instance from the context
+	db, exists := c.Get("DB")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Database connection not found"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": review})
+	// Access the DB instance using type assertion
+	gormDB, ok := db.(*gorm.DB)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Invalid database connection type"})
+		return
+	}
+
+	user_id := c.Param("user_id")
+
+	reviews, err := database.GetReviews(gormDB, user_id)
+	if err == gorm.ErrRecordNotFound {
+		c.JSON(http.StatusNotFound, gin.H{"message": "No reviews found", "error": err.Error()})
+		return
+	} else if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to get reviews from database", "error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, reviews)
 }

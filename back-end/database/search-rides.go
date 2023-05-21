@@ -9,12 +9,13 @@ import (
 func SearchRides(db *gorm.DB, from string, to string, date_time string, user_id string) ([]models.Ride, error) {
 	var rides []models.Ride
 
-	// Query with case-insensitive AND  id = ? <> your_id = ?;
+	// Query with case-insensitive
 	rows, err := db.Raw("SELECT * FROM ride WHERE LOWER(origin) = ? AND LOWER(destination) = ? AND depart_datetime = ? AND  driver_id <> ?;", from, to, date_time, user_id).Rows()
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
+
 	found := false
 	for rows.Next() {
 		var ride models.Ride

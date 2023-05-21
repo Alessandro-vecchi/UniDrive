@@ -73,10 +73,10 @@ func New(db *gorm.DB) gin.HandlerFunc {
 				ON UPDATE CASCADE ON DELETE CASCADE
 		);
 		
-		
+		INSERT INTO car_details VALUES ('e50490db-c90d-4fb6-b593-c9c76b0ba616', 'spark', 'green', 'EPNFRATM');
 		
 		`,
-		//INSERT INTO car_details VALUES ('5484dfb1-dd85-40e5-ae90-d17f0d967ed4', 'spark', 'green', 'EPNFRATM');
+		//INSERT INTO car_details VALUES ('e50490db-c90d-4fb6-b593-c9c76b0ba616', 'spark', 'green', 'EPNFRATM');
 		//INSERT INTO ride VALUES('alpha', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');INSERT INTO ride VALUES('betha', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
 	}
 

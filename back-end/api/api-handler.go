@@ -8,19 +8,19 @@ import (
 func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	r.GET("/ping", h.ping)
 
-	/* USER PROFILE */
+	/* PROFILE */
 	// Create an user profile
 	r.POST("/profile/", h.createUser)
 	// Get user profile
-	r.GET("/profile/:id", h.getProfile)
+	r.GET("/profile/:user_id", h.getProfile)
 	// Update user profile
-	r.PUT("/profile/:id", h.updateProfile)
+	r.PUT("/profile/:user_id", h.updateProfile)
 
-	/* USER REVIEW */
+	/* REVIEW */
 	// Create a review
 	r.POST("/profile/:user_id/review/", h.createReview)
 	// Get a list of reviews
-	r.GET("/feedback/", h.getReview)
+	r.GET("/profile/:user_id/review/", h.getReviews)
 
 	/* RIDES */
 	// Search for rides by origin, destination and time
@@ -33,5 +33,7 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	r.POST("/booking/", h.bookRide)
 	// delete a ride
 	r.DELETE("/booking/:booking_id", h.deleteBooking)
+
+
 
 }

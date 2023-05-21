@@ -9,7 +9,7 @@ import (
 )
 
 func (h *Handler) getProfile(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("user_id")
 
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")

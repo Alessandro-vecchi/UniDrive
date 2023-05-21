@@ -17,7 +17,7 @@ func (h *Handler) updateProfile(c *gin.Context) {
 		return
 	}
 	// Retrieve the ID from the path parameters
-	profile.ID = c.Param("id")
+	profile.ID = c.Param("user_id")
 	
 
 	// Retrieve the DB instance from the context

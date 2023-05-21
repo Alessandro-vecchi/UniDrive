@@ -54,7 +54,7 @@ paths:
         required: true
         schema:
           type: string
-      - name: depart_date
+      - name: date
         in: query
         description: The date of the ride
         required: true
@@ -63,7 +63,7 @@ paths:
           type: string
           format: date
           example: 2023-08-29
-      - name: depart_hour
+      - name: hour
         in: query
         description: The date and time of the ride
         required: true
@@ -71,7 +71,7 @@ paths:
           description: hour when we book the ride
           type: integer
           example: 8
-      - name: depart_mins
+      - name: mins
         in: query
         description: The minutes of the ride
         required: true
@@ -195,10 +195,10 @@ paths:
             schema:
               type: object
               properties:
-                ride_id: 
-                  $ref: '#/components/schemas/Ride_id'
                 user_id:
                   $ref: '#/components/schemas/user_id'
+                ride_id:
+                  $ref: '#/components/schemas/Ride_id'
                   
 
 
@@ -249,7 +249,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Profile'
+              $ref: '#/components/schemas/Review'
 
       responses:
         '201':
@@ -262,8 +262,8 @@ paths:
     get: 
       tags:
         - Review
-      summary: read a review
-      operationId: getReview
+      summary: get reviews
+      operationId: getReviews
       responses:
         '200':
           description: The review
@@ -340,7 +340,7 @@ components:
       minLength: 1
       maxLength: 20
       example: "U3dhZ2dlciByb2Nrcw"
-      readOnly: true
+      
 
     Booking_id:
       description: Unique identifier representing a specific booking
@@ -349,7 +349,7 @@ components:
       minLength: 1
       maxLength: 20
       example: "U3dhZ2dlciByb2Nrcw"
-      readOnly: true
+      
 
     user_id:
       description: Unique identifier representing a specific user
@@ -358,7 +358,7 @@ components:
       minLength: 1
       maxLength: 20
       example: "U3dhZ2dlciByb2Nrcw"
-      readOnly: true
+      
 
     username:
       type: string

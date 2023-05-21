@@ -10,7 +10,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func (h *Handler) getReview(c *gin.Context) {
+func (h *Handler) getReviews(c *gin.Context) {
 	db, _ := c.Get("DB")
 	conn := db.(*gorm.DB)
 

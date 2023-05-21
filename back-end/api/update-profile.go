@@ -18,7 +18,6 @@ func (h *Handler) updateProfile(c *gin.Context) {
 	}
 	// Retrieve the ID from the path parameters
 	profile.Id = c.Param("user_id")
-	
 
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")
@@ -40,5 +39,5 @@ func (h *Handler) updateProfile(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Profile updated successfully"})
+	c.JSON(http.StatusNoContent, gin.H{"message": "Profile updated successfully"})
 }

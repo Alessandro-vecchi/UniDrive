@@ -1,7 +1,9 @@
 {
-   "username": "Mario Rossi",
+   "name": "Mario",
+   "surname": "Rossi",
   "age": 21,
   "faculty": "Faculty of Economics",
+  "university": "La Sapienza University of Rome"
   "profile_picture_url": "Cksvy-ZXtXRE.jpg",
   "bio": "Mario, business student at Sapienza",
   "reviews": [
@@ -25,13 +27,25 @@
 }
 
 {
-   "username": "Vecc3nz",
+  "name": "Mario",
+  "surname": "Rossi",
   "age": 20,
-  "faculty": "Faculty of AI",
+  "faculty": "Bioengineering",
+  "university": "La Sapienza University of Rome",
   "profile_picture_url": "Cksvy-ZXtXRE.jpg",
-  "bio": "Simone, business student at Sapienza",
-  "joined_in": "",
+  "bio": "I love books and hanging out with friends",
+  "joined_in": "May 2023",
   "city": "Rome",
   "district": "Colli Albani",
   "instagram_url": "https://www.instagram.com/rotellini/"
+}
+
+{
+  "id": "Mario",
+  "origin": "Via ",
+  "destination": 20,
+  "depart_hour": "Bioengineering",
+  "driver_name": "La Sapienza University of Rome",
+  "driver_id": "Cksvy-ZXtXRE.jpg",
+  "available_seats": 3
 }

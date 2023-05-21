@@ -11,7 +11,7 @@ import (
 func GetRideByID(db *gorm.DB, id string) (models.Ride, error) {
 	var ride models.Ride
 	result := db.Raw("SELECT * FROM ride WHERE id = ?", id).Scan(&ride)
-	fmt.Println(result)
+	fmt.Println(ride)
 	if result.Error != nil {
 		return models.Ride{}, result.Error
 	}

@@ -2,6 +2,7 @@ package database
 
 import (
 	"UniDrive/back-end/api/models"
+	"errors"
 	"time"
 
 	"github.com/gofrs/uuid"
@@ -31,7 +32,7 @@ func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, erro
 
 	result = db.Raw("SELECT * FROM car_details WHERE user_id = (SELECT driver_id FROM ride WHERE id = ?)", ride_id).Find(&carDetails)
 	if result.Error != nil {
-		return booking, result.Error
+		return booking, errors.New("Could not find car details")
 	}
 
 	result = tx.Exec("UPDATE ride SET available_seats = available_seats - 1   WHERE id = ?", ride_id)

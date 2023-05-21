@@ -54,10 +54,22 @@ paths:
         required: true
         schema:
           type: string
+      - name: depart_date
+        in: query
+        description: The date of the ride
+        required: true
+        schema:
+          $ref: '#/components/schemas/depart_hour'
       - name: depart_hour
         in: query
         description: The date and time of the ride
-        required: false
+        required: true
+        schema:
+          $ref: '#/components/schemas/depart_hour'
+      - name: depart_mins
+        in: query
+        description: The minutes of the ride
+        required: true
         schema:
           $ref: '#/components/schemas/depart_hour'
       responses:
@@ -138,6 +150,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+        '404': { description: User not found }
         
         '500': {$ref: "#/components/responses/InternalServerError" }
     put:

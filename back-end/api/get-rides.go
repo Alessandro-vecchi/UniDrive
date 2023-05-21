@@ -13,6 +13,7 @@ func (h *Handler) getRides(c *gin.Context) {
 	// Retrieving query parameters
 	from := c.Query("from")
 	to := c.Query("to")
+	date := c.Query("date")
 	at_hour := c.Query("at_h")
 	at_h, _ := strconv.Atoi(at_hour)
 	at_m := c.Query("at_min")
@@ -32,7 +33,7 @@ func (h *Handler) getRides(c *gin.Context) {
 		return
 	}
 
-	rides, err := database.SearchRides(gormDB, from, to, at_h, at_min)
+	rides, err := database.SearchRides(gormDB, from, to, date, at_h, at_min)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to search for rides"})
 		return

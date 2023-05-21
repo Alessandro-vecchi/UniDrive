@@ -4,6 +4,7 @@ import (
 	"UniDrive/back-end/database"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -32,8 +33,12 @@ func (h *Handler) getRides(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid database connection type"})
 		return
 	}
+	// Convert the search parameters to lowercase
+	from = strings.ToLower(from)
+	to = strings.ToLower(to)
+	date_time := date + " " + strconv.Itoa(at_h) + ":" + strconv.Itoa(at_min) // 2006-01-02 15:30
 
-	rides, err := database.SearchRides(gormDB, from, to, date, at_h, at_min)
+	rides, err := database.SearchRides(gormDB, from, to, date_time)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to search for rides"})
 		return

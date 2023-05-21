@@ -54,8 +54,7 @@ func New(db *gorm.DB) gin.HandlerFunc {
 			id TEXT NOT NULL PRIMARY KEY,
 			origin TEXT NOT NULL,
 			destination TEXT NOT NULL,
-			depart_hour INTEGER,
-			depart_mins INTEGER,
+			depart_datetime TEXT,
 			driver_name TEXT NOT NULL,
 			driver_id TEXT NOT NULL,
 			available_seats INTEGER NOT NULL,
@@ -72,12 +71,12 @@ func New(db *gorm.DB) gin.HandlerFunc {
 				REFERENCES ride(id)
 				ON UPDATE CASCADE ON DELETE CASCADE
 		);
-
+		INSERT INTO ride VALUES('alpha', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
 		
 		
 		`,
 		//INSERT INTO car_details VALUES ('5484dfb1-dd85-40e5-ae90-d17f0d967ed4', 'spark', 'green', 'EPNFRATM');
-		//INSERT INTO ride VALUES('fratm', 'via fratellino', 'via sorellina','micio','5484dfb1-dd85-40e5-ae90-d17f0d967ed4', '4', '2002-10-02T10:00:00-05:00'   );
+		//INSERT INTO ride VALUES('fratm', 'via fratellino', 'via sorellina','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4', '2002-10-02T10:00:00-05:00'   );
 	}
 
 	// Execute each SQL statement

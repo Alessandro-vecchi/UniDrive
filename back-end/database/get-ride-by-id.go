@@ -6,11 +6,11 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func GetRideByID(db *gorm.DB, id string) (*models.Ride, error) {
+func GetRideByID(db *gorm.DB, id string) (models.Ride, error) {
 	var ride models.Ride
-	result := db.Where("id = ?", id).First(&ride)
+	result := db.Raw("SELECT * FROM ride WHERE id = ?", id).Scan(&ride)
 	if result.Error != nil {
-		return nil, result.Error
+		return ride, result.Error
 	}
-	return &ride, nil
+	return ride, nil
 }

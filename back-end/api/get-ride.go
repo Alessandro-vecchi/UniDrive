@@ -27,7 +27,7 @@ func (h *Handler) getRide(c *gin.Context) {
 
 	ride, err := database.GetRideByID(gormDB, id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get ride"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to get ride", "error": err.Error()})
 		return
 	}
 

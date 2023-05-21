@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
+	
 )
 
 func GetRideByID(db *gorm.DB, id string) (models.Ride, error) {
@@ -14,5 +15,7 @@ func GetRideByID(db *gorm.DB, id string) (models.Ride, error) {
 	if result.Error != nil {
 		return models.Ride{}, result.Error
 	}
+
+	
 	return ride, nil
 }

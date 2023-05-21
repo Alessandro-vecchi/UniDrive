@@ -252,6 +252,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/Review'
 
+  /profile/{user_id}/car_details:
+    parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/user_id'
+    post:
+      tags:
+        - Car details
+      summary: add car details to your profile
+      operationId: addCarDetails
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarDetails'
+
+      responses:
+        '201':
+          description: successful added car details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDetails'
+
     
 
 
@@ -275,6 +302,7 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/username'
+
 
   schemas:
     depart_hour:
@@ -316,6 +344,20 @@ components:
       type: string
       example: Mario Rossi
       pattern: '^[a-zA-Z0-9-_]*$'
+      minLength: 3
+      maxLength: 16
+
+    name:
+      type: string
+      example: Mario 
+      pattern: '^[a-zA-Z-_]*$'
+      minLength: 3
+      maxLength: 16
+
+    surname:
+      type: string
+      example: Rossi
+      pattern: '^[a-zA-Z-_]*$'
       minLength: 3
       maxLength: 16
 
@@ -369,8 +411,10 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/user_id'
-        username:
-          $ref: '#/components/schemas/username'
+        name:
+          $ref: '#/components/schemas/name'
+        surname:
+          $ref: '#/components/schemas/surname'
         age:
           description: Age of the user
           type: integer
@@ -545,8 +589,10 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/user_id'
-        username:
-          $ref: '#/components/schemas/username'
+        name:
+          $ref: '#/components/schemas/name'
+        surname:
+          $ref: '#/components/schemas/surname'
         age:
           description: Age of the user
           type: integer

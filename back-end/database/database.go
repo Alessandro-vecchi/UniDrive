@@ -50,7 +50,8 @@ func New(db *gorm.DB) gin.HandlerFunc {
 				REFERENCES profile_dbs(id)
 				ON UPDATE CASCADE ON DELETE CASCADE
 		);`,
-		`CREATE TABLE IF NOT EXISTS ride (
+		`
+		CREATE TABLE IF NOT EXISTS ride (
 			id TEXT NOT NULL PRIMARY KEY,
 			origin TEXT NOT NULL,
 			destination TEXT NOT NULL,

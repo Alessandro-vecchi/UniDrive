@@ -32,7 +32,7 @@ func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, erro
 
 	result = db.Raw("SELECT * FROM car_details WHERE user_id = (SELECT driver_id FROM ride WHERE id = ?)", ride_id).Find(&carDetails)
 	if result.Error != nil {
-		return booking, errors.New("Could not find car details")
+		return booking, errors.New("could not find car details")
 	}
 
 	result = tx.Exec("UPDATE ride SET available_seats = available_seats - 1   WHERE id = ?", ride_id)

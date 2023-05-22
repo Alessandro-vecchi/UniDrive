@@ -20,7 +20,7 @@ type Profile struct {
 }
 
 type Profile_DB struct {
-	ID                string `json:"id"`
+	ID                string `gorm:"primary_key" json:"id"`
 	Name          	  string `json:"name"`
 	Surname           string `json:"surname"`
 	Age               int    `json:"age"`

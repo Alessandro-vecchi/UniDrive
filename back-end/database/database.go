@@ -82,11 +82,12 @@ func New(db *gorm.DB) gin.HandlerFunc {
 		//INSERT INTO ride VALUES('delta', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
 	}
 	// Enable foreign key constraints
-	/* err := db.Exec("PRAGMA foreign_keys = 1")
+	/* err := db.Exec("PRAGMA foreign_keys = 1").Error
 	if err != nil {
-		fmt.Println("Error creating tables:", err)
+		fmt.Println("Error enabling foreign key constraints:", err)
 		return nil
 	} */
+
 	// Execute each SQL statement
 	for _, statement := range sqlStatements {
 		result := db.Exec(statement)

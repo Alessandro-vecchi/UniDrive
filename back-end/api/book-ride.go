@@ -9,15 +9,19 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// Body struct to decode the request JSON
 type Body struct {
 	RideId string `json:"ride_id"`
 	UserId string `json:"user_id"`
 }
 
+// bookRide is an API handler for booking a ride
 func (h *Handler) bookRide(c *gin.Context) {
 	var body Body
 
+	// Bind JSON to struct
 	if err := c.ShouldBindJSON(&body); err != nil {
+		// Return 400 status code for bad request
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Failed to decode body", "error": err})
 		return
 	}
@@ -42,21 +46,22 @@ func (h *Handler) bookRide(c *gin.Context) {
 
 	_, err := database.GetBookedRide(gormDB, user_id, ride_id)
 	if err == nil {
-		// The booking already exists.
-		// 204 No Content for idempotency.
-		c.JSON(204, gin.H{"message": "Already booked"})
+		// The booking already exists. Return 409 Conflict
+		c.JSON(http.StatusConflict, gin.H{"message": "Already booked"})
 		return
 	} else if err != gorm.ErrRecordNotFound {
-		c.JSON(500, gin.H{"error": "cannot get from database", "message": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot get from database", "message": err.Error()})
 		return
 	}
 
+	// Create the booking
 	booking, err := database.BookRide(gormDB, user_id, ride_id)
 	if err != nil {
-		c.JSON(500, gin.H{"error": "cannot post to database", "message": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot post to database", "message": err.Error()})
 		return
 	}
 
-	c.JSON(201, booking)
+	// Booking created successfully, return 201 Created
+	c.JSON(http.StatusCreated, booking)
 
 }

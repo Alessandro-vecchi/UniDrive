@@ -72,7 +72,7 @@ func New(db *gorm.DB) gin.HandlerFunc {
 				REFERENCES ride(id)
 				ON UPDATE CASCADE ON DELETE CASCADE
 		);
-		INSERT INTO ride VALUES('beta', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','f279fde7-4976-4d41-ab4b-e99568236d90', '4');
+		INSERT INTO ride VALUES('charlie', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','f279fde7-4976-4d41-ab4b-e99568236d90', '4');
 	
 		
 		
@@ -82,11 +82,11 @@ func New(db *gorm.DB) gin.HandlerFunc {
 		//INSERT INTO ride VALUES('delta', 'via fratellino', 'via sorellina','20/11/2001 12:00','micio','e50490db-c90d-4fb6-b593-c9c76b0ba616', '4');
 	}
 	// Enable foreign key constraints
-	/* err := db.Exec("PRAGMA foreign_keys = 1").Error
+	err := db.Exec("PRAGMA foreign_keys = 1").Error
 	if err != nil {
 		fmt.Println("Error enabling foreign key constraints:", err)
 		return nil
-	} */
+	}
 
 	// Execute each SQL statement
 	for _, statement := range sqlStatements {

@@ -92,11 +92,7 @@ paths:
 
   /rides/{ride_id}:
     parameters:
-      - name: ride_id
-        in: path
-        required: true 
-        schema:
-          $ref: '#/components/parameters/ride_id'
+          - $ref: '#/components/parameters/ride_id'
 
     get:
       tags:
@@ -213,7 +209,7 @@ paths:
   /booking/{booking_id}:
     parameters:
       - name: booking_id
-        in: query
+        in: path
         required: true
         schema:
           $ref: '#/components/schemas/Booking_id'

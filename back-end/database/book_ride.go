@@ -11,6 +11,16 @@ import (
 
 func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, error) {
 	
+	ride, err := GetRideByID(db, ride_id)
+	if err != nil {
+		return models.Booking{}, err
+	}
+
+	// Check if there are available seats before booking
+	if ride.AvailableSeats <= 0 {
+		return models.Booking{}, errors.New("no seats available")
+	}
+
 	var booking models.Booking
 	raw_booking_id, err := uuid.NewV4()
 	if err != nil {

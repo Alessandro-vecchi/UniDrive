@@ -2,6 +2,7 @@ package api
 
 import (
 	"UniDrive/back-end/database"
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -27,7 +28,14 @@ func (h *Handler) getRide(c *gin.Context) {
 
 	ride, err := database.GetRideByID(gormDB, id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to get ride", "error": err.Error()})
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(http.StatusNotFound, gin.H{"message": "ride not found", "error": err.Error()})
+			return
+		} else if err == errors.New("no seats available") {
+			c.JSON(http.StatusBadRequest, gin.H{"message": "no seats available"})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Invalid database connection type", "error": err.Error()})
 		return
 	}
 

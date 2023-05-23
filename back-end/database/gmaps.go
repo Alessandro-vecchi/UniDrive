@@ -31,11 +31,11 @@ func getCoordinates(address string) (float64, float64, error) {
 	return resp[0].Geometry.Location.Lat, resp[0].Geometry.Location.Lng, nil
 }
 
-func main() {
-	lat, lng, err := getCoordinates("1600 Amphitheatre Parkway, Mountain View, CA")
+/* func gmaps() {
+	lat, lng, err := getCoordinates("Via Gian Pietro Talamini")
 	if err != nil {
 		log.Fatalf("failed to get coordinates: %v", err)
 	}
 
 	log.Printf("Coordinates: %v, %v", lat, lng)
-}
+} */

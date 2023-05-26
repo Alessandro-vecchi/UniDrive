@@ -18,6 +18,7 @@ func getCoordinates(address string) (float64, float64, error) {
 
 	r := &maps.GeocodingRequest{
 		Address: address,
+		Language: "it",
 	}
 
 	resp, err := googleMapsClient.Geocode(context.Background(), r)
@@ -31,11 +32,31 @@ func getCoordinates(address string) (float64, float64, error) {
 	return resp[0].Geometry.Location.Lat, resp[0].Geometry.Location.Lng, nil
 }
 
-/* func gmaps() {
-	lat, lng, err := getCoordinates("Via Gian Pietro Talamini")
+// reverse geocoding
+func getAddress(lat, lng float64) (string, error) {
+	apiKey := os.Getenv("GOOGLE_MAPS_API_KEY")
+	googleMapsClient, err := maps.NewClient(maps.WithAPIKey(apiKey))
 	if err != nil {
-		log.Fatalf("failed to get coordinates: %v", err)
+		log.Fatalf("failed to create client: %v", err)
 	}
 
-	log.Printf("Coordinates: %v, %v", lat, lng)
-} */
+	r := &maps.GeocodingRequest{
+		LatLng: &maps.LatLng{
+			Lat: lat,
+			Lng: lng,
+		},
+		Language: "it",
+	}
+
+	resp, err := googleMapsClient.ReverseGeocode(context.Background(), r)
+	if err != nil {
+		return "", err
+	}
+	if len(resp) == 0 {
+		return "", fmt.Errorf("no results for coordinates: %v, %v", lat, lng)
+	}
+
+	// Return the formatted address of the first result.
+	return resp[0].FormattedAddress, nil
+}
+

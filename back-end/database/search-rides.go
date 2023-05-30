@@ -2,7 +2,6 @@ package database
 
 import (
 	"UniDrive/back-end/api/models"
-	"log"
 
 	"github.com/jinzhu/gorm"
 )
@@ -10,12 +9,12 @@ import (
 func SearchRides(db *gorm.DB, from string, to string, date_time string, user_id string) ([]models.Ride, error) {
 	var rides []models.Ride
 
-	lat, lng, err := getCoordinates("Via Gian Pietro Talamini")
+	/* lat, lng, err := getCoordinates("Via Gian Pietro Talamini")
 	if err != nil {
 		log.Fatalf("failed to get coordinates: %v", err)
 	}
 
-	log.Printf("Coordinates: %v, %v", lat, lng)
+	log.Printf("Coordinates: %v, %v", lat, lng) */
 
 	// Query with case-insensitive
 	rows, err := db.Raw("SELECT * FROM ride WHERE LOWER(origin) = ? AND LOWER(destination) = ? AND depart_datetime = ? AND  driver_id <> ?;", from, to, date_time, user_id).Rows()

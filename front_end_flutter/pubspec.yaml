@@ -14,6 +14,7 @@ dependencies:
 
   reactive_forms: ^15.0.0
   intl: ^0.18.1
+  http: ^1.0.0
 
 dev_dependencies:
   flutter_test:

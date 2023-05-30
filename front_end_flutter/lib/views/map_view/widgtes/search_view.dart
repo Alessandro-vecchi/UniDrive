@@ -34,9 +34,11 @@ class _SearchViewState extends State<SearchView> {
       DateTime date = _form.control('date').value;
       TimeOfDay time = _form.control('time').value;
 
-      String departDatetime = '${date.toIso8601String().split('T')[0]} ${time.format(context)}';
+      String departDatetime =
+          '${date.toIso8601String().split('T')[0]} ${time.format(context)}';
       // print(departDatetime);
-      List<Ride> rides = await _rideService.getRides(origin, destination, departDatetime);
+      List<Ride> rides =
+          await _rideService.getRides(origin, destination, departDatetime);
 
       // Do something with the rides, you can pass them to another view, for example.
     } else {
@@ -48,53 +50,55 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     return ReactiveForm(
       formGroup: _form,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: const Color(0xFF222227),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 8),
-                Text(
-                  'Hi user,',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                const SizedBox(height: 8),
-                const DestinationView(),
-                const SizedBox(height: 8),
-                const StartPositionView(),
-                const SizedBox(height: 8),
-                const DateTimeView(),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _searchRides,
-                    child: const Text('Confirm'),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF222227),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 8),
+                  Text(
+                    'Hi user,',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 8),
+                  const DestinationView(),
+                  const SizedBox(height: 8),
+                  const StartPositionView(),
+                  const SizedBox(height: 8),
+                  const DateTimeView(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _searchRides,
+                      child: const Text('Confirm'),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: widget.onClose,
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(8),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: widget.onClose,
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(8),
+              ),
+              child: const Icon(Icons.close),
             ),
-            child: const Icon(Icons.close),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

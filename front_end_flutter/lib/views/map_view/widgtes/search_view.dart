@@ -5,6 +5,9 @@ import 'date_time_view.dart';
 import 'destination_view.dart';
 import 'start_position_view.dart';
 
+import 'package:uni_drive/services/ride_service.dart'; // Import RideService
+import 'package:uni_drive/models/ride.dart'; // Import Ride model
+
 class SearchView extends StatefulWidget {
   final VoidCallback onClose;
 
@@ -21,6 +24,25 @@ class _SearchViewState extends State<SearchView> {
     'date': FormControl<DateTime>(validators: [Validators.required]),
     'time': FormControl<TimeOfDay>(validators: [Validators.required]),
   });
+
+  final _rideService = RideService();
+
+  void _searchRides() async {
+    if (_form.valid) {
+      String destination = _form.control('destination').value;
+      String origin = _form.control('startingPosition').value;
+      DateTime date = _form.control('date').value;
+      TimeOfDay time = _form.control('time').value;
+
+      String departDatetime = '${date.toIso8601String().split('T')[0]} ${time.format(context)}';
+      // print(departDatetime);
+      List<Ride> rides = await _rideService.getRides(origin, destination, departDatetime);
+
+      // Do something with the rides, you can pass them to another view, for example.
+    } else {
+      // The form is not valid. You can show an error message.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +78,7 @@ class _SearchViewState extends State<SearchView> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _searchRides,
                     child: const Text('Confirm'),
                   ),
                 ),

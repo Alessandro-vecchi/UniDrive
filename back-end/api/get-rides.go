@@ -13,9 +13,7 @@ func (h *Handler) getRides(c *gin.Context) {
 	// Retrieving query parameters
 	from := c.Query("origin")
 	to := c.Query("destination")
-	date := c.Query("date")
-	at_h := c.Query("hour")
-	at_min := c.Query("min")
+	date_time := c.Query("date_time") // 2023-05-31 17:06
 
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")
@@ -33,7 +31,6 @@ func (h *Handler) getRides(c *gin.Context) {
 	// Convert the search parameters to lowercase
 	from = strings.ToLower(from)
 	to = strings.ToLower(to)
-	date_time := date + " " + at_h + ":" + at_min // 2006-01-02 15:30
 	user_id := c.GetHeader("user_id")
 
 	rides, err := database.SearchRides(gormDB, from, to, date_time, user_id)

@@ -3,6 +3,15 @@
         android:label="uni_drive"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- Link to Maps API-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${AIzaSyD39NGTQHm7FYO4fGdZTwWcV7l2rKlv02U}" />
+        <!-- incorpora la versione di Google Play Services con cui è stata compilata l'app.-->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -17,8 +26,7 @@
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+              android:resource="@style/NormalTheme" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -30,4 +38,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <!-- Per accedere alla posizione dell'utente,
+        devi richiedere l'autorizzazione di accesso alla posizione precisa(ACCESS_FINE_LOCATION)-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 </manifest>

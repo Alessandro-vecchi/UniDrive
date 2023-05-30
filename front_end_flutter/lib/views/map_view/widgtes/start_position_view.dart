@@ -44,28 +44,53 @@ class StartPositionView extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Row(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(2), // This adds a rounded corner
+                    ),
+                  ),
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Expanded(child: Text('Your current position')),
-                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Your current position',
+                          style: TextStyle(fontSize: 13), // This reduces the font size
+                        ),
+                      ),
+                      SizedBox(width: 8), // This reduces the space between the text and the icon
                       Icon(Icons.my_location)
                     ],
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8), // This reduces the space between the buttons
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Row(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(2), // This adds a rounded corner
+                    ),
+                  ),
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [Expanded(child: Text('University')), SizedBox(width: 8), Icon(Icons.map)],
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'University',
+                          style: TextStyle(fontSize: 13), // This reduces the font size
+                        ),
+                      ),
+                      SizedBox(width: 8), // This reduces the space between the text and the icon
+                      Icon(Icons.map)
+                    ],
                   ),
                 ),
               )
             ],
           ),
+
         ],
       ),
     );

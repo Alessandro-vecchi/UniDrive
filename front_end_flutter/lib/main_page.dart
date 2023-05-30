@@ -28,12 +28,12 @@ class _MainPageState extends State<MainPage> {
         child: Stack(
           children: [
             // todo add api key in manifest
-            // const GoogleMap(
-            //   initialCameraPosition: CameraPosition(
-            //     target: LatLng(0, 0),
-            //     zoom: 2,
-            //   ),
-            // ),
+            const GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(0, 0),
+                zoom: 2,
+              ),
+            ),
             Positioned(
               bottom: 0,
               left: 0,

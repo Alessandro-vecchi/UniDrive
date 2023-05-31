@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../form_fields/location_reactive_text_field.dart';
 import 'search_destination_inner_container.dart';
 
 class DestinationView extends StatelessWidget {

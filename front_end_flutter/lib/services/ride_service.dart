@@ -7,7 +7,15 @@ part 'ride_service.g.dart';
 
 @RestApi(baseUrl: "http://192.168.0.105:3000")
 abstract class RideService {
-  factory RideService() => _RideService(Dio());
+  factory RideService() => _RideService(
+        Dio(
+          BaseOptions(
+            headers: {
+              'Authorization': 'xxxxxxxx',
+            },
+          ),
+        ),
+      );
 
   @GET("/rides")
   Future<List<Ride>> getRides({
@@ -17,4 +25,5 @@ abstract class RideService {
     @Query('destination') required String destination,
     @Query('date_time') required String date,
   });
+
 }

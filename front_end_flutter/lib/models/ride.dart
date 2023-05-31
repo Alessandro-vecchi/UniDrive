@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'ride.g.dart';
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 class Ride {
   final String id;
   final String origin;
@@ -25,4 +25,5 @@ class Ride {
 
   factory Ride.fromJson(Map<String, dynamic> json) => _$RideFromJson(json);
 
+  Map<String, dynamic> toJson() => _$RideToJson(this);
 }

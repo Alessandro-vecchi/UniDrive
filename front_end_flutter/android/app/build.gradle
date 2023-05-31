@@ -67,6 +67,6 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
 }
-plugins {
+/*plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
-}
+}*/

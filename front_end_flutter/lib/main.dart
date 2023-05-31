@@ -34,12 +34,21 @@ class MyApp extends StatelessWidget {
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          fillColor: Colors.grey[850],
+          fillColor: Colors.white.withOpacity(0.1),
           filled: true,
           isDense: true,
-          hintStyle:
-          Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.5)),
-          suffixStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+          constraints: const BoxConstraints(
+            minHeight: kMinInteractiveDimension,
+            maxHeight: kMinInteractiveDimension,
+          ),
+          hintStyle: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Colors.white.withOpacity(0.5)),
+          suffixStyle: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Colors.white),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(8.0),

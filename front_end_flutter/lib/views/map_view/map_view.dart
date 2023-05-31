@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:uni_drive/views/map_view/widgets/search_view.dart';
 
+import '../search_view/search_view.dart';
 import 'widgets/labeled_floating_action_button.dart';
 
 class MapView extends StatefulWidget {
@@ -109,15 +109,8 @@ class _MapViewState extends State<MapView> {
             alignment: Alignment.bottomCenter,
             child: Visibility(
               visible: _isSearchOpen,
-              child: SafeArea(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SearchView(
-                      onClose: () => setState(() => _isSearchOpen = false),
-                    ),
-                  ),
-                ),
+              child: const SafeArea(
+                child: SearchView(),
               ),
             ),
           ),

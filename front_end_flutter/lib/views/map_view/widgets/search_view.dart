@@ -3,9 +3,9 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:uni_drive/models/ride.dart'; // Import Ride model
 import 'package:uni_drive/services/ride_service.dart'; // Import RideService
 
-import 'date_time_view.dart';
-import 'destination_view.dart';
-import 'start_position_view.dart';
+import '../../search_view/widgets/date_time_view.dart';
+import '../../search_view/widgets/destination_view.dart';
+import '../../search_view/widgets/start_position_view.dart';
 
 class SearchView extends StatefulWidget {
   final VoidCallback onClose;

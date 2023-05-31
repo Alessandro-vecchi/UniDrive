@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'views/map_view/widgtes/labeled_floating_action_button.dart';
 import 'views/map_view/widgtes/search_view.dart';
@@ -25,33 +26,74 @@ class _MainPageState extends State<MainPage> {
   LatLng _initialTargetPosition = LatLng(41.92338, 12.47403);
 
   @override
+  @override
   void initState() {
-    print("THIS IS MY POSITION");
-    _getUserLocation();
-    markers.add(Marker( //add marker on google map
-      markerId: MarkerId(_initialTargetPosition.toString()),
-      position: _initialTargetPosition, //position of marker
-      infoWindow: InfoWindow( //popup info
-        title: 'My position ',
-        snippet: 'My Custom Subtitle',
-      ),
-      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-    ));
-
-    //you can add more markers here
     super.initState();
+    _initializeUserLocation();
   }
 
-  void _getUserLocation() async {
-    print("THIS IS MY POSITION?");
+  void _initializeUserLocation() async {
+    print("THIS IS MY POSITION");
+    await _getUserLocation();
+    _addMarkerToMap();
+  }
+
+  void _addMarkerToMap() {
+    markers.add(
+      Marker(
+        markerId: MarkerId(_initialTargetPosition.toString()),
+        position: _initialTargetPosition,
+        infoWindow: InfoWindow(
+          title: 'My position ',
+          snippet: 'My Custom Subtitle',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ),
+    );
+  }
+
+  Future<void> _getUserLocation() async {
+    if (!(await Permission.location.serviceStatus.isEnabled)) {
+      // You could optionally add some logic here to inform the user that location services are not enabled
+      return;
+    }
+
+    var status = await Permission.location.status;
+    if (status.isGranted) {
+      await _fetchAndSetPosition();
+      return;
+    }
+
+    if (status.isDenied) {
+      await _requestLocationPermission();
+    }
+
+    if (await Permission.location.isPermanentlyDenied) {
+      openAppSettings();
+      await _fetchAndSetPosition();
+    }
+  }
+
+  Future<void> _requestLocationPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [Permission.location]
+        .request();
+
+    if (statuses[Permission.location]?.isGranted ?? false) {
+      await _fetchAndSetPosition();
+    } else {
+      // add some logic here to inform the user that permission was not granted
+    }
+  }
+
+  Future<void> _fetchAndSetPosition() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     print(position);
-    print("THIS IS MY POSITION!");
     setState(() {
       _initialTargetPosition = LatLng(position.latitude, position.longitude);
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +113,7 @@ class _MainPageState extends State<MainPage> {
             //enable Zoom in, out on map
             initialCameraPosition: CameraPosition(
               target: _initialTargetPosition,
-              zoom: 12, // you can adjust this value as needed
+              zoom: 13, // you can adjust this value as needed
             ),
             markers: markers,
             //markers to show on map

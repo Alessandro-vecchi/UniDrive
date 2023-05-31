@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'views/map_view/widgtes/labeled_floating_action_button.dart';
 import 'views/map_view/widgtes/search_view.dart';
@@ -27,13 +28,12 @@ class _MainPageState extends State<MainPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            // todo add api key in manifest
-            /*const GoogleMap(
+            const GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(0, 0),
                 zoom: 2,
               ),
-            ),*/
+            ),
             Positioned(
               bottom: 0,
               left: 0,

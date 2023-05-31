@@ -41,5 +41,8 @@
     </application>
     <!-- Per accedere alla posizione dell'utente,
         devi richiedere l'autorizzazione di accesso alla posizione precisa(ACCESS_FINE_LOCATION)-->
+    <!-- Permissions options for the `location` group -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 </manifest>

@@ -25,21 +25,19 @@ class _MainPageState extends State<MainPage> {
           onPressed: () => setState(() => _isSearchOpen = true),
         ),
       ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            const GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(0, 0),
-                zoom: 2,
-              ),
+      body: Stack(
+        children: [
+          const GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: LatLng(0, 0),
+              zoom: 2,
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Visibility(
-                visible: _isSearchOpen,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Visibility(
+              visible: _isSearchOpen,
+              child: SafeArea(
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -50,8 +48,8 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

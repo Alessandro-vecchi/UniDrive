@@ -28,16 +28,13 @@ class DateTimeView extends StatelessWidget {
             firstDate: DateTime.now(),
             lastDate: DateTime(9999, 12, 9),
             languageCode: 'en',
-            decoration: InputDecoration(
-              fillColor: Colors.white.withOpacity(0.1),
-              filled: true,
-              isDense: true,
-              hintStyle:
-              Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.5)),
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
+            dateDecoration: const InputDecoration(
+              hintText: 'Date',
+              suffixIcon: Icon(Icons.calendar_today),
+            ),
+            timeDecoration: const InputDecoration(
+              hintText: 'Time',
+              suffixIcon: Icon(Icons.access_time),
             ),
           ),
           const SizedBox(height: 8),

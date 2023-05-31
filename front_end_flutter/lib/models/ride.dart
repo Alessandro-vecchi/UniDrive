@@ -1,4 +1,9 @@
 // lib/models/ride.dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'ride.g.dart';
+
+@JsonSerializable(createToJson: false)
 class Ride {
   final String id;
   final String origin;
@@ -18,15 +23,6 @@ class Ride {
     required this.availableSeats,
   });
 
-  factory Ride.fromJson(Map<String, dynamic> json) {
-    return Ride(
-      id: json['id'],
-      origin: json['origin'],
-      destination: json['destination'],
-      departDatetime: json['depart_datetime'],
-      driverName: json['driver_name'],
-      driverId: json['driver_id'],
-      availableSeats: json['available_seats'],
-    );
-  }
+  factory Ride.fromJson(Map<String, dynamic> json) => _$RideFromJson(json);
+
 }

@@ -14,8 +14,8 @@ class DateTimePickerField extends StatelessWidget {
   final String languageCode;
   final String? tooltipTitle;
   final String? tooltipDescription;
-  //todo split for date and time
-  final InputDecoration decoration;
+  final InputDecoration dateDecoration;
+  final InputDecoration timeDecoration;
 
   const DateTimePickerField({
     required this.dateFormControlName,
@@ -27,7 +27,8 @@ class DateTimePickerField extends StatelessWidget {
     required this.languageCode,
     this.tooltipTitle,
     this.tooltipDescription,
-    this.decoration = const InputDecoration(),
+    this.dateDecoration = const InputDecoration(),
+    this.timeDecoration = const InputDecoration(),
     super.key,
   });
 
@@ -42,7 +43,7 @@ class DateTimePickerField extends StatelessWidget {
             firstDate: firstDate,
             lastDate: lastDate,
             languageCode: languageCode,
-            decoration: decoration,
+            decoration: dateDecoration,
           ),
         ),
         const SizedBox(width: 8),
@@ -52,7 +53,7 @@ class DateTimePickerField extends StatelessWidget {
             label: timeLabel,
             tooltipTitle: tooltipTitle,
             tooltipDescription: tooltipDescription,
-            decoration: decoration,
+            decoration: timeDecoration,
           ),
         ),
       ],

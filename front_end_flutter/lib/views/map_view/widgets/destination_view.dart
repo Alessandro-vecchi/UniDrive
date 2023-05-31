@@ -23,18 +23,9 @@ class DestinationView extends StatelessWidget {
           ReactiveTextField(
             formControlName: 'destination',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Enter a destination',
-              fillColor: Colors.white.withOpacity(0.1),
-              filled: true,
-              isDense: true,
-              hintStyle:
-              Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.5)),
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              suffixIcon: const Icon(Icons.search, color: Colors.white),
+              suffixIcon: Icon(Icons.search, color: Colors.white),
             ),
           ),
           const SizedBox(height: 8),

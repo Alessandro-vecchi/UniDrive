@@ -1,14 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:uni_drive/main_page.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
+import 'package:uni_drive/views/main_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await dotenv.load();
-
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,9 +11,42 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'UniDrive',
-      home: MainPage(),
+      themeMode: ThemeMode.dark,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color(0xFF222227),
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF363ABE),
+          secondary: Color(0xFF363ABE),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          foregroundColor: Colors.white,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white,
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: Colors.white.withOpacity(0.1),
+          filled: true,
+          isDense: true,
+          hintStyle:
+          Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.5)),
+          suffixStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+      ),
+      home: const MainView(),
     );
   }
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:uni_drive/models/ride.dart'; // Import Ride model
+import 'package:uni_drive/services/ride_service.dart'; // Import RideService
 
 import 'date_time_view.dart';
 import 'destination_view.dart';
 import 'start_position_view.dart';
-
-import 'package:uni_drive/services/ride_service.dart'; // Import RideService
-import 'package:uni_drive/models/ride.dart'; // Import Ride model
 
 class SearchView extends StatefulWidget {
   final VoidCallback onClose;
@@ -33,12 +32,13 @@ class _SearchViewState extends State<SearchView> {
       String origin = _form.control('startingPosition').value;
       DateTime date = _form.control('date').value;
       TimeOfDay time = _form.control('time').value;
-
       String departDatetime =
           '${date.toIso8601String().split('T')[0]} ${time.format(context)}';
-      // print(departDatetime);
-      List<Ride> rides =
-          await _rideService.getRides(origin, destination, departDatetime);
+      List<Ride> rides = await _rideService.getRides(
+        origin: origin,
+        destination: destination,
+        date: departDatetime,
+      );
 
       // Do something with the rides, you can pass them to another view, for example.
     } else {

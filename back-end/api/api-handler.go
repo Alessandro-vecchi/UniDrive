@@ -30,12 +30,11 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 
 	/* BOOKING */
 	// book a ride
-	r.POST("/booking/", h.bookRide)
+	r.POST("/rides/:ride_id/booking/", h.bookRide)
 	// delete a ride
-	r.DELETE("/booking/:booking_id", h.deleteBooking)
+	r.DELETE("/rides/:ride_id/booking/:booking_id", h.deleteBooking)
 
 	/* CAR DETAILS */
 	r.POST("/profile/:user_id/car_details", h.PostCarDetails)
-
 
 }

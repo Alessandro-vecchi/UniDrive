@@ -9,8 +9,7 @@ class Ride {
   final String destination;
   final String departDatetime;
   final ShortProfile driverProfile;
-  final String meetingPoint;
-  final String meetingTime;
+  final MeetingPoint meetingPoint;
   final int availableSeats;
 
   Ride({
@@ -20,7 +19,6 @@ class Ride {
     required this.departDatetime,
     required this.driverProfile,
     required this.meetingPoint,
-    required this.meetingTime,
     required this.availableSeats,
   });
 
@@ -44,4 +42,22 @@ class ShortProfile {
 
   factory ShortProfile.fromJson(Map<String, dynamic> json) => _$ShortProfileFromJson(json);
   Map<String, dynamic> toJson() => _$ShortProfileToJson(this);
+}
+
+@JsonSerializable()
+class MeetingPoint {
+  final double latitude;
+  final double longitude;
+  final int distance;
+  final int meetingTime;
+
+  MeetingPoint({
+    required this.latitude,
+    required this.longitude,
+    required this.distance,
+    required this.meetingTime,
+  });
+
+  factory MeetingPoint.fromJson(Map<String, dynamic> json) => _$MeetingPointFromJson(json);
+  Map<String, dynamic> toJson() => _$MeetingPointToJson(this);
 }

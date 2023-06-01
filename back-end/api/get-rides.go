@@ -3,6 +3,7 @@ package api
 import (
 	"UniDrive/back-end/database"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 
@@ -19,6 +20,20 @@ func (h *Handler) getRides(c *gin.Context) {
 
 	// Concatenate date and time with a space in between
 	date_time := fmt.Sprintf("%s %s", date, time) // Result will be in the format "2006-01-02 15:04"
+
+	origin_lat, origin_lng, origin_formatted_address, err := getCoordinates(from)
+	if err != nil {
+		log.Fatalf("failed to get coordinates: %v", err)
+	}
+
+	log.Printf("Coordinates: %v, %v", origin_lat, origin_lng, origin_formatted_address)
+
+	destination_lat, destination_lng, destination_formatted_address, err := getCoordinates(from)
+	if err != nil {
+		log.Fatalf("failed to get coordinates: %v", err)
+	}
+
+	log.Printf("Coordinates: %v, %v", destination_lat, destination_lng, destination_formatted_address)
 
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")
@@ -38,7 +53,7 @@ func (h *Handler) getRides(c *gin.Context) {
 	to = strings.ToLower(to)
 	user_id := c.GetHeader("user_id")
 
-	rides, err := database.SearchRides(gormDB, from, to, date_time, user_id)
+	rides, err := database.SearchRides(gormDB, origin_lat, origin_lng, origin_formatted_address, destination_lat, destination_lng, destination_formatted_address, date_time, user_id)
 	if err == gorm.ErrRecordNotFound {
 		c.JSON(http.StatusNotFound, gin.H{"message": "No rides found", "error": err.Error()})
 		return

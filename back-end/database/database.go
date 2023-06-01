@@ -11,11 +11,11 @@ import (
 func New(db *gorm.DB) gin.HandlerFunc {
 	// Define the SQL statements
 	sqlStatements := []string{
-		/* `DROP TABLE IF EXISTS profiles;`,
+		`DROP TABLE IF EXISTS profiles;`,
 		`DROP TABLE IF EXISTS car_details;`,
 		`DROP TABLE IF EXISTS reviews;`,
 		`DROP TABLE IF EXISTS ride;`,
-		`DROP TABLE IF EXISTS booking;`, */
+		`DROP TABLE IF EXISTS booking;`,
 		`CREATE TABLE IF NOT EXISTS profile_dbs (
 			id TEXT NOT NULL PRIMARY KEY,
 			name TEXT NOT NULL,
@@ -53,8 +53,10 @@ func New(db *gorm.DB) gin.HandlerFunc {
 		`
 		CREATE TABLE IF NOT EXISTS ride (
 			id TEXT NOT NULL PRIMARY KEY,
-			origin TEXT NOT NULL,
-			destination TEXT NOT NULL,
+			origin_latitude REAL NOT NULL,
+			origin_longitude REAL NOT NULL,
+			destination_latitude REAL NOT NULL,
+			destination_longitude REAL NOT NULL,
 			depart_datetime TEXT,
 			driver_id TEXT NOT NULL,
 			available_seats INTEGER NOT NULL,

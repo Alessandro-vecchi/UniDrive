@@ -9,18 +9,20 @@ import (
 
 // TempRide is a temporary structure to hold the data retrieved from the database
 type TempRide struct {
-	ID             string  `json:"id"`
-	Origin         string  `json:"origin"`
-	Destination    string  `json:"destination"`
-	DepartDatetime string  `json:"depart_datetime"`
-	AvailableSeats int     `json:"available_seats"`
-	Name           string  `json:"name"`
-	Surname        string  `json:"surname"`
-	ProfilePictureUrl string `json:"profile_picture_url"`
-	Rating         float64 `json:"rating"`
+	ID                   string  `json:"id"`
+	OriginLatitude       float64  `json:"origin_latitude"`
+	OriginLongitude      float64  `json:"origin_longitude"`
+	DestinationLatitude  float64  `json:"destination_latitude"`
+	DestinationLongitude float64  `json:"destination_longitude"`
+	DepartDatetime       string  `json:"depart_datetime"`
+	AvailableSeats       int     `json:"available_seats"`
+	Name                 string  `json:"name"`
+	Surname              string  `json:"surname"`
+	ProfilePictureUrl    string  `json:"profile_picture_url"`
+	Rating               float64 `json:"rating"`
 }
 
-func SearchRides(db *gorm.DB, from string, to string, date_time string, user_id string) ([]models.Ride, error) {
+func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_formatted_address string, destination_lat float64, destination_lng float64, destination_formatted_address string, date_time string, user_id string) ([]models.Ride, error) {
 	// Parse date_time into a Time
 	layout := "2006-01-02 15:04"
 	t, err := time.Parse(layout, date_time)
@@ -36,7 +38,7 @@ func SearchRides(db *gorm.DB, from string, to string, date_time string, user_id 
 	tempRides := []TempRide{}
 	err = db.Debug().
 		Table("ride").
-		Select("ride.id, ride.origin, ride.destination, ride.depart_datetime, ride.available_seats, profile_dbs.name, profile_dbs.surname, profile_dbs.profile_picture_url, (SELECT AVG(rating) FROM reviews WHERE reviewed_user_id = ride.driver_id) as rating").
+		Select("ride.id, ride.origin_latitude, ride.origin_longitude, ride.destination_latitude, ride.destination_longitude, ride.depart_datetime, ride.available_seats, profile_dbs.name, profile_dbs.surname, profile_dbs.profile_picture_url, (SELECT AVG(rating) FROM reviews WHERE reviewed_user_id = ride.driver_id) as rating").
 		Joins("JOIN profile_dbs ON ride.driver_id = profile_dbs.id").
 		Where("LOWER(ride.origin) = ? AND LOWER(ride.destination) = ? AND ride.depart_datetime BETWEEN ? AND ? AND ride.driver_id <> ?", from, to, startTime, endTime, user_id).
 		Scan(&tempRides).Error
@@ -54,8 +56,8 @@ func SearchRides(db *gorm.DB, from string, to string, date_time string, user_id 
 	for i, tempRide := range tempRides {
 		rides[i] = models.Ride{
 			ID:             tempRide.ID,
-			Origin:         tempRide.Origin,
-			Destination:    tempRide.Destination,
+			Origin:         origin_formatted_address,
+			Destination:    destination_formatted_address,
 			DepartDatetime: tempRide.DepartDatetime,
 			AvailableSeats: tempRide.AvailableSeats,
 			DriverProfile: models.ShortProfile{
@@ -65,8 +67,12 @@ func SearchRides(db *gorm.DB, from string, to string, date_time string, user_id 
 				Rating:            tempRide.Rating,
 			},
 			// Populate MeetingPoint and MeetingTime here
-			MeetingPoint:   "MeetingPoint",
-			MeetingTime:    tempRide.DepartDatetime, // "MeetingTime",
+			MeetingPointInfo: models.MeetingPoint{
+				Latitude:  0,
+				Longitude: 0,
+				Distance:  0,
+				Time:      tempRide.DepartDatetime,
+			},
 		}
 	}
 

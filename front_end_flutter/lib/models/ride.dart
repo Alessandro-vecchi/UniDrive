@@ -11,6 +11,7 @@ class Ride {
   final ShortProfile driverProfile;
   final String meetingPoint;
   final String meetingTime;
+  final int availableSeats;
 
   Ride({
     required this.id,
@@ -20,6 +21,7 @@ class Ride {
     required this.driverProfile,
     required this.meetingPoint,
     required this.meetingTime,
+    required this.availableSeats,
   });
 
   factory Ride.fromJson(Map<String, dynamic> json) => _$RideFromJson(json);
@@ -28,20 +30,16 @@ class Ride {
 
 @JsonSerializable()
 class ShortProfile {
-  final String userId;
   final String profilePictureUrl;
   final String name;
   final String surname;
   final double rating;
-  final int availableSeats;
 
   ShortProfile({
-    required this.userId,
     required this.profilePictureUrl,
     required this.name,
     required this.surname,
     required this.rating,
-    required this.availableSeats,
   });
 
   factory ShortProfile.fromJson(Map<String, dynamic> json) => _$ShortProfileFromJson(json);

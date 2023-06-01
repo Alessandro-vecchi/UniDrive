@@ -56,7 +56,6 @@ func New(db *gorm.DB) gin.HandlerFunc {
 			origin TEXT NOT NULL,
 			destination TEXT NOT NULL,
 			depart_datetime TEXT,
-			driver_name TEXT NOT NULL,
 			driver_id TEXT NOT NULL,
 			available_seats INTEGER NOT NULL,
 			FOREIGN KEY (driver_id)

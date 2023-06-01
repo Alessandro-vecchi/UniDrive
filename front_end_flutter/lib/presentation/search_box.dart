@@ -7,11 +7,10 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReactiveTextField(
-      formControlName: 'startingPosition',
+      formControlName: 'origin',
       style:
           Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
-      decoration: InputDecoration(
-        filled: true,
+      decoration: const InputDecoration(
         fillColor: Colors.white,
         hintText: 'Enter starting position',
         hintStyle: TextStyle(color: Colors.grey, fontSize: 14),

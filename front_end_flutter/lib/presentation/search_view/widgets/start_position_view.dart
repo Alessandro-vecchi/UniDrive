@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:uni_drive/views/search_view/widgets/search_container.dart';
+import 'package:uni_drive/presentation/search_view/widgets/search_container.dart';
 
-class DestinationView extends StatelessWidget {
-  const DestinationView({
+class StartPositionView extends StatelessWidget {
+  const StartPositionView({
     super.key,
   });
 
@@ -19,7 +19,7 @@ class DestinationView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Where do you want to go?',
+                'What is your starting position?',
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium
@@ -27,16 +27,16 @@ class DestinationView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               ReactiveTextField(
-                formControlName: 'destination',
+                formControlName: 'origin',
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium
                     ?.copyWith(color: Colors.white),
                 decoration: const InputDecoration(
-                  hintText: 'Enter a destination',
+                  hintText: 'Enter starting position',
                   suffixIcon: Icon(Icons.search, color: Colors.white),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -48,6 +48,7 @@ class DestinationView extends StatelessWidget {
 
   Row _buttons() {
     return Row(
+      mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
           child: ElevatedButton(
@@ -60,14 +61,20 @@ class DestinationView extends StatelessWidget {
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(child: Text('Home')),
+                Expanded(
+                  child: Text(
+                    'Your current position',
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
                 SizedBox(width: 8),
-                Icon(Icons.home)
+                Icon(Icons.my_location)
               ],
             ),
           ),
         ),
         const SizedBox(width: 8),
+        // This reduces the space between the buttons
         Expanded(
           child: ElevatedButton(
             onPressed: () {},
@@ -79,9 +86,16 @@ class DestinationView extends StatelessWidget {
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(child: Text('University')),
+                Expanded(
+                  child: Text(
+                    'University',
+                    style:
+                        TextStyle(fontSize: 13), // This reduces the font size
+                  ),
+                ),
                 SizedBox(width: 8),
-                Icon(Icons.work)
+                // This reduces the space between the text and the icon
+                Icon(Icons.map)
               ],
             ),
           ),

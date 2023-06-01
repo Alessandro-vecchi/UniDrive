@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uni_drive/views/search_view/widgets/search_container.dart';
+import 'package:reactive_forms/reactive_forms.dart';
+import 'package:uni_drive/presentation/search_view/widgets/search_container.dart';
 
-import '../../../form_fields/date_time_picker_field.dart';
+import '../../form_fields/date_time_picker_field.dart';
 
 class DateTimeView extends StatelessWidget {
   const DateTimeView({
@@ -49,7 +50,12 @@ class DateTimeView extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            ReactiveForm.of(context)?.patchValue({
+              'date': DateTime.now(),
+              'time': TimeOfDay.now(),
+            });
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF222227),
             minimumSize: const Size(double.infinity, kMinInteractiveDimension),

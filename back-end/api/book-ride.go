@@ -9,25 +9,11 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// Body struct to decode the request JSON
-type Body struct {
-	RideId string `json:"ride_id"`
-	UserId string `json:"user_id"`
-}
-
 // bookRide is an API handler for booking a ride
 func (h *Handler) bookRide(c *gin.Context) {
-	var body Body
 
-	// Bind JSON to struct
-	if err := c.ShouldBindJSON(&body); err != nil {
-		// Return 400 status code for bad request
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Failed to decode body", "error": err})
-		return
-	}
-
-	user_id := body.UserId
-	ride_id := body.RideId
+	user_id := gin.AuthUserKey
+	ride_id := c.Param("ride_id")
 
 	db, exists := c.Get("DB")
 	if !exists {

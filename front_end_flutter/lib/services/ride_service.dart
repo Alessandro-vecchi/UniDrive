@@ -7,7 +7,8 @@ part 'ride_service.g.dart';
 
 @RestApi(baseUrl: "http://192.168.0.105:3000")
 abstract class RideService {
-  factory RideService() => _RideService(
+  factory RideService() =>
+      _RideService(
         Dio(
           BaseOptions(
             headers: {
@@ -26,4 +27,8 @@ abstract class RideService {
     @Query('date_time') required String date,
   });
 
+  @GET("/rides/{id}")
+  Future<Ride> getRide(@Path('id') String id);
+
+  @POST("/booking")
 }

@@ -1,0 +1,630 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc} 
+\usepackage[dvipsnames]{xcolor}
+\usepackage{comment}
+\usepackage{csquotes} % Enables quotes writing
+
+
+\title{HCI - Project document}
+\date{May 2023}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+The subject of our Human-Computer Interaction course project revolves around Urban Mobility (\textit{UM}) services: In today's fast paced world, the \textit{UM} is saturated with a multitude of ideas and solutions, making it challenging to identify innovative, functional, approaches. As we delved into the various issues plaguing public transportation, we recognized that improving its core aspects might prove to be difficult. A prevalent concern among users is the unreliability of buses and the inadequacy of their route planning. \newline
+This concern leads us to question the current state of \textit{UM}: Why should people spend an hour and a half on a trip that could be completed in less time by a car? On the other end, why rely on multiple vehicles for the same route when shared transportation could be a more efficient and eco-friendly alternative? It is from these questions that the need for developing a car pooling app, specifically designed for students, aroused. Students often have limited budgets and flexible schedules, making ride sharing an appealing option for them. By creating a platform that facilitates ride-sharing among students, our aim is to offer a solution that not only saves time but also promotes sustainability and fosters a sense of community. This carpooling app will address the unique needs of students, providing them with a reliable, cost-effective, and environmentally responsible transportation option, while tackling the limitations of traditional public transit systems. \newline
+Our objective is to create a mobile application interface for Android platforms. The project encompasses a comprehensive approach, including need-finding studies, iterative prototyping, and evaluation, ultimately culminating in the delivery of a fully-functional application. The primary focus is to create user-friendly and effective solutions that cater to the evolving demands of urban \textit{UM}, while ensuring seamless interaction between users and the application. \newline \newline
+
+\textit{"We mean do develop an application that helps the students optimizing their paths, time- or cost wise, and that helps them to connect and stay in touch with each other."} \newline 
+
+\section{Competitor Analysis}
+The first step of our development is to understand how similar services are operating in the market. This analysis gives us not only a comprehension of the global success of the idea, but also how competitors did implement it until now, by assessing their differences, strengths and weaknesses. By correlating these two information, we will eventually be able to refine the offer and provide an overall better service for the users. These are the three similar applications subject to our analysis: \newline 
+
+\textbf{$1^{st}$ competitor: BlaBlaCar}
+\graphicspath{{Doc images/Competitor Analysis/BlaBlaCar}}
+
+BlaBlaCar is a carpooling service designed to connect people traveling to the same destination, offering them the opportunity to share rides and divide the costs. The application got a lot of success with over $50$ millions downloads and an average review of 4.7$\star$ on the Google Play Store. Despite the great reputation of the app, there are two debatable aspects that are worth considering: \newline 
+
+\textbf{$1)$} One of the main weaknesses of BlaBlaCar is the lack of user reliability due to its absence of an authentication system. This implies that anyone, including ill-intentioned individuals, can use BlaBlaCar: 
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[t]{0.24\textwidth}
+    \includegraphics[width=\textwidth]{StrangeMail}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.24\textwidth}
+    \includegraphics[width=\textwidth]{FakeName}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.24\textwidth}
+    \includegraphics[width=\textwidth]{FakeDOB}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.24\textwidth}
+    \includegraphics[width=\textwidth]{SkipNumber}
+  \end{minipage}
+\end{figure}
+
+The above screenshots are directly taken from the app in its Android version. As we can observe, it is fairly easy to create a new e-mail address and then insert fake personal data. The only step that seems a bit more involved is the last one, requiring our personal telephone number. However, this step is not mandatory ("Skip number" button) and does not limit from booking a first ride, thus causing a problem in the users authentication. In contrast, UniDrive plans to implement an authentication system that utilizes university credentials, allowing only verified students to access the platform; to out believe, this approach not only enhances the application's security but also fosters a sense of community and trust among users, making it a more attractive option for students and youths seeking a reliable and safe carpooling service. \newline 
+
+\textbf{$2)$} Additionally, BlaBlaCar, does not have user ranges, which can pose a challenge for students and youths who may feel more comfortable sharing rides with peers in a similar age group or academic environment. On the other hand, filtering operations is definitely an aspect that we will consider. \newline 
+
+\textbf{$2^{nd}$ competitor: BePooler}
+\graphicspath{{Doc images/Competitor Analysis/BePooler}}
+
+BePooler provides companies and individual users with a fast and safe way to share rides to their workplace, thus reducing traffic, expenses, private vehicles usage and urban pollution. In addition, the app has partnered with many universities, including Politecnico di Milano, TorVergata, Sapienza and Roma Tre to provide a car pooling service for the student community in order to share the trip to the university in a safe, cheap and efficient way. The application got a mediocre success with 5000 downloads, and an average review of 3.2$\star$ on the Google Play Store. Going back to the analysis, BePooler has two severe problems: \newline 
+
+\textbf{$1)$} The User Interface $\textit(UI)$ feels unintuitive and messy at first, making it very challenging for new users to navigate and utilize the platform effectively. \newline
+
+\textbf{$2)$} As reported in many reviews on the Store (recently and in the past), despite the patches released, the application exhibits inefficiency problems and software disfunctionalities. These issues caused a negative review-bombing from the users, lowering the average score and the reputation of BePooler. Having an intuitive $\textit{UI}$ $\vert$ functional software and a good reputation is crucial for an app, because all factors combined are those responsible for the growth of the community. \newline  
+
+\textbf{$3^{rd}$ competitor: Up2Go}
+\graphicspath{{Doc images/Competitor Analysis/Up2Go}}
+
+Up2go is a carpooling application designed for company employees and association members, offering them a convenient way to share rides with colleagues or fellow members traveling to the same organization. Like BePooler, the Instead of passengers paying a fee for the ride, the app rewards drivers with credits after a successful trip. These credits can then be converted into rewards provided by the affiliated company or association. Upon registration, users must input a registration code provided by their organization, ensuring accountability and preventing unauthorized usage. Up2go is mostly similar to UniDrive. Although the payment is not a task we consider, the way the app handles payments doesn’t guarantee that the company or association will reward fairly users for all the rides they give. Moreover, this payment is not scalable and it doesn't stimulate users enough to give rides to others.
+
+Also for the registration is a little bit vague where to find this registration code or who will give it to you, maybe a better solution was to send a code related to the company/association that the user already has, like the matricula for the student in universities like UniDrive do.
+
+\section{Need Finding} 
+The $\textit{Need Finding}$ is one of the core steps for an application development.  It consists in observing users in their environment while they are doing what they usually do. As its name suggests, the goal of this step is the \textbf{identification} of the \textbf{User Needs}, understanding what they would like to have and finding the problems they currently have. At this stage, it is very important to be the less involved as we can, and it’s important to be critical, in such a way to avoid the user is influenced with your way of thinking and to catch the real needs they require. To find User Needs, we have gathered information through two of the main Need Finding Query Techniques: Interviews and Questionnaires. 
+
+\subsection{Interviews} 
+\graphicspath{{Doc images/Need Finding/Interviews}}
+
+The quoted statement in section $1$ is our $\textbf{desiderata}$. On April, we interviewed Sapienza's students to gather their thoughts on the car pooling idea. As a general consideration, we noticed that the users can be broadly classified into two types: $\textbf{Potential users}$ and $\textbf{non-potential users}$. Potential are those who fits into the desiderata and could actually take advantage from the application, whereas non-potential are those who could not (regardless, all opinions are valuable, so we decided to report everything in the document). We carefully analyzed the interviews to extract the useful data to have an overview of the user's habits. Following, we have the list of the most F.A.Q.$_{s}$ and the answers distribution: \newline 
+
+\begin{enumerate}
+    \item How do you get to the university? 
+    \item How much does it take? (Related to question no.1
+    \item Would it take more or less, if you took the car to go directly?
+    \item Would you use a car pooling application, dedicated for students, to optimize your daily path?
+\end{enumerate} 
+
+\newpage
+
+In the first question, we wanted to have a clear view on the typical modes of transportation people use to commute to the university. The following distribution emerged from our interviews:
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{TransportChart}
+    \caption{User transport mode distribution}
+\end{figure}
+
+
+
+This is the pie chart representing the distribution of the users. The first label “Mixed” refers to a combination of two (or more) labels. We can notice how the mode is represented by the “mixed” label (~26\%), who uses multiple means of transport. In this 26\%, almost all of them take the bus to reach the metro, and then the metro to go to the university.
+
+\begin{itemize}
+  \item \begin{tabular}[t]{@{}l@{}}
+          The mode is represented by the “mixed” label (~26\%), who uses multiple \\
+          means of transport. In this 26\%, almost all of them take the bus to \\
+          reach the metro, and then the metro to go the university. 
+        \end{tabular}
+        
+  \item \begin{tabular}[t]{@{}l@{}}
+          Following the mode, 22.2\% take the metro, 18.5\% take the bus, 11.1\% take \\ the train, and 3.7\% take the tram. Thus, more than the 50\% uses direct \\ transport to the university.
+        \end{tabular}
+        
+    \item \begin{tabular}[t]{@{}l@{}}
+         The 3.7\% uses the car to go directly to the university (no public transport), \\ the same applies to “Scooter”. Thus, less than 8\% do not use public transports \\ in favor of private vehicles.
+          \end{tabular}
+          
+    \item \begin{tabular}[t]{@{}l@{}}
+         The 7.4\% goes by feet, while the 3.7\% use the bike
+         \end{tabular}
+\end{itemize}
+\newpage
+
+For each label, we asked then the average time that took the user to complete their path from home to Sapienza, these are the results:
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.8\textwidth]{HCI-interviews-avgTime}
+    \caption{Avg. time (In minutes) computed across all the labels}
+\end{figure}
+
+As expected, the “Mixed” label is the one that takes the longest. This is not due to the metro itself, but rather because most users face challenges in reaching the metro station. \newline
+For question no.3, we present the data by maintaining the same classification:
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.8\textwidth]{HCI-CarCharts (1)}
+\end{figure}
+\newpage
+
+Finally, the charts for the fourth question:
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.8\textwidth]{HCI-CarCharts}
+     \caption{User label percentage that would use a CarPooling app}
+\end{figure}
+We can conclude, the majority of users would benefit in the use of car pooling to optimize their path.
+
+\subsection{Questionnaire}
+\graphicspath{{Doc images/Need Finding/GForm}}
+In recent years, carpooling has gained popularity as a sustainable, cost-effective and time-saving transportation solution. As part of our efforts to design a student-focused carpooling app, we conducted a comprehensive survey to better understand the needs, preferences, and concerns of the target audience. This report presents a summary and an analysis of the questionnaire results, offering valuable insights that will inform the development of our app and ensure it effectively addresses the unique requirements of the student demographic. The primary objectives of the survey were to: 
+
+\begin{enumerate}
+    \item Identify the key factors that motivate students to participate in carpooling.
+    \item Assess the most desired features and functionalities of a student-focused carpooling app.
+    \item Understand the potential barriers to adoption and concerns related to safety, privacy, and convenience.
+    \item Evaluate the preferred methods of communication, payment, and reward systems among the target audience.
+\end{enumerate}
+\newpage
+
+The survey was distributed to a diverse sample of students across multiple universities, encompassing various age groups, fields of study, and geographic locations. The following sections of this report will provide a detailed analysis of the survey findings, including key trends and actionable recommendations for the development of our student carpooling app. Following, we have the results: \newline \newline
+
+In the first section of our questionnaire, we concentrated on exploring the various means of transportation students currently utilize to commute to and from their universities. Our aim was to assess the potential time savings and convenience that could be achieved by incorporating carpooling into their daily routines. Additionally, we sought to gauge their overall interest in adopting a student-focused carpooling service as part of their transportation mix. As illustrated in the graph below, the most utilized mode of transportation among respondents is the underground, accounting for 36\% of users. Coming in second and third place are cars and buses, with fairly similar percentages of usage. \newline 
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=1.1\textwidth]{Q1}
+\end{figure}
+\newpage
+
+With the following pie charts, we can understand if it’s convenient from a timely fashion to the user to take advantage of the carpooling service: 
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=1.1\textwidth]{Q2}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=1.1\textwidth]{Q3}
+\end{figure}
+
+As shown, the three-quarter of students assess that public transportation is slower than private transportation and more than the 50\% of them confirms that it would be more time-efficient to make part of the journey with a car. 
+\newpage
+
+The following two key graphs highlight the strong interest among students in a carpooling service and their trust in fellow students as carpool partners: 
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=1.1\textwidth]{Q4}
+\end{figure}
+
+More than 7 out of 10 students expressed interest in the option of a student-focused carpooling service, and the majority of students would feel comfortable sharing a ride with another student to and from the university. This high level of interest underscores the potential demand for our app and indicates that many students are open to exploring alternative transportation solutions, and that there is a strong sense of trust among students to share rides with their peers. \newpage 
+
+This is confirmed also by the graph below, where we can see that the most important factors in the choice of carpooling are time-convenience, cost and environmental impact: 
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=1\textwidth]{Q5}
+\end{figure}
+
+Important functionalities that students search in the app are:
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=1\textwidth]{Q6}
+\end{figure}
+
+In this case, rating and feedbacks are clearly inherent to the reliability of the driver/rider. As we can observe, the percentage of users that consider "Rating and reviews" an useful feature is really high (close to 9 students out of 10). 
+\newpage
+
+Then, we also asked to the users to rate in terms of utility some of the features that could be potentially implemented in a carpooling application: 
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=1.1\textwidth]{Q7}
+\end{figure}
+
+Through the questionnaire, we also wanted to investigate on the percentage of people that actually have a car. More than the 60\% of users have it: 
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=1.1\textwidth]{Q8}
+\end{figure}
+\newpage
+
+Among these students, a significant percentage is usually alone when driving to the university:
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.9\textwidth]{Q9}
+\end{figure}
+
+This is an important statistics, since it would mean that the likelihood of reducing the number of students’ car in the streets could be high. Moreover, a crushing 80\% of them claims that they are willing to drive with other students: 
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.9\textwidth]{Q10}
+\end{figure}
+
+But they strongly prefer to organise the trip beforehand:
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.9\textwidth]{Q11}
+\end{figure}
+\newpage
+
+The preferred method of payments/reward system among the target audience are either splitting the fuel costs or alternating rides:
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.8\textwidth]{Q12}
+\end{figure}
+
+The feeling on the organisations of the journey is shared also on the rider’s side, with the great majority preferring to plan the trip beforehand:
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.8\textwidth]{Q13}
+\end{figure}
+
+Other, potentially, must-have functionalities surfaced in the survey are the display of the availability of places in the ride and the possibility of visualising on the map the live position of the driver: 
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.9\textwidth]{Q14}
+\end{figure}
+
+Surprisingly, people did not care about details on the driver’s vehicle. All they wanted was to make part or all the journey more efficiently. Finally,  \newline a substantial percentage of students proposed to extend the idea to any kind of university related event…
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.9\textwidth]{Q15}
+\end{figure}
+
+… and believe that if such an idea would go through, the university itself should offer parking places in campus exclusively for carpooling users:
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=\textwidth]{Q16}
+\end{figure}
+
+In the end, we got some insights about certain aspects of the application, such as ensuring that all the users are indeed university related and that proper information on the experience of the driver is displayed(safety concerns) and some new ideas, like open the possibility of handling car sharing services on the app (For example, for users with license but without a car). By examining these aspects, we established a comprehensive understanding of students' current commuting habits, the potential benefits of carpooling in their daily routines, and their overall receptiveness to using a dedicated carpooling service. \newpage 
+
+\subsection{Needs list}
+Following the need-finding step, we have identified several essential requirements that a typical user seeks in a carpooling app: 
+
+\begin{itemize}
+    \item \textbf{Trust and Security:} In today's environment, user trust is a significant concern, as many people prefer to ride with peers or friends due to worries about the behaviour of unknown individuals. 
+    \begin{itemize}
+        \item $\cdot$ Proposed Solution: To address this issue, we suggest limiting the app's access to students only. By utilizing university login credentials, we can verify users' identities and ensure that only those with genuine intentions can participate in the carpooling service. Moreover, to give an anticipation of how a driver/rider could behave, we mean to implement personal profiles, containing short bio$_{(s)}$, reviews, and the possibility to link Instagram accounts.
+    \end{itemize}
+    \item \textbf{Driver/Passenger Reliability:} Another need that emerged from our interviews is the reliability of both drivers and passengers. Drivers should be punctual and dependable, minimizing last-minute ride cancellations and delays. Passengers should also be punctual to respect the driver and any other users sharing the ride.
+    \begin{itemize}
+        \item $\cdot$ Proposed Solution: To address this concern, we propose implementing a rating and review system that allows users from both parties to make informed decisions about the rides they choose, based on these key metrics.
+        \item $\cdot$ Backup Plan (Not Implemented): Although not implemented in our current solution, we suggest offering a "second-choice" booking option as an additional measure to enhance user experience. This feature would enable     passengers to book another ride as a backup in case the driver cancels their       initial booking. This second-choice booking would be available up to 30         minutes before the alternative ride begins, providing enough time for the       driver to receive a response and allowing passengers to manage last-minute      cancellations. In the event of implementation, second-choice bookings would be given lower priority compared to first-choice bookings.
+    \end{itemize}
+\end{itemize}
+\newpage
+
+\section{Tasks and Storyboard}
+\graphicspath{{Doc images/Storyboards}}
+Now we define the most important tasks that are needed by our app’s interface. Storyboards are a useful system to graphically display how the user will interact with the system.
+
+\subsection{Task 1 - Search for a ride}
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.9\textwidth]{Task1}
+\end{figure}
+
+\textbf{Context description}: You will have lecture next week. After inserting basic data, the application will show you students who could potentially share the same path to university. The steps are the following:
+
+\begin{enumerate}
+    \item While doing something else, you realize you have lecture at 9:00am, on the next day. 
+    \item You open the app from your smartphone 
+    \item You provide the application with an address 
+    \item To arrive on time you approximately need to leave at 8am. You insert 8am as hour of departure
+    \item The application shows you a list of students who pass nearby at the same time, ideally, with an interactive map. The listed students are those who are willingly available to bring others to university
+\end{enumerate}
+
+\subsection{Task 2 - Book for a ride}
+
+\begin{figure}[ht!]
+  \centering
+     \includegraphics[width=0.5\textwidth]{Task2}
+\end{figure}
+
+
+\textbf{Context description}: Imagine that you have already asked the app to display a list of available Rides for a certain University place. You now want to choose one of them, select the Meeting Point and Book a seat. The steps are the following:
+
+\begin{enumerate}
+    \item At the starting point of this Task, the user can see a screen with the list of available Rides proposed by other University student (Drivers) like him, at the hour he has previously specified. 
+    \item The user has to choose among them, and in order to do this, it can relay on Reviews, Ratings and Feedbacks! 
+    \item Once the user has decided on what Ride to take, it can proceed in the Booking of a Seat with the Driver.
+    \item 4. Tomorrow morning, thanks to this choice can delays its alarm of 30 minutes because it would not take the Bus. 
+\end{enumerate}
+\newpage
+
+\subsection{Task 3 - Go to the meeting point}
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.9\textwidth]{Task3}
+\end{figure}
+
+\textbf{Context Description:} Imagine that you are getting ready to go to university. You already have  organized a ride through UniDrive and receive a notification that the driver is on its way. You decide to leave immediately to avoid making the driver wait and reach the meeting point on time. The steps are the following:
+
+\begin{enumerate}
+    \item The user is in his room getting ready to leave. While he’s grabbing his backpack, he receives a notification from the carpooling app that the driver is on the way. He needs to leave immediately to avoid making the driver wait.
+    \item The user opens the carpooling app and reads that the driver will arrive in 6 minutes. He starts the itinerary to reach the meeting point on time. The app shows the map with the itinerary, the user's current location and the driver’s current location.
+    \item The user follows the app's directions and moves towards the meeting point. The app provides detailed directions on when to turn right or left and how long it will take to arrive. The user constantly checks the app to make sure he's not getting lost.
+    \item The user arrives at the destination and waits for the driver. He checks the app to see how much time is left before the driver arrives and to make sure he's in the correct meeting point. 
+\end{enumerate}
+
+\subsection{Task 4 - Visualize a user's profile}
+
+\begin{figure}[htbp]
+  \centering
+     \includegraphics[width=0.7\textwidth]{Task4}
+\end{figure}
+
+\textbf{Context Description:} Imagine to be in your bedroom and you want to find the right person to get a ride to go to the university. You use the usual carpooling app UniDrive to find a ride and go through different users' profiles to see if they can offer a ride. The first user has negative reviews, so you decide to keep looking. You find another user who seems like a good fit so you decide to contact him.
+
+\begin{enumerate}
+    \item The main user is in his room and reading reviews on his phone about a carpooling app user. However, he discovers that the reviews are negative. He looks disappointed as he reads the reviews.
+    \item The user decides to look through the list of available users on the carpooling app to find other options. He is seen browsing through different profiles on his phone.
+    \item The user comes across a user named Marco, who has high ratings and is a physics student of the same age as him. The boy seems pleased as he reads Marco's profile.
+    \item The user finds many similarities with Marco and is convinced that he would be a good fit for a ride to his university. He decides to contact Marco by sending him a message through the app.
+\end{enumerate}
+
+\section{Prototyping}
+
+\subsection{Paper prototyping}
+It is now time to make a first attempt with an application prototype. For the first part of the process we have chosen the paper-fashion way. Paper prototyping provides us a quick and easy method to do immediate tests with users feedback to have a guideline for the final interactive prototype. The paper prototyping phase was divided into two parts:
+
+\begin{enumerate}
+    \item For each task: Draw wach screen of the application on paper. In our case, we made use of a digital pen and an Ipad, instead of classic paper, to avoid expansive redesign and corrections.
+    \item For each task: Test the comprehensibility and usability of the prototype. The test involved 9 users for each task, all of them could be potential users.
+\end{enumerate}
+
+The choosen approach was \textit{evolutionary}:
+\begin{itemize}
+    \item We made a first draft for each task
+    \item We tested it on 3 users and took note of their feedback
+    \item We modified each task according  to users responses
+    \item We repeated steps 2-3 until we were satisfied with the responses
+\end{itemize}
+\textbf{Note:} After the first revision, the "Meeting point" task was dropped.
+\newpage
+\subsubsection{Task 1 - Search for a ride}
+\graphicspath{{Doc images/Paper prototyping/Task 1}}
+
+\begin{figure}
+    \centering
+     \includegraphics[width=0.8\textwidth]{Ver1}
+\end{figure}
+
+From the first test of task 1 we have come up with three main problems:
+
+\begin{itemize}
+    \item All users could not understand that the ‘you’ position was the position they would have inserted when installing the app. All of them thought that it was their live position. Notice that it is different because potential users should be able to book a ride to the university independently from where they are booking from. Our idea for a solution is to use instead a predefined icon.
+    \item Two of the users were confused by how they should insert their destination address.
+     Our idea is to add a len icon in the space where to insert the destination address as we saw that many big platforms such as google does so.
+     \item Two users noticed that there was no way to go back to the previous screen. This is something that was not part of the task and we did not ask anything about it. The  users noticed it and told us as it is probably something they are used to and expect to be there.
+     We decided to follow user’s suggestion and add an arrow button.
+\end{itemize}
+The other features seem clear to the users. They correctly understood all the information in the first screen. They understood that in order to search they should click the blue button. When they clicked the search button they were expecting exactly what we draw: a list of possible rides and they could tell which filters were applied to those results ( via del castro laurenziano…, 16:00). All the changes led in the end to version 2: 
+
+\begin{figure}
+    \centering
+     \includegraphics[width=\textwidth]{Ver2}
+\end{figure}
+
+Notice that this version’s test has been done on 3 potential user DIFFERENT from those who tested the first version. In fact from the second version emerged another problem:
+
+\begin{itemize}
+    \item Users could not understand what “20m” stands for. They thought that the person was at 20m while we meant that the meeting point is 20 meters far from the house location. In order to solve this problems we will add ‘meet at’ before the ‘20 m’
+\end{itemize}
+
+Everything else seemed clear. Let's now dive into version 3: 
+\newpage
+
+\begin{figure}
+    \centering
+     \includegraphics[width=\textwidth]{Ver3}
+\end{figure}
+
+As for version 2 we tested version 3 on three new possible users, different from both test 1 and test 2. The users correctly interacted with the screens and understood all the information displayed. We are happy with this result.
+
+\subsubsection{Task 2 - Book a ride}
+\graphicspath{{Doc images/Paper prototyping/Task 2}}
+
+\begin{figure}
+    \centering
+     \includegraphics[width=\textwidth]{Ver1}
+\end{figure}
+
+From the first test of task 2, one main problem has been individuated:
+\begin{itemize}
+    \item All users to which we have given the possibility to try the app, has asked us whether it was possible to insert time information over the remained time that were necessary to arrive to the meeting point. Following this hint given from the User Feedback, we proceeded to specify this information, by inserting over the home-to-meeting point path, the text indicating the remained minutes to arrive to the meeting point.
+\end{itemize}
+
+The other features seem clear to the users. They correctly understood all the informations in the first screen. They understood that in order to contact by message the rider, they should tap on the message icon. They understand correctly the two lower buttons, that redirects the user to the booking of a seat and to the profile page. In the second screen, they appreciate the notification alert that reminds the notification the user will receive when it will have to departure for the meeting point. It correctly understand that the booking has succeeded and they understand the recap information about both the meeting point and the meeting time, but also the car information(Type of the car, license plate number and car color).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Ver2}
+    \caption{Expected time to meeting point has been added}
+\end{figure}
+\newpage
+
+\subsubsection{Task 3 - User's profiles}
+\graphicspath{{Doc images/Paper prototyping/Task 3}}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.2\textwidth]{Ver1}
+\end{figure}
+
+The only problem of version 1 was that several participants were confused by the link to the driver's Instagram profile. They didn't know whether they should click on the words “Instagram”, “Profile” or on the icon of Instagram. This confusion suggests that the link could be made more prominent or accompanied by clearer instructions to help users understand its purpose. Apart from this minor issue, our participants found the driver profile screen to be user-friendly and informative. They were able to understand how to contact the driver through the prominently displayed button, and were enthusiastic about reading the driver's personal information and details about their cars. Many users did appreciate the "see all" button for reviews, as they expected clicking on it to open up a new page with additional reviews. This functionality aligned with their expectations and allowed them to easily access more information about the driver's reputation and past rides. Always on the reviews screen, participants appreciated being able to access also the average scores given to the driver. This allowed them to quickly get a sense of the driver's strengths and weaknesses, and make an informed decision about whether to ride with them. This is how version 2 looked like: 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.2\textwidth]{Ver2}
+    \caption{The IG profile is now underlined where users should click on}
+\end{figure}
+\newpage
+
+As we can observe from above, to solve the understandability issue of the first version we underlined the sentence “Instagram Profile” to associate it with a link to make it more clear to the user’s eyes. We tested it with 4users that had not seen the screen previously. However, the majority of them, found it to be unintuitive. Despite the visual cue, they did not immediately associate the underlined text with a clickable link to the driver's Instagram profile. Based on feedback from participants who found the Instagram profile link on the second screen to be unclear, we made some design changes and created a third version of the screen. In this version, we decided to experiment with using the driver's Instagram handle (e.g. "@mariorossi") directly instead of the phrase "Instagram Profile" underlined. We added some visual similarity to Instagram by highlighting the driver's Instagram handle in blue, similar to how Instagram highlights usernames in blue within its platform.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.15\textwidth]{Ver3}
+    \caption{IG username coloured in blue}
+\end{figure}
+
+This addition was well-received by participants, who found the use of the blue color to be visually appealing and reminiscent of Instagram. They were able to recognize the handle as a clickable link to the driver's Instagram profile, and found the experience to be more seamless and intuitive. Overall, the addition of the blue color was seen as a positive enhancement to the user experience.
+
+\newpage
+
+\subsection{Interactive prototyping}
+In the ever-evolving world of mobile applications development, creating seamless user experiences has become crucial for success. The evaluation step we have been gone through has played therefore a pivotal role in this process, allowing us to refine and enhance our Android app design prototype created using the Figma tool. This step holds immense importance as it enabled us to identify potential issues, the gathering of valuable user feedback, and the optimization of user interactions before the app is fully implemented. One of the primary advantages of evaluating a Figma prototype for an Android app is the ability to spot usability and design flaws early on. By simulating user interactions and journeys, we had the opportunity to identify any navigation issues, visual inconsistencies, or cumbersome user flows that may hinder the overall user experience. This early detection of problems has saved us significant time and effort by addressing issues before they become deeply ingrained in the development process. Furthermore, the evaluation step has allowed us to gather feedback, valuable insights into user preferences, pain points, and suggestions for improvement. This user-centered approach ensures that the final Android app meets the needs and expectations of its intended audience, increasing the chances of user satisfaction and engagement. 
+
+\subsubsection{Evaluation steps}
+For the evaluation process, we carefully selected three user testers, adhering to J. Nielsen's recommendation for an appropriate number of participants. These individuals were given the opportunity to use and interact with the Figma App Version. The evaluation we conducted was categorized as an "On-Field" Evaluation, involving participants who represented the typical users of the app, namely students. Prior to commencing the evaluation, we provided a brief overview of the app's goals. We then proceeded to define the scenarios, which represented potential real-life situations in which the participants would be placed. To ensure clarity, we explained the three specific tasks that we required them to perform. These tasks encompassed clear objectives that participants were expected to accomplish during the evaluation process. In total, we had three iterations: \newline \newline 
+
+\textbf{First iteration}: \newline 
+\graphicspath{{Doc images/Interactive prototyping/First iteration}}
+\textbf{$1^{st}$ user - Maria:} We conducted an evaluation using the "Think Aloud" methodology. After explaining the tasks that Maria needed to perform, we observed her interactions and encouraged her to express her expectations at each step. This evaluation revealed two issues on the navigation flow, since the user encountered difficulty in navigating back from the ride-list screen to the home page (\textit{Task1}) and from Mario Rossi's Reviews Page back to his profile (\textit{Task3}). To address both issues, we added a back button on the upper-left side of the screen. (Task1v2 immagine non disponibile) \newline 
+
+\textbf{$2^{nd}$ user - Antonio:} For the second user, we adopted a more critical approach, employing the "Cooperative Evaluation" methodology. We encouraged Antonio to provide feedback and critique the system during task execution. This evaluation was designed to be interactive, allowing Antonio to ask questions and engage in discussions. \newline
+
+\textit{Concerning Task1:} Antonio provided valuable feedback regarding the flow of Task 1. He expressed concerns about the user being required to enter both the starting and arrival addresses for every ride booking. Considering that the application primarily caters to university purposes, Antonio suggested incorporating a button that defaults to the user's home address, as it is likely to be a common choice. As a solution, we decided to implement a default starting location. However, instead of using the home address, we opted to provide the user's current location. This change offers greater flexibility, while still allowing the user to modify the starting address if needed. We added some common shortcuts for the destination address (Home + University) to shorten the expected user time of choice. 
+
+Moreover, Antonio pointed out that the presence of the word "you" on the map marker could be redundant and potentially confusing, resembling street names. We agreed with Antonio's observation and removed the "you" text. The marker alone now represents the user's current location, and we enhanced its visibility by using a darker blue color.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{Antonio_Task1_without_shortcuts.png}
+\caption{Without shortcuts + "You" label}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.55\textwidth}
+\includegraphics[width=\textwidth]{Antonio_Task1_with_shortcuts.png}
+\caption{With shortcuts. No "You" label}
+\end{minipage}
+\end{figure}
+
+\newpage
+
+\textit{Concerning Task2:} Antonio suggested that the seat booking confirmation should be more prominently displayed on the second screen to make it clear that a seat has been booked. He also recommended eliminating redundant information already available on the profile screens. Following Antonio's suggestions, we redesigned a more central booking confirmation pop-up with only essential information.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{AntonioTask2V1.png}
+\caption{Smaller graphics. Redundant info}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{AntonioTask2V2.png}
+\caption{Bigger graphics. Essential info}
+\end{minipage}
+\end{figure}
+
+\newpage
+
+\textit{Concerning Task3:} Antonio found the profile settings to be confusing, particularly the amount of information required in the biography section. We clarified that the biography section does not represent the user's personal biography but rather contains basic information such as age, name, surname, university department, university, and a brief description. To differentiate it from other profile information, we restyled the upper part of the screen and italicized the actual biography text.
+
+\begin{figure}[htbp]
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{AntonioTask3UserProfileV1.png}
+\caption{No neat distinction}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{AntonioTask3UserProfileV2.png}
+\caption{Neat distinction}
+\end{minipage}
+\end{figure}
+\newpage
+
+\textbf{$3^{rd}$ user - Melissa:} Concerning task 2, Melissa raised a concern about the absence of a payment method in the app. We explained to her that payment was not one of the evaluated tasks and, in our case, we prioritized other more critical interactions. Also, Melissa found the profile pop-up that appeared after selecting a ride to be too simplistic. She preferred a more detailed version. We decided to re-organise both the styling and to use the photo profile instead of an avatar. 
+
+\begin{figure}[htbp]
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{MelissaTask2V1.PNG}
+\caption{Basic version}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{MelissaTask2V2.PNG}
+\caption{More detailed version}
+\end{minipage}
+\end{figure}
+\newpage
+
+\textbf{Second iteration}: \newline 
+\graphicspath{{Doc images/Interactive prototyping/Second iteration}}
+
+ For the second iteration, we followed a similar approach as the first iteration. Here are the findings and solutions from each user: \newline
+
+\textbf{$1^{st}$ user - Federico:} We allowed Federico to try the Figma app without providing any specific instructions. Through this evaluation, Federico clicked on the "Search a Ride" text next to the search symbol, expecting it to have the same result as clicking the symbol itself.  To address this potential misunderstanding, we decided to make the "Search a Ride" text also clickable as a button. This ensures that both clicking the symbol and the accompanying text on the initial page lead to the next screen for searching an actual ride.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{select_ride_input.png}
+    \caption{Both constructs are now clickable}
+\end{figure}
+
+\textbf{$2^{nd}$ user - Claudia:} Concerning task 3, Claudia expressed a preference for displaying the Instagram username instead of the text "Instagram Profile Link," as the presence of the Instagram logo implies that the user's profile is from Instagram. Following the suggestion, we replaced the text with the actual Instagram username. \newpage
+
+\textbf{$3^{rd}$ user - Francesco:} We employed the cooperative evaluation method with Francesco, and it revealed another potential misunderstanding on the screen of Task 1: Essentially, Francesco pointed out that the "x" button for "Your Location" was not clear and visible enough, causing difficulties when changing the starting location (which defaulted to the user's current location in this version). To improve visibility and clarity, we replaced the "x" button with a "change" button for selecting a different location, as it is shown below: 
+
+\begin{figure}[htbp]
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{FrancescoXbutton.PNG}
+\caption{Old "X" button}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{FrancescoChangeButton.PNG}
+\caption{New "Change" button}
+\end{minipage}
+\end{figure}
+\newpage
+
+For Task2, instead, he noticed that some of the booking information were not displayed on the screen. We then added the missing "Date" of ride in what it is shown to the user: 
+
+\begin{figure}[htbp]
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{FedericoOnlyDate.PNG}
+\caption{Date only}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.25\textwidth}
+\includegraphics[width=\textwidth]{FedericoDate+Time.PNG}
+\caption{Date + time}
+\end{minipage}
+\end{figure}
+
+\textbf{Third iteration} \newline
+During the third iteration, all users participated in the evaluations and provided positive feedback without raising any further problems or comments during the execution of the tasks. This indicates that the changes made in the previous iterations successfully addressed the issues and improved the usability of the Figma app. The positive evaluations from all users during this iteration are an encouraging sign that the app is becoming more user-friendly and effective in meeting its goals. It suggests that the design changes and solutions implemented based on the feedback from the previous iterations have been successful in enhancing the overall user experience. These positive results indicate that the Figma app is now in a more refined and polished state, ready for further testing and potential deployment. It's important to note that the iterative evaluation process has played a crucial role in identifying and resolving issues, as well as incorporating user feedback to enhance the app's functionality and usability.
+
+\newpage
+
+\subsubsection{Second revision modifications}
+
+During a recent project review session with our professor, we had the opportunity to present and discuss the design of our Figma application. This valuable interaction provided us with insightful feedback and guidance, enabling us to make important enhancements to our app based on the professor's advices.
+
+The project review served as a platform for us to showcase our progress and receive expert input on our app design. We presented the various features, functionalities, and overall structure of the application, highlighting our efforts in creating a robust and user-friendly solution. The professor's expertise and deep understanding of the subject matter allowed for a thorough examination of our project and an exploration of potential areas of improvement. Throughout the review, the professor shared valuable insights, pointing out areas where our app design could be refined to better meet the intended objectives. The professor's guidance played a crucial role in shaping our understanding of the user's needs and expectations, leading us to reassess certain design choices and make strategic adjustments. In response to the professor's advices, we have implemented significant changes to our app design:
+
+\begin{itemize}
+    \item One of the comments from the professor pertained to the small size of the "confirm" buttons on certain screens. We made them bigger to ensure the readability.
+    \item Another issue raised was that when users entered their destination address and date, the app required them to manually input the "arrive by" time. However, no default time was provided, resulting in users always having to enter it themselves.
+    \item Another suggested improvement involved the list of available rides. The professor pointed out that some information displayed on this screen was irrelevant, while some essential details were missing.
+    \item The professor also found the screen that appeared after selecting a ride to be unclear. The driver panel displayed at the bottom mixed driver information with the ride details.
+    \item  The professor offered a valuable suggestion regarding the Booking popup that appeared after tapping the "book" button. The popup lacked an "x" button for closure, and there was no way to view the booked seat. The user's attention was still on the "Book" button, and the booking confirmation was not clear.
+    \item Another suggestion from the professor was to incorporate transitions when switching between screens.
+    \item The professor emphasized the importance of the second icon in the bottom menu. The icon, depicting a car with a "plus" sign, was unclear and represented an action related to adding a ride rather than being relevant to the passenger.
+    \item Another crucial comment raised by the professor was the absence of address information on the map after selecting a ride.
+\end{itemize}
+
+After a rigorous iterative process for testing and refining the app, incorporating valuable feedback from the professor and conducting further iterations with users, we are pleased to announce that the app is now ready to be developed as an Android application using Flutter.
+The iterative evaluation process allowed us to gather insights, identify potential issues, and implement improvements based on user feedback and the professor's advice. Through multiple iterations, we addressed various problems and made necessary adjustments to enhance the app's design, functionality, and user experience.
+By carefully considering the feedback received from users and implementing their suggestions, we have successfully created a highly usable and intuitive app. The iterative approach enabled us to iterate over design elements, user interactions, and user flows, ensuring that the app meets the needs and expectations of its target audience. With the app's user interface, features, and overall experience now refined and optimized, we are confident in proceeding with the development phase. Leveraging the Flutter framework, we will be able to create a cross-platform Android application that delivers a seamless and consistent experience to users. We are excited about the potential of the app and its ability to serve its intended purpose effectively. The iterative evaluation process played a crucial role in shaping the app's development, ensuring that it meets the highest standards of usability and user satisfaction. Moving forward, we will continue to iterate, test, and refine the app during the development process, taking into account further user feedback and conducting usability tests to ensure a successful final product. We are committed to delivering an exceptional Android app that provides a seamless and enjoyable experience for its users.
+\newpage
+
+\section{Prototype Code}
+
+\end{document}

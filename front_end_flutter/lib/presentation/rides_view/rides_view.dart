@@ -11,24 +11,54 @@ class RidesView extends StatelessWidget {
         origin: 'origin1',
         destination: 'destination1',
         departDatetime: 'departDatetime1',
-        driverName: 'driverName1',
-        driverId: 'driverId1',
+        driverProfile: ShortProfile(
+          profilePictureUrl: 'profilePictureUrl1',
+          name: 'name1',
+          surname: 'surname1',
+          rating: 4.5,
+        ),
+        meetingPoint: MeetingPoint(
+          latitude: 1.0,
+          longitude: 1.0,
+          distance: 1,
+          meetingTime: 1,
+        ),
         availableSeats: 3),
     Ride(
         id: 'id2',
         origin: 'origin2',
         destination: 'destination2',
         departDatetime: 'departDatetime2',
-        driverName: 'driverName2',
-        driverId: 'driverId2',
+        driverProfile: ShortProfile(
+          profilePictureUrl: 'profilePictureUrl2',
+          name: 'name2',
+          surname: 'surname2',
+          rating: 4.2,
+        ),
+        meetingPoint: MeetingPoint(
+          latitude: 1.0,
+          longitude: 1.0,
+          distance: 1,
+          meetingTime: 1,
+        ),
         availableSeats: 2),
     Ride(
         id: 'id3',
         origin: 'origin3',
         destination: 'destination3',
         departDatetime: 'departDatetime3',
-        driverName: 'driverName3',
-        driverId: 'driverId3',
+        driverProfile: ShortProfile(
+          profilePictureUrl: 'profilePictureUrl3',
+          name: 'name3',
+          surname: 'surname3',
+          rating: 3.8,
+        ),
+        meetingPoint: MeetingPoint(
+          latitude: 1.0,
+          longitude: 1.0,
+          distance: 1,
+          meetingTime: 1,
+        ),
         availableSeats: 1),
   ];
 
@@ -50,7 +80,8 @@ class RidesView extends StatelessWidget {
                   return Expanded(
                     child: ListView.builder(
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) => RideCard(ride: snapshot.data![index]),
+                      itemBuilder: (context, index) =>
+                          RideCard(ride: snapshot.data![index]),
                     ),
                   );
                 }

@@ -53,12 +53,12 @@ class RideCard extends StatelessWidget {
           spacing: 6,
           children: [
             Text(
-              ride.driverName,
+              "${ride.driverProfile.name} ${ride.driverProfile.surname}",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
-              children: buildStars(3),//todo
+              children: buildStars(3), //todo
             ),
           ],
         ),

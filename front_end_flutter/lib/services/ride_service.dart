@@ -26,6 +26,7 @@ abstract class RideService {
     @Query('origin_lon') String? originLon,
     @Query('destination') required String destination,
     @Query('date_time') required String date,
+    @Query('radius') required String radius,
   });
 
   @GET("/rides/{ride_id}")

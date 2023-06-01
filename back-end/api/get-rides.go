@@ -2,6 +2,7 @@ package api
 
 import (
 	"UniDrive/back-end/database"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -13,7 +14,11 @@ func (h *Handler) getRides(c *gin.Context) {
 	// Retrieving query parameters
 	from := c.Query("origin")
 	to := c.Query("destination")
-	date_time := c.Query("date_time") // 2023-05-31 17:06
+	date := c.Query("date") // Assumes the format "2006-01-02"
+	time := c.Query("time") // Assumes the format "15:04"
+
+	// Concatenate date and time with a space in between
+	date_time := fmt.Sprintf("%s %s", date, time) // Result will be in the format "2006-01-02 15:04"
 
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")

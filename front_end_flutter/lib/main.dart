@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uni_drive/views/main_view.dart';
+import 'package:uni_drive/presentation/main_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

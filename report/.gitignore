@@ -1,0 +1,17 @@
+# LaTeX Executables
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# LaTeX Compiler Output
+/_minted-*/
+
+# LaTeX Build Directories
+/_minted-*/
+_build/

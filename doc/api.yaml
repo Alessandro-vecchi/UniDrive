@@ -665,15 +665,6 @@ components:
           $ref: '#/components/schemas/name'
         surname:
           $ref: '#/components/schemas/surname'
-        age:
-          description: Age of the user
-          type: integer
-          example: 21
-          minimum: 18
-        faculty:
-          description: Faculty of the university that the user belongs to
-          type: string
-          example: Faculty of Economics
         profile_picture_url:
           description: URL of the profile picture. Accepting only ID attached with.png/.jpg/.jpeg extensions.
           type: string
@@ -681,62 +672,12 @@ components:
           example: "Cksvy-ZXtXRE.jpg"
           minLength: 0
           maxLength: 150
-        bio:
-          description: Biography of the profile. |
-            Keeping the pattern simple. Not doing crazy things. Just allowing alphanumeric characters and basic punctuation.
-          type: string
-          pattern: '^[a-zA-Z0-9,._:;?!\x27\- ]*$'
-          example: "Mario, business student at Sapienza"
-          minLength: 0
-          maxLength: 150
-        reviews:
-          description: List of reviews received by the user
-          type: array
-          items:
-            $ref: '#/components/schemas/Review'
-        #rides_booked:
-          #description: List of rides booked by the user
-         # type: array
-         # items:
-         #   $ref: '#/components/schemas/Ride'
-        total_rides_given:
-          description: Total number of rides given by the user
-          type: integer
-          example: 50
+        rating:
+          description: The rating of the user
+          type: number
+          example: 4.7
           minimum: 0
-        joined_in:
-          description: When the user joined the platform
-          type: string
-          pattern: '^(?i)(january|february|march|april|may|june|july|august|september|october|november|december)\s\d{4}$'
-          example: September 2022
-          minLength: 8
-          maxLength: 14
-        city:
-          description: The place where the user lives
-          type: string
-          example: Rome
-          pattern: '^[a-zA-Z-_]*$'
-          minLength: 0
-          maxLength: 20
-        district:
-          description: The district where the user lives
-          type: string
-          example: Parioli
-          pattern: '^[a-zA-Z-_]*$'
-          minLength: 0
-          maxLength: 30
-        #social_links:
-        #  description: List of social links of the user
-        #  type: array
-        #  items:
-        #    $ref: '#/components/schemas/SocialLink'
-        instagram_url:
-          description: The url of the social link
-          type: string
-          example: https://www.instagram.com/mario_rossi/
-          pattern: '^(http|https):\/\/(www\.)?([a-zA-Z0-9-_]+)\.([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)\/?$'
-          minLength: 0
-          maxLength: 150
+          maximum: 5
 
   responses:
     BadRequest: 

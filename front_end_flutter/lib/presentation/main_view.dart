@@ -1,11 +1,14 @@
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:uni_drive/presentation/profile_view/widgets/personal_info.dart';
 
 import 'booking_view/booking_view.dart';
-import 'booking_view/widgets/driver_info.dart';
-import 'booking_view/widgets/ride_info.dart';
+
+// import 'booking_view/widgets/driver_info.dart';
 import 'map_view/map_view.dart';
+import 'profile_view/widgets/experience_info.dart';
+import 'profile_view/widgets/header.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -44,9 +47,9 @@ class _MainViewState extends State<MainView> {
       ),
       body: IndexedStack(index: _pageIndex, children: const [
         MapView(),
-        DriverInfo(),
-        RideInfo(),
-        BookingView(),
+        ExperienceWidget(), // DriverInfo(),
+        ProfileHeader(), // RideInfo(),
+        PersonalInfoWidget() // BookingView(),
       ]),
     );
   }

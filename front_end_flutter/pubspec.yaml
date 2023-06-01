@@ -21,6 +21,7 @@ dependencies:
   retrofit: ^4.0.1
   json_annotation: ^4.8.1
   expandable_page_view: ^1.0.17
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +33,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/instagram_icon.png
+    - assets/home_icon.png
+    - assets/car_icon.png

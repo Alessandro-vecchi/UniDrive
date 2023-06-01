@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class RideInfo extends StatelessWidget {
   const RideInfo({Key? key}) : super(key: key);
 
-  final String destination = 'Destination';
-  final String time = '12:00 PM';
+  final String destination = 'Via dei Sommozzatori 1, 56100 Pisa PI';
+  final String time = '10:00';
   final String meetingPointAddress = 'Meeting Point Address';
+  final String meetingTime = '9:20';
   final String distance = '2.5 km';
   final int availableSeats = 2;
   final int totSeats = 4;
@@ -30,7 +31,7 @@ class RideInfo extends StatelessWidget {
               Icon(Icons.flag),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Row(
             children: [
               const Text(
@@ -40,10 +41,15 @@ class RideInfo extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Text(destination),
+              Expanded(
+                child: Text(
+                  destination,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           Row(
             children: [
               const Text(
@@ -56,7 +62,7 @@ class RideInfo extends StatelessWidget {
               Text(time),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           Container(
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
@@ -78,7 +84,7 @@ class RideInfo extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 5),
           Row(
             children: [
               const Text(
@@ -88,10 +94,14 @@ class RideInfo extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Text(meetingPointAddress),
+              Flexible(
+                child: Text(
+                  meetingPointAddress,
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           Row(
             children: [
               const Text(
@@ -104,6 +114,19 @@ class RideInfo extends StatelessWidget {
               Text(distance),
             ],
           ),
+          const SizedBox(height: 4),
+          Row(
+            children: [
+              const Text(
+                'Meeting Time:',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(meetingTime),
+            ],
+          ),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -111,13 +134,13 @@ class RideInfo extends StatelessWidget {
                 children: List.generate(
                   totSeats,
                   (index) => Icon(
-                    index < totSeats - availableSeats
-                        ? Icons.person
-                        : Icons.person, //_outline
-                    color: index < totSeats - availableSeats
-                        ? Colors.grey
-                        : Colors.green,
-                  ),
+                      index < totSeats - availableSeats
+                          ? Icons.person
+                          : Icons.person, //_outline
+                      color: index < totSeats - availableSeats
+                          ? Colors.grey
+                          : Colors.green,
+                      size: 21),
                 ),
               ),
               const SizedBox(width: 8),

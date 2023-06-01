@@ -25,5 +25,5 @@ class Ride {
 
   factory Ride.fromJson(Map<String, dynamic> json) => _$RideFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RideToJson(this);
+// Map<String, dynamic> toJson() => _$RideToJson(this);
 }

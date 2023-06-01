@@ -103,7 +103,7 @@ class _MapViewState extends State<MapView> {
             myLocationButtonEnabled: false,
             liteModeEnabled: true,
             zoomControlsEnabled: false,
-            onMapCreated: _onMapCreated, //method called when map is created
+            onMapCreated: _onMapCreated, // method called when map is created
           ),
           Align(
             alignment: Alignment.bottomCenter,

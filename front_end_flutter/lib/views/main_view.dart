@@ -2,8 +2,10 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'empty_page.dart';
+import 'list_cards.dart';
 import 'map_view/map_view.dart';
+import 'recap.dart';
+import 'recap_and_list_rides.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -26,7 +28,8 @@ class _MainViewState extends State<MainView> {
         onTap: (value) => setState(() => _pageIndex = value),
         items: [
           FloatingNavbarItem(
-            icon: FontAwesomeIcons.searchengin,
+            //icon: const IconData(0xF013d, fontFamily: 'MaterialIcons'),
+            icon: FontAwesomeIcons.magnifyingGlassLocation,
           ),
           FloatingNavbarItem(
             icon: FontAwesomeIcons.list,
@@ -39,15 +42,12 @@ class _MainViewState extends State<MainView> {
           ),
         ],
       ),
-      body: IndexedStack(
-          index: _pageIndex,
-          children: const [
-            MapView(),
-            EmptyPage(),
-            EmptyPage(),
-            EmptyPage(),
-          ]
-      ),
+      body: IndexedStack(index: _pageIndex, children: const [
+        MapView(),
+        Recap(),
+        RideCardList(),
+        CombinedPage(),
+      ]),
     );
   }
 }

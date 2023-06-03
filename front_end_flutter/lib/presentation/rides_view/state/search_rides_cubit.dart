@@ -52,7 +52,8 @@ class SearchRidesCubit extends Cubit<SearchRidesState> {
                 distance: 1,
                 meetingTime: 1,
               ),
-              availableSeats: 3),
+              availableSeats: 3,
+              totSeats: 5),
           Ride(
               id: 'id2',
               origin: 'origin2',
@@ -70,7 +71,8 @@ class SearchRidesCubit extends Cubit<SearchRidesState> {
                 distance: 1,
                 meetingTime: 1,
               ),
-              availableSeats: 2),
+              availableSeats: 2,
+              totSeats: 5),
           Ride(
               id: 'id3',
               origin: 'origin3',
@@ -88,7 +90,8 @@ class SearchRidesCubit extends Cubit<SearchRidesState> {
                 distance: 1,
                 meetingTime: 1,
               ),
-              availableSeats: 1),
+              availableSeats: 4,
+              totSeats: 4),
         ],
       ),
     );

@@ -12,6 +12,7 @@ class Ride extends Equatable {
   final ShortProfile driverProfile;
   final MeetingPoint meetingPoint;
   final int availableSeats;
+  final int totSeats;
 
   const Ride({
     required this.id,
@@ -21,6 +22,7 @@ class Ride extends Equatable {
     required this.driverProfile,
     required this.meetingPoint,
     required this.availableSeats,
+    required this.totSeats,
   });
 
   factory Ride.fromJson(Map<String, dynamic> json) => _$RideFromJson(json);
@@ -36,6 +38,7 @@ class Ride extends Equatable {
         driverProfile,
         meetingPoint,
         availableSeats,
+        totSeats,
       ];
 }
 
@@ -53,7 +56,8 @@ class ShortProfile extends Equatable {
     required this.rating,
   });
 
-  factory ShortProfile.fromJson(Map<String, dynamic> json) => _$ShortProfileFromJson(json);
+  factory ShortProfile.fromJson(Map<String, dynamic> json) =>
+      _$ShortProfileFromJson(json);
   Map<String, dynamic> toJson() => _$ShortProfileToJson(this);
 
   @override
@@ -74,7 +78,8 @@ class MeetingPoint extends Equatable {
     required this.meetingTime,
   });
 
-  factory MeetingPoint.fromJson(Map<String, dynamic> json) => _$MeetingPointFromJson(json);
+  factory MeetingPoint.fromJson(Map<String, dynamic> json) =>
+      _$MeetingPointFromJson(json);
   Map<String, dynamic> toJson() => _$MeetingPointToJson(this);
 
   @override

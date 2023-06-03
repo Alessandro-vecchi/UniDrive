@@ -16,11 +16,12 @@ type TempRide struct {
 	DestinationLatitude  float64 `json:"destination_latitude"`
 	DestinationLongitude float64 `json:"destination_longitude"`
 	DepartDatetime       string  `json:"depart_datetime"`
-	AvailableSeats       int     `json:"available_seats"`
 	Name                 string  `json:"name"`
 	Surname              string  `json:"surname"`
 	ProfilePictureUrl    string  `json:"profile_picture_url"`
 	Rating               float64 `json:"rating"`
+	TotSeats             int     `json:"tot_seats"`
+	AvailableSeats       int     `json:"available_seats"`
 }
 
 func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_formatted_address string, destination_lat float64, destination_lng float64, destination_formatted_address string, date_time string, user_id string, radius float64) ([]models.Ride, error) {
@@ -41,7 +42,7 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 	tempRides := []TempRide{}
 	err = db.Debug().
 		Table("ride").
-		Select("ride.id, ride.origin_latitude, ride.origin_longitude, ride.destination_latitude, ride.destination_longitude, ride.depart_datetime, ride.available_seats, profile_dbs.name, profile_dbs.surname, profile_dbs.profile_picture_url, (SELECT AVG(rating) FROM reviews WHERE reviewed_user_id = ride.driver_id) as rating").
+		Select("ride.id, ride.origin_latitude, ride.origin_longitude, ride.destination_latitude, ride.destination_longitude, ride.depart_datetime, profile_dbs.name, profile_dbs.surname, profile_dbs.profile_picture_url, (SELECT AVG(rating) FROM reviews WHERE reviewed_user_id = ride.driver_id) as rating, (SELECT tot_seats FROM car_details WHERE user_id = ride.driver_id) as tot_seats, (SELECT (SELECT tot_seats FROM car_details WHERE user_id = ride.driver_id) - COUNT(*) FROM booking WHERE ride_id = ride.id) as available_seats").
 		Joins("JOIN profile_dbs ON ride.driver_id = profile_dbs.id").
 		Where("ride.origin_latitude BETWEEN ? AND ? AND ride.origin_longitude BETWEEN ? AND ? AND ride.destination_latitude BETWEEN ? AND ? AND ride.destination_longitude BETWEEN ? AND ? AND ride.depart_datetime BETWEEN ? AND ? AND ride.driver_id <> ?", origin_min_lat, origin_max_lat, origin_min_long, origin_max_long, destination_min_lat, destination_max_lat, destination_min_long, destination_max_long, startTime, endTime, user_id).
 		Scan(&tempRides).Error
@@ -70,6 +71,7 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 			Destination:    dest_fa,
 			DepartDatetime: tempRide.DepartDatetime,
 			AvailableSeats: tempRide.AvailableSeats,
+			TotSeats:       tempRide.TotSeats,
 			DriverProfile: models.ShortProfile{
 				Name:              tempRide.Name,
 				Surname:           tempRide.Surname,

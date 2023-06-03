@@ -13,7 +13,7 @@ abstract class RideService {
         Dio(
           BaseOptions(
             headers: {
-              'Authorization': 'xxxxxxxx',
+              'Authorization': 'b66c976d-606b-4d46-bbb2-f4b95d09a5d2',
             },
           ),
         ),

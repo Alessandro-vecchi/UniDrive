@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class SearchBox extends StatelessWidget {
-  const SearchBox({super.key});
+  final String formControlName;
+  const SearchBox({super.key, required this.formControlName});
 
   @override
   Widget build(BuildContext context) {
     return ReactiveTextField(
-      formControlName: 'origin',
+      formControlName: formControlName,
       style:
           Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
       decoration: const InputDecoration(

@@ -11,6 +11,7 @@ class TimePickerField extends StatelessWidget {
   final String? tooltipTitle;
   final String? tooltipDescription;
   final InputDecoration decoration;
+  final TextStyle? style;
 
   const TimePickerField({
     required this.formControlName,
@@ -18,6 +19,7 @@ class TimePickerField extends StatelessWidget {
     this.tooltipTitle,
     this.tooltipDescription,
     this.decoration = const InputDecoration(),
+    this.style,
     super.key,
   });
 
@@ -29,6 +31,7 @@ class TimePickerField extends StatelessWidget {
         return ReactiveTextField<TimeOfDay>(
           formControlName: formControlName,
           readOnly: true,
+          style: style,
           onTap: (_) => picker.showPicker(),
           valueAccessor: TimeOfDayValueAccessor(),
           decoration: decoration,

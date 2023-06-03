@@ -42,11 +42,11 @@ class RideCard extends StatelessWidget {
       color: const Color.fromRGBO(34, 34, 39, 1),
       // Set the card background color
       child: ListTile(
-        leading: const CircleAvatar(
-          backgroundImage: NetworkImage(
-            //todo
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-          ),
+        onTap: () {
+          Navigator.pop(context, ride);
+        },
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(ride.driverProfile.profilePictureUrl),
           radius: 30,
         ),
         title: Wrap(
@@ -58,16 +58,16 @@ class RideCard extends StatelessWidget {
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
-              children: buildStars(3), //todo
+              children: buildStars(ride.driverProfile.rating),
             ),
           ],
         ),
-        subtitle: const Text("Meet at 70m"),
+        subtitle: const Text("Meet at 70m"), //todo get from ride
         trailing: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "81 min",
+              "81 min", //todo get from ride
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

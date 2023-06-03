@@ -8,25 +8,18 @@ class BookingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Row(
-          children: [
-            const Expanded(
-              flex: 11,
-              child: RideInfo(),
-            ),
-            Container(
-              width: 1,
-              // color: Colors.grey,
-            ),
-            const Expanded(
-              flex: 9,
-              child: DriverInfo(),
-            ),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF222227),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          RideInfo(),
+          DriverInfo(),
+        ],
       ),
     );
   }

@@ -11,6 +11,7 @@ class DatePickerField extends StatelessWidget {
   final String? tooltipTitle;
   final String? tooltipDescription;
   final InputDecoration decoration;
+  final TextStyle? style;
 
   const DatePickerField({
     Key? key,
@@ -22,6 +23,7 @@ class DatePickerField extends StatelessWidget {
     this.tooltipTitle,
     this.tooltipDescription,
     this.decoration = const InputDecoration(),
+    this.style,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class DatePickerField extends StatelessWidget {
           child: ReactiveTextField<DateTime>(
             formControlName: formControlName,
             readOnly: true,
+            style: style,
             onTap: (_) => picker.showPicker(),
             valueAccessor: DateTimeValueAccessor(
               dateTimeFormat: DateFormat.yMd(),

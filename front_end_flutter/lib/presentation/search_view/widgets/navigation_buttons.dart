@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -34,7 +35,7 @@ class _NavigationButtonsState extends State<NavigationButtons> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if (_currentPage != 0)
+        if (_currentPage != 0 && _currentPage != 3)
           ElevatedButton(
             onPressed: () => widget._controller.previousPage(
               duration: const Duration(milliseconds: 400),
@@ -46,7 +47,7 @@ class _NavigationButtonsState extends State<NavigationButtons> {
             child: const Icon(Icons.arrow_back),
           ),
         const Expanded(child: SizedBox()),
-        if (_currentPage != 2)
+        if (_currentPage != 2 && _currentPage != 3)
           ElevatedButton(
             onPressed: () => widget._controller.nextPage(
               duration: const Duration(milliseconds: 400),
@@ -59,26 +60,7 @@ class _NavigationButtonsState extends State<NavigationButtons> {
           ),
         if (_currentPage == 2)
           ElevatedButton(
-            onPressed: () {
-              final form = ReactiveForm.of(context);
-              if(form?.invalid ?? true) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please fill in all the fields', style: TextStyle(color: Colors.white)),
-                    backgroundColor: Colors.red,
-                  ),
-                );
-                return;
-              }
-              FocusScope.of(context).unfocus();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => RidesView(
-                    SearchModel.fromForm(form?.value as Map<String, dynamic>),
-                  ),
-                ),
-              );
-            },
+            onPressed: _navigateToRidesView,
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(8),
             ),
@@ -86,5 +68,34 @@ class _NavigationButtonsState extends State<NavigationButtons> {
           )
       ],
     );
+  }
+
+  void _navigateToRidesView() async {
+    final form = ReactiveForm.of(context) as FormGroup?;
+    if(form?.invalid ?? true) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all the fields', style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    FocusScope.of(context).unfocus();
+    final selectedRide = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => RidesView(
+          SearchModel.fromForm(form?.value as Map<String, dynamic>),
+        ),
+      ),
+    );
+
+    if(selectedRide != null) {
+      form?.control('selectedRide').patchValue(selectedRide);
+      widget._controller.nextPage(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 }

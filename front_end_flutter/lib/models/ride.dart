@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'ride.g.dart';
 
 @JsonSerializable()
-class Ride {
+class Ride extends Equatable {
   final String id;
   final String origin;
   final String destination;
@@ -12,7 +13,7 @@ class Ride {
   final MeetingPoint meetingPoint;
   final int availableSeats;
 
-  Ride({
+  const Ride({
     required this.id,
     required this.origin,
     required this.destination,
@@ -23,17 +24,29 @@ class Ride {
   });
 
   factory Ride.fromJson(Map<String, dynamic> json) => _$RideFromJson(json);
+
   Map<String, dynamic> toJson() => _$RideToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        origin,
+        destination,
+        departDatetime,
+        driverProfile,
+        meetingPoint,
+        availableSeats,
+      ];
 }
 
 @JsonSerializable()
-class ShortProfile {
+class ShortProfile extends Equatable {
   final String profilePictureUrl;
   final String name;
   final String surname;
   final double rating;
 
-  ShortProfile({
+  const ShortProfile({
     required this.profilePictureUrl,
     required this.name,
     required this.surname,
@@ -42,16 +55,19 @@ class ShortProfile {
 
   factory ShortProfile.fromJson(Map<String, dynamic> json) => _$ShortProfileFromJson(json);
   Map<String, dynamic> toJson() => _$ShortProfileToJson(this);
+
+  @override
+  List<Object?> get props => [profilePictureUrl, name, surname, rating];
 }
 
 @JsonSerializable()
-class MeetingPoint {
+class MeetingPoint extends Equatable {
   final double latitude;
   final double longitude;
   final int distance;
   final int meetingTime;
 
-  MeetingPoint({
+  const MeetingPoint({
     required this.latitude,
     required this.longitude,
     required this.distance,
@@ -60,4 +76,7 @@ class MeetingPoint {
 
   factory MeetingPoint.fromJson(Map<String, dynamic> json) => _$MeetingPointFromJson(json);
   Map<String, dynamic> toJson() => _$MeetingPointToJson(this);
+
+  @override
+  List<Object?> get props => [latitude, longitude, distance, meetingTime];
 }

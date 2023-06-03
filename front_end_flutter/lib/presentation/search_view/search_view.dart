@@ -1,9 +1,11 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:uni_drive/presentation/booking_view/booking_view.dart';
 import 'package:uni_drive/presentation/search_view/widgets/destination_view.dart';
 import 'package:uni_drive/presentation/search_view/widgets/navigation_buttons.dart';
 
+import '../../models/ride.dart';
 import 'widgets/date_time_view.dart';
 import 'widgets/start_position_view.dart';
 
@@ -21,6 +23,7 @@ class _SearchViewState extends State<SearchView> {
     'origin': FormControl<String>(validators: [Validators.required]),
     'date': FormControl<DateTime>(validators: [Validators.required]),
     'time': FormControl<TimeOfDay>(validators: [Validators.required]),
+    'selectedRide': FormControl<Ride>(),
   });
 
   @override
@@ -35,12 +38,14 @@ class _SearchViewState extends State<SearchView> {
             NavigationButtons(controller: _controller),
             ExpandablePageView(
               controller: _controller,
+              physics: const NeverScrollableScrollPhysics(),
               clipBehavior: Clip.none,
               scrollDirection: Axis.horizontal,
               children: const [
                 DestinationView(),
                 StartPositionView(),
                 DateTimeView(),
+                BookingView(),
               ],
             ),
           ],

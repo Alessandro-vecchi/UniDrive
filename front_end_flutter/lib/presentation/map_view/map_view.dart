@@ -63,19 +63,6 @@ class _MapViewState extends State<MapView> {
     );
   }
 
-  void _addMarkerToMap() {
-    _markers.add(
-      Marker(
-        markerId: MarkerId(_initialTargetPosition.toString()),
-        position: _initialTargetPosition,
-        infoWindow: const InfoWindow(
-          title: 'My position ',
-          snippet: 'My Custom Subtitle',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

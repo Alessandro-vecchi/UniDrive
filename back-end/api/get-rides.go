@@ -2,6 +2,7 @@ package api
 
 import (
 	"UniDrive/back-end/database"
+	"UniDrive/back-end/gmaps"
 	"fmt"
 	"log"
 	"net/http"
@@ -13,19 +14,48 @@ import (
 )
 
 func (h *Handler) getRides(c *gin.Context) {
-	// Retrieving query parameters
+	var (
+		origin_lat, origin_lng   float64
+		origin_formatted_address string
+		err                      error
+	)
+	// Retrieving query parameter origin and convert him to latitude and longitude, if necessary.
 	from := c.Query("origin")
-	to := c.Query("destination")
-	// Convert the search parameters to lowercase
-	from = strings.ToLower(from)
-	to = strings.ToLower(to)
+	if from != "" {
+		origin_lat, origin_lng, origin_formatted_address, err = gmaps.GetCoordinates(strings.ToLower(from))
+		if err != nil {
+			log.Fatalf("failed to get coordinates: %v", err)
+		}
+	} else {
+		origin_lat, _ = strconv.ParseFloat(c.Query("origin_lat"), 64)
+		origin_lng, _ = strconv.ParseFloat(c.Query("origin_lat"), 64)
+		origin_formatted_address, err = gmaps.GetAddress(origin_lat, origin_lng)
+		if err != nil {
+			log.Fatalf("failed to get formatted address: %v", err)
+		}
+	}
 
+	log.Printf("Coordinates: %v, %v, %v", origin_lat, origin_lng, origin_formatted_address)
+
+	// Retrieving query parameter destination and convert him to latitude and longitude.
+	to := c.Query("destination")
+
+	destination_lat, destination_lng, destination_formatted_address, err := gmaps.GetCoordinates(strings.ToLower(to)) // Convert the search parameters to lowercase
+	if err != nil {
+		log.Fatalf("failed to get coordinates: %v", err)
+	}
+
+	log.Printf("Coordinates: %v, %v, %v", destination_lat, destination_lng, destination_formatted_address)
+
+	// Retrieve the date and time from the query parameters
 	date := c.Query("date") // Assumes the format "2006-01-02"
 	time := c.Query("time") // Assumes the format "15:04"
 
 	// Concatenate date and time with a space in between
 	date_time := fmt.Sprintf("%s %s", date, time) // Result will be in the format "2006-01-02 15:04"
+	log.Printf("Date Time: %v", date_time)
 
+	// Retrieve the radius from the query parameters
 	radiusStr := c.Query("radius")
 	var radius float64
 	if radiusStr == "" {
@@ -33,20 +63,7 @@ func (h *Handler) getRides(c *gin.Context) {
 	} else {
 		radius, _ = strconv.ParseFloat(radiusStr, 64)
 	}
-
-	origin_lat, origin_lng, origin_formatted_address, err := getCoordinates(from)
-	if err != nil {
-		log.Fatalf("failed to get coordinates: %v", err)
-	}
-
-	log.Printf("Coordinates: %v, %v", origin_lat, origin_lng, origin_formatted_address)
-
-	destination_lat, destination_lng, destination_formatted_address, err := getCoordinates(from)
-	if err != nil {
-		log.Fatalf("failed to get coordinates: %v", err)
-	}
-
-	log.Printf("Coordinates: %v, %v", destination_lat, destination_lng, destination_formatted_address)
+	log.Printf("Radius: %v", radiusStr)
 
 	// Retrieve the DB instance from the context
 	db, exists := c.Get("DB")
@@ -62,14 +79,14 @@ func (h *Handler) getRides(c *gin.Context) {
 		return
 	}
 
-	user_id := c.GetHeader("user_id")
+	user_id := c.GetHeader("Authorization")
 
 	rides, err := database.SearchRides(gormDB, origin_lat, origin_lng, origin_formatted_address, destination_lat, destination_lng, destination_formatted_address, date_time, user_id, radius)
 	if err == gorm.ErrRecordNotFound {
 		c.JSON(http.StatusNotFound, gin.H{"message": "No rides found", "error": err.Error()})
 		return
 	} else if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to get profile from database", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to get rides from database", "error": err.Error()})
 		return
 	}
 

@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"time"
 
 	"UniDrive/back-end/api/models"
 
@@ -31,6 +32,7 @@ func (h *Handler) createReview(c *gin.Context) {
 
 	feedback.ID = reviewId
 	feedback.ReviewedUserID = user_id
+	feedback.Timestamp = time.Now().Format(time.RFC3339)
 
 	if err := conn.Save(&feedback).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create feedback", "error": err.Error()})

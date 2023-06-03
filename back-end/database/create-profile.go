@@ -10,6 +10,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+
 func CreateProfile(db *gorm.DB, profile *models.Profile_DB) error {
 	// creating user id
 	rawUserId, err := uuid.NewV4()
@@ -28,10 +29,8 @@ func CreateProfile(db *gorm.DB, profile *models.Profile_DB) error {
 	if result.Error != nil {
 		return result.Error
 	}
-	
-	//result = db.Raw("SELECT LAST_INSERT_ID()").Scan(&profile)
 
-	
+	//result = db.Raw("SELECT LAST_INSERT_ID()").Scan(&profile)
 
 	return nil
 }

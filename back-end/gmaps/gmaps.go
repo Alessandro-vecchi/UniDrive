@@ -1,4 +1,4 @@
-package api
+package gmaps
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	"googlemaps.github.io/maps"
 )
 
-func getCoordinates(address string) (float64, float64, string, error) {
+func GetCoordinates(address string) (float64, float64, string, error) {
 	apiKey := os.Getenv("GOOGLE_MAPS_API_KEY")
 	googleMapsClient, err := maps.NewClient(maps.WithAPIKey(apiKey))
 	if err != nil {
@@ -17,7 +17,7 @@ func getCoordinates(address string) (float64, float64, string, error) {
 	}
 
 	r := &maps.GeocodingRequest{
-		Address: address,
+		Address:  address,
 		Language: "it",
 	}
 
@@ -33,7 +33,7 @@ func getCoordinates(address string) (float64, float64, string, error) {
 }
 
 // reverse geocoding
-func getAddress(lat, lng float64) (string, error) {
+func GetAddress(lat, lng float64) (string, error) {
 	apiKey := os.Getenv("GOOGLE_MAPS_API_KEY")
 	googleMapsClient, err := maps.NewClient(maps.WithAPIKey(apiKey))
 	if err != nil {
@@ -59,4 +59,3 @@ func getAddress(lat, lng float64) (string, error) {
 	// Return the formatted address of the first result.
 	return resp[0].FormattedAddress, nil
 }
-

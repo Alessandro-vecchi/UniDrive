@@ -1,4 +1,4 @@
-package api
+package gmaps
 
 import (
 	"context"
@@ -19,7 +19,7 @@ func main() {
 		Destinations: []string{"Parramatta, NSW"},
 	}
 	resp, err := c.DistanceMatrix(context.Background(), r)
-    if err != nil {
+	if err != nil {
 		log.Fatalf("fatal error: %s", err)
 	}
 	pretty.Println(resp)

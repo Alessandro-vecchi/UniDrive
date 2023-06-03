@@ -2,6 +2,7 @@ package database
 
 import (
 	"UniDrive/back-end/api/models"
+	"UniDrive/back-end/gmaps"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -52,14 +53,21 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 	if len(tempRides) == 0 {
 		return nil, gorm.ErrRecordNotFound
 	}
-
 	// Populate ShortProfile and Ride for each ride
 	rides := make([]models.Ride, len(tempRides))
 	for i, tempRide := range tempRides {
+		origin_fa, err := gmaps.GetAddress(tempRide.OriginLatitude, tempRide.OriginLongitude)
+		if err != nil {
+			return nil, err
+		}
+		dest_fa, err := gmaps.GetAddress(tempRide.DestinationLatitude, tempRide.DestinationLongitude)
+		if err != nil {
+			return nil, err
+		}
 		rides[i] = models.Ride{
 			ID:             tempRide.ID,
-			Origin:         origin_formatted_address,
-			Destination:    destination_formatted_address,
+			Origin:         origin_fa,
+			Destination:    dest_fa,
 			DepartDatetime: tempRide.DepartDatetime,
 			AvailableSeats: tempRide.AvailableSeats,
 			DriverProfile: models.ShortProfile{
@@ -70,8 +78,8 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 			},
 			// Populate MeetingPoint and MeetingTime here
 			MeetingPointInfo: models.MeetingPoint{
-				Latitude:  0,
-				Longitude: 0,
+				Latitude:  tempRide.DestinationLatitude,
+				Longitude: tempRide.DestinationLongitude,
 				Distance:  0,
 				Time:      tempRide.DepartDatetime,
 			},

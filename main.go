@@ -69,6 +69,12 @@ func main() {
 		Addr:    ":3000",
 		Handler: r,
 	}
+	// Set the Google Maps API key
+	err := os.Setenv("GOOGLE_MAPS_API_KEY", "AIzaSyD39NGTQHm7FYO4fGdZTwWcV7l2rKlv02U")
+	if err != nil {
+		logger.Fatalf("failed to set GOOGLE_MAPS_API_KEY: %s", err)
+	}
+	defer os.Unsetenv("GOOGLE_MAPS_API_KEY")
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {

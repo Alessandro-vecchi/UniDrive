@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:uni_drive/presentation/main_view.dart';
 
+const Map<String, String> loggedInUser = {
+  "Home": "Via Gian Pietro Talamini, 54, 00128 Roma RM, Italy",
+  "University": "Via del Castro Pretorio, 20, 00185 Roma RM, Italy",
+};
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());

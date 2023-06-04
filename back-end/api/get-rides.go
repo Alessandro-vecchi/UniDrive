@@ -28,7 +28,7 @@ func (h *Handler) getRides(c *gin.Context) {
 		}
 	} else {
 		origin_lat, _ = strconv.ParseFloat(c.Query("origin_lat"), 64)
-		origin_lng, _ = strconv.ParseFloat(c.Query("origin_lat"), 64)
+		origin_lng, _ = strconv.ParseFloat(c.Query("origin_lng"), 64)
 		origin_formatted_address, err = gmaps.GetAddress(origin_lat, origin_lng)
 		if err != nil {
 			log.Fatalf("failed to get formatted address: %v", err)

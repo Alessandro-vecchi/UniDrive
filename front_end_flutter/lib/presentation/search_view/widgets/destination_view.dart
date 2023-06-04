@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:uni_drive/main.dart';
 import 'package:uni_drive/presentation/search_view/widgets/search_container.dart';
 
 class DestinationView extends StatelessWidget {
@@ -41,17 +42,21 @@ class DestinationView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _buttons(),
+        _buttons(context),
       ],
     );
   }
 
-  Row _buttons() {
+  Row _buttons(context) {
     return Row(
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ReactiveForm.of(context)?.patchValue({
+                'destination': loggedInUser['Home'] ?? '',
+              });
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF222227),
               minimumSize:
@@ -70,7 +75,11 @@ class DestinationView extends StatelessWidget {
         const SizedBox(width: 8),
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ReactiveForm.of(context)?.patchValue({
+                'destination': loggedInUser['University'] ?? '',
+              });
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF222227),
               minimumSize:

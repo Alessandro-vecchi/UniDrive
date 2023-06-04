@@ -35,6 +35,9 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	r.DELETE("/rides/:ride_id/booking/:booking_id", h.deleteBooking)
 
 	/* CAR DETAILS */
-	r.POST("/profile/:user_id/car_details", h.PostCarDetails)
+	r.POST("/profile/:user_id/car_details", h.postCarDetails)
+
+	/* REVERSE GEOCODING */
+	r.GET("/reverse_geocoding", h.reverseGeocoding)
 
 }

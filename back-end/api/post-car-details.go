@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func (h *Handler) PostCarDetails(c *gin.Context) {
+func (h *Handler) postCarDetails(c *gin.Context) {
 	user_id := c.Param("user_id")
 
 	// Retrieve the DB instance from the context

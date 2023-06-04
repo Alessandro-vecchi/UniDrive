@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:uni_drive/main.dart';
 import 'package:uni_drive/presentation/search_view/widgets/search_container.dart';
+
+import '../../../services/ride_service.dart';
 
 class StartPositionView extends StatelessWidget {
   const StartPositionView({
@@ -41,18 +45,46 @@ class StartPositionView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _buttons(),
+        _buttons(context),
       ],
     );
   }
 
-  Row _buttons() {
+  _getPosition() async {
+    final userPosition = await Geolocator.getCurrentPosition();
+    return userPosition;
+  }
+
+  Future<String> _getFormattedAddress() async {
+    try {
+      final userPosition = await _getPosition();
+      final formattedAddress = await RideService()
+          .getFA(userPosition.latitude, userPosition.longitude);
+      print(formattedAddress[0]);
+      return formattedAddress;
+    } catch (e) {
+      print('Error occurred while getting formatted address: $e');
+      return ''; // todo handle the error case as needed
+    }
+  }
+
+  Row _buttons(context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              try {
+                final formattedAddress = await _getFormattedAddress();
+                ReactiveForm.of(context)?.patchValue({
+                  'origin': formattedAddress,
+                });
+              } catch (e) {
+                print('Error occurred while setting origin: $e');
+                // todo Handle the error case as needed
+              }
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF222227),
               minimumSize:
@@ -77,7 +109,11 @@ class StartPositionView extends StatelessWidget {
         // This reduces the space between the buttons
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ReactiveForm.of(context)?.patchValue({
+                'origin': loggedInUser['University'] ?? '',
+              });
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF222227),
               minimumSize:

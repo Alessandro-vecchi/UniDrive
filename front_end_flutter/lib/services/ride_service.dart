@@ -8,7 +8,7 @@ import '../models/profile.dart';
 
 part 'ride_service.g.dart';
 
-@RestApi(baseUrl: "http://192.168.0.105:3000")
+@RestApi(baseUrl: "http://192.168.43.13:3000")
 abstract class RideService {
   factory RideService() => _RideService(
         Dio(
@@ -37,4 +37,8 @@ abstract class RideService {
 
   @GET("/profile/{user_id}")
   Future<Profile> getProfile(@Path('user_id') String userId);
+
+  @GET("/reverse_geocoding")
+  Future<String> getFA(
+      @Query('latitude') double latitude, @Query('longitude') double longitude);
 }

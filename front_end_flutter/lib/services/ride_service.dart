@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:uni_drive/models/ride.dart';
+import 'package:uni_drive/models/search_model.dart';
 
 import '../models/profile.dart';
 
@@ -21,12 +22,7 @@ abstract class RideService {
 
   @GET("/rides")
   Future<List<Ride>> getRides({
-    @Query('origin') String? origin,
-    @Query('origin_lat') String? originLat,
-    @Query('origin_lon') String? originLon,
-    @Query('destination') required String destination,
-    @Query('date_time') required String date,
-    @Query('radius') required String radius,
+    @Queries() required SearchModel searchModel,
   });
 
   @GET("/rides/{ride_id}")

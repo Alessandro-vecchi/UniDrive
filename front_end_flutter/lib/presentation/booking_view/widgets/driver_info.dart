@@ -16,19 +16,7 @@ class DriverInfo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
-                children: [
-                  Text(
-                    'Driver Info',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Icon(Icons.info_outline),
-                ],
-              ),
+              _title(),
               const SizedBox(height: 16),
               Row(
                 children: [
@@ -38,7 +26,7 @@ class DriverInfo extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         control.value?.driverProfile.name ?? '',
@@ -98,22 +86,18 @@ class DriverInfo extends StatelessWidget {
                   ElevatedButton(
                     onPressed: _onProfilePressed,
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: const Color(0xFF363ABE),
-                      backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
-                      ), // Set the icon color of the button
+                      ),
                     ),
                     child: const Text('Profile'),
                   ),
                   ElevatedButton(
                     onPressed: _onMessagePressed,
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: const Color(0xFF363ABE),
-                      backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
-                      ), // Set the icon color of the button
+                      ),
                     ),
                     child: const Icon(Icons.message),
                   ),
@@ -126,6 +110,22 @@ class DriverInfo extends StatelessWidget {
     );
   }
 
+  Row _title() {
+    return const Row(
+      children: [
+        Text(
+          'Driver Info',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(width: 8),
+        Icon(Icons.info_outline),
+      ],
+    );
+  }
+
   void _onProfilePressed() {
     // todo
   }
@@ -134,4 +134,3 @@ class DriverInfo extends StatelessWidget {
     // todo
   }
 }
-

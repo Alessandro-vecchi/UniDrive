@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:uni_drive/presentation/map_view/state/map_view_cubit.dart';
 
 import '../../../models/search_model.dart';
 import '../../rides_view/rides_view.dart';
@@ -35,6 +37,14 @@ class _NavigationButtonsState extends State<NavigationButtons> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        if (_currentPage == 0 || _currentPage == 3)
+          ElevatedButton(
+            onPressed: () => context.read<MapViewCubit>().cancelSearch(),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(8),
+            ),
+            child: const Icon(Icons.close),
+          ),
         if (_currentPage != 0 && _currentPage != 3)
           ElevatedButton(
             onPressed: () => widget._controller.previousPage(

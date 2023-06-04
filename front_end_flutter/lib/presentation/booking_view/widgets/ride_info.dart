@@ -24,137 +24,74 @@ class RideInfo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
-                children: [
-                  Text(
-                    'Ride Info',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Icon(Icons.flag),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  const Text(
-                    'Destination:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      control.value?.destination ?? '',
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  const Text(
-                    'At:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(control.value?.departDatetime ?? ''),
-                ],
-              ),
+              _title('Ride Info', Icons.flag),
               const SizedBox(height: 8),
-              Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                  // color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.all(16),
-                child: const Row(
-                  children: [
-                    Text(
-                      'Meeting Point',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(Icons.pin_drop),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 5),
-              Row(
-                children: [
-                  const Text(
-                    'Address:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Flexible(
-                    child: Text(
-                      control.value?.meetingPoint.latitude.toString() ?? '',//todo replace with address
-                    ),
-                  ),
-                ],
-              ),
+              _rowData('Destination', control.value?.destination ?? ''),
               const SizedBox(height: 4),
-              Row(
-                children: [
-                  const Text(
-                    'Distance:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(control.value?.meetingPoint.distance.toString() ?? ''), //todo format distance
-                ],
-              ),
+              _rowData('Time', control.value?.departDatetime.toString() ?? ''), //todo format time
+              const SizedBox(height: 20),
+              _title('Meeting Point', Icons.pin_drop),
+              const SizedBox(height: 8),
+              _rowData('Address', control.value?.meetingPoint.latitude.toString() ?? ''), //todo replace with address
               const SizedBox(height: 4),
-              Row(
-                children: [
-                  const Text(
-                    'Meeting Time:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(control.value?.meetingPoint.meetingTime.toString() ?? ''), //todo format time
-                ],
-              ),
+              _rowData('Distance', control.value?.meetingPoint.distance.toString() ?? ''), //todo format distance
+              const SizedBox(height: 4),
+              _rowData('Meeting Time', control.value?.meetingPoint.meetingTime.toString() ?? ''), //todo format time
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Row(
-                    children: List.generate(
-                      control.value?.availableSeats ?? 0,
-                      (index) => Icon(index < (4) - (control.value?.availableSeats ?? 0) ? Icons.person : Icons.person, //todo missing totSeats
-                          color: index < (4) - (control.value?.availableSeats ?? 0) ? Colors.grey : Colors.green, //todo missing totSeats
-                          size: 21),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Book Seat'),
-                  ),
-                ],
+              _seats(control),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Book Seat'),
               ),
             ],
           ),
         );
       },
+    );
+  }
+
+  Row _seats(AbstractControl<Ride> control) {
+    return Row(
+      children: [
+        Row(
+          children: List.generate(
+            control.value?.availableSeats ?? 0,
+            (index) => Icon(index < (4) - (control.value?.availableSeats ?? 0) ? Icons.person : Icons.person,
+                //todo missing totSeats
+                color: index < (4) - (control.value?.availableSeats ?? 0) ? Colors.grey : Colors.green,
+                //todo missing totSeats
+                size: 21),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _rowData(String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('$label:', style: const TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(width: 8),
+        Expanded(child: Text(value)),
+      ],
+    );
+  }
+
+  Row _title(String title, IconData icon) {
+    return Row(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Icon(icon),
+      ],
     );
   }
 }

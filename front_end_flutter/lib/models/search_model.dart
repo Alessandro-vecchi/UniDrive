@@ -1,15 +1,17 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'search_model.g.dart';
 
 @JsonSerializable(createFactory: false)
-class SearchModel {
+class SearchModel extends Equatable {
   final String? origin;
   @JsonKey(name: 'origin_lat')
   final String? originLat;
   @JsonKey(name: 'origin_lon')
   final String? originLon;
+  final String? radius;
   final String destination;
   @JsonKey(includeToJson: false)
   final DateTime date;
@@ -23,6 +25,7 @@ class SearchModel {
     this.origin,
     this.originLat,
     this.originLon,
+    this.radius,
     required this.destination,
     required this.date,
     required this.time,
@@ -40,27 +43,7 @@ class SearchModel {
   Map<String, dynamic> toJson() => _$SearchModelToJson(this);
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SearchModel &&
-          runtimeType == other.runtimeType &&
-          origin == other.origin &&
-          originLat == other.originLat &&
-          originLon == other.originLon &&
-          destination == other.destination &&
-          date == other.date &&
-          time == other.time &&
-          dateTime == other.dateTime;
-
-  @override
-  int get hashCode =>
-      origin.hashCode ^
-      originLat.hashCode ^
-      originLon.hashCode ^
-      destination.hashCode ^
-      date.hashCode ^
-      time.hashCode ^
-      dateTime.hashCode;
+  List<Object?> get props => [origin, originLat, originLon, radius, destination, date, time];
 }
 
 String _dateTimeToJson(DateTime dateTime) => dateTime.toIso8601String();

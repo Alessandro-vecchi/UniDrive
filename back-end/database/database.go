@@ -73,17 +73,11 @@ func New(db *gorm.DB) gin.HandlerFunc {
 				REFERENCES ride(id)
 				ON UPDATE CASCADE ON DELETE CASCADE
 		);`,
-		`INSERT INTO ride VALUES('delta', 41.762810, 12.480150, 41.904850, 12.517000, '2023-06-04 12:20', 'f836fbd7-14bf-4c3d-b708-824f0fbad5d6');
+		/* `INSERT INTO ride VALUES('delta', 41.762810, 12.480150, 41.904850, 12.517000, '2023-06-04 12:20', 'f836fbd7-14bf-4c3d-b708-824f0fbad5d6');
 		INSERT INTO ride VALUES('gamma', 41.770110, 12.484130, 41.902340, 12.510000, '2023-06-04 12:30', '4e6481eb-3d62-4326-8701-a75862197acd');
 		INSERT INTO ride VALUES('bravo', 41.748114, 12.479390, 41.908341, 12.521080, '2023-06-04 11:50', '55498bcc-b298-4ebe-92b4-86931a5b8df3');`,
-
-		//INSERT INTO car_details VALUES ('e50490db-c90d-4fb6-b593-c9c76b0ba616', 'spark', 'green', 'EPNFRATM');
-		//INSERT INTO ride VALUES('gamma', 'via fratellino', 'via sorellina','2023-06-04 12:00', 'f279fde7-4976-4d41-ab4b-e99568236d90', '4');
-
-		/* INSERT INTO ride VALUES('delta', 41.762810, 12.480150, 41.904850, 12.517000, '2023-06-04 12:20', 'f836fbd7-14bf-4c3d-b708-824f0fbad5d6', '3');
-		INSERT INTO ride VALUES('gamma', 41.770110, 12.484130, 41.902340, 12.515000, '2023-06-04 12:30', '4e6481eb-3d62-4326-8701-a75862197acd', '4');
-		INSERT INTO ride VALUES('bravo', 41.764114, 12.479990, 41.904341, 12.516080, '2023-06-04 11:50', '55498bcc-b298-4ebe-92b4-86931a5b8df3', '1'); */
-	}
+ */
+		}
 	// Enable foreign key constraints
 	/*err := db.Exec("PRAGMA foreign_keys = 1").Error
 	if err != nil {

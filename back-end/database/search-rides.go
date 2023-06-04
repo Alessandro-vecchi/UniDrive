@@ -3,6 +3,7 @@ package database
 import (
 	"UniDrive/back-end/api/models"
 	"UniDrive/back-end/gmaps"
+	"fmt"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -65,6 +66,13 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 		if err != nil {
 			return nil, err
 		}
+		distance, duration, err := gmaps.ComputeDistance(fmt.Sprintf("%f", origin_lat), fmt.Sprintf("%f", origin_lng), fmt.Sprintf("%f", tempRide.OriginLatitude), fmt.Sprintf("%f", tempRide.OriginLongitude))
+		if err != nil {
+			return nil, err
+		}
+		fmt.Printf("Distance: %d meters\n", distance)
+		fmt.Printf("Duration: %d seconds\n", duration)
+
 		rides[i] = models.Ride{
 			ID:             tempRide.ID,
 			Origin:         origin_fa,
@@ -82,8 +90,8 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 			MeetingPointInfo: models.MeetingPoint{
 				Latitude:  tempRide.DestinationLatitude,
 				Longitude: tempRide.DestinationLongitude,
-				Distance:  0,
-				Time:      tempRide.DepartDatetime,
+				Distance:  distance,
+				Time:      duration,
 			},
 		}
 	}

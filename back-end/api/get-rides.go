@@ -48,7 +48,14 @@ func (h *Handler) getRides(c *gin.Context) {
 	log.Printf("Coordinates: %v, %v, %v", destination_lat, destination_lng, destination_formatted_address)
 
 	// Retrieve the date and time from the query parameters
-	date := c.Query("date") // Assumes the format "2006-01-02"
+	dateTime := c.Query("date") // Assumes the format 2023-06-05T00:00:00.000
+
+	// Split the dateTime string at "T" to separate the date and time parts
+	parts := strings.Split(dateTime, "T")
+
+	// Parse the date string in the format "2006-01-02"
+	date := parts[0]
+
 	time := c.Query("time") // Assumes the format "15:04"
 
 	// Concatenate date and time with a space in between
@@ -59,7 +66,7 @@ func (h *Handler) getRides(c *gin.Context) {
 	radiusStr := c.Query("radius")
 	var radius float64
 	if radiusStr == "" {
-		radius = 1.0
+		radius = 2.0
 	} else {
 		radius, _ = strconv.ParseFloat(radiusStr, 64)
 	}

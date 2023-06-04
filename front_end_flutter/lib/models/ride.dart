@@ -8,10 +8,15 @@ class Ride extends Equatable {
   final String id;
   final String origin;
   final String destination;
+  @JsonKey(name: 'depart_datetime')
   final String departDatetime;
+  @JsonKey(name: 'driver_profile')
   final ShortProfile driverProfile;
+  @JsonKey(name: 'meeting_point')
   final MeetingPoint meetingPoint;
+  @JsonKey(name: 'available_seats')
   final int availableSeats;
+  @JsonKey(name: 'tot_seats')
   final int totSeats;
 
   const Ride({
@@ -44,6 +49,7 @@ class Ride extends Equatable {
 
 @JsonSerializable()
 class ShortProfile extends Equatable {
+  @JsonKey(name: 'profile_picture_url')
   final String profilePictureUrl;
   final String name;
   final String surname;
@@ -58,6 +64,7 @@ class ShortProfile extends Equatable {
 
   factory ShortProfile.fromJson(Map<String, dynamic> json) =>
       _$ShortProfileFromJson(json);
+
   Map<String, dynamic> toJson() => _$ShortProfileToJson(this);
 
   @override
@@ -69,19 +76,20 @@ class MeetingPoint extends Equatable {
   final double latitude;
   final double longitude;
   final int distance;
-  final int meetingTime;
+  final int time;
 
   const MeetingPoint({
     required this.latitude,
     required this.longitude,
     required this.distance,
-    required this.meetingTime,
+    required this.time,
   });
 
   factory MeetingPoint.fromJson(Map<String, dynamic> json) =>
       _$MeetingPointFromJson(json);
+
   Map<String, dynamic> toJson() => _$MeetingPointToJson(this);
 
   @override
-  List<Object?> get props => [latitude, longitude, distance, meetingTime];
+  List<Object?> get props => [latitude, longitude, distance, time];
 }

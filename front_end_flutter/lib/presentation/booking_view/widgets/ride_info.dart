@@ -28,15 +28,27 @@ class RideInfo extends StatelessWidget {
               const SizedBox(height: 8),
               _rowData('Destination', control.value?.destination ?? ''),
               const SizedBox(height: 4),
-              _rowData('Time', control.value?.departDatetime.toString() ?? ''), //todo format time
+              _rowData(
+                  'Time',
+                  control.value?.departDatetime.toString() ??
+                      ''), //todo format time
               const SizedBox(height: 20),
               _title('Meeting Point', Icons.pin_drop),
               const SizedBox(height: 8),
-              _rowData('Address', control.value?.meetingPoint.latitude.toString() ?? ''), //todo replace with address
+              _rowData(
+                  'Address',
+                  control.value?.meetingPoint.latitude.toString() ??
+                      ''), //todo replace with address
               const SizedBox(height: 4),
-              _rowData('Distance', control.value?.meetingPoint.distance.toString() ?? ''), //todo format distance
+              _rowData(
+                  'Distance',
+                  control.value?.meetingPoint.distance.toString() ??
+                      ''), //todo format distance
               const SizedBox(height: 4),
-              _rowData('Meeting Time', control.value?.meetingPoint.meetingTime.toString() ?? ''), //todo format time
+              _rowData(
+                  'Meeting Time',
+                  control.value?.meetingPoint.time.toString() ??
+                      ''), //todo format time
               const SizedBox(height: 16),
               _seats(control),
               const SizedBox(height: 16),
@@ -57,9 +69,14 @@ class RideInfo extends StatelessWidget {
         Row(
           children: List.generate(
             control.value?.availableSeats ?? 0,
-            (index) => Icon(index < (4) - (control.value?.availableSeats ?? 0) ? Icons.person : Icons.person,
+            (index) => Icon(
+                index < (4) - (control.value?.availableSeats ?? 0)
+                    ? Icons.person
+                    : Icons.person,
                 //todo missing totSeats
-                color: index < (4) - (control.value?.availableSeats ?? 0) ? Colors.grey : Colors.green,
+                color: index < (4) - (control.value?.availableSeats ?? 0)
+                    ? Colors.grey
+                    : Colors.green,
                 //todo missing totSeats
                 size: 21),
           ),

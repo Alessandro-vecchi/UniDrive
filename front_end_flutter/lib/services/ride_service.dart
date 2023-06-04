@@ -1,5 +1,6 @@
 // lib/services/ride_service.dart
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:uni_drive/models/ride.dart';
 import 'package:uni_drive/models/search_model.dart';
@@ -10,15 +11,22 @@ part 'ride_service.g.dart';
 
 @RestApi(baseUrl: "http://192.168.43.13:3000")
 abstract class RideService {
-  factory RideService() => _RideService(
-        Dio(
-          BaseOptions(
-            headers: {
-              'Authorization': 'b66c976d-606b-4d46-bbb2-f4b95d09a5d2',
-            },
-          ),
+  factory RideService() => _RideService(Dio(
+        BaseOptions(
+          headers: {
+            'Authorization': 'b66c976d-606b-4d46-bbb2-f4b95d09a5d2',
+          },
         ),
-      );
+      )..interceptors.add(
+          PrettyDioLogger(
+              requestHeader: true,
+              requestBody: true,
+              responseBody: true,
+              responseHeader: false,
+              error: true,
+              compact: true,
+              maxWidth: 90),
+        ));
 
   @GET("/rides")
   Future<List<Ride>> getRides({

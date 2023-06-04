@@ -13,13 +13,13 @@ class SearchModel extends Equatable {
   final String? originLon;
   final String? radius;
   final String destination;
-  @JsonKey(includeToJson: false)
+  @JsonKey(includeToJson: true)
   final DateTime date;
-  @JsonKey(includeToJson: false, fromJson: _timeFromJson)
+  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
   final TimeOfDay time;
-  @JsonKey(includeFromJson: true, toJson: _dateTimeToJson)
-  final DateTime dateTime;
 
+  //@JsonKey(includeFromJson: true, toJson: _dateTimeToJson)
+  //final DateTime dateTime;
 
   SearchModel({
     this.origin,
@@ -29,24 +29,31 @@ class SearchModel extends Equatable {
     required this.destination,
     required this.date,
     required this.time,
-  }): dateTime = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  }); //: dateTime = DateTime(date.year, date.month, date.day, time.hour, time.minute);
 
   factory SearchModel.fromForm(Map<String, dynamic> json) => SearchModel(
-    origin: json['origin'] as String?,
-    originLat: json['origin_lat'] as String?,
-    originLon: json['origin_lon'] as String?,
-    destination: json['destination'] as String,
-    date: json['date'] as DateTime,
-    time: json['time'] as TimeOfDay,
-  );
+        origin: json['origin'] as String?,
+        originLat: json['origin_lat'] as String?,
+        originLon: json['origin_lon'] as String?,
+        destination: json['destination'] as String,
+        date: json['date'] as DateTime,
+        time: json['time'] as TimeOfDay,
+      );
 
   Map<String, dynamic> toJson() => _$SearchModelToJson(this);
 
   @override
-  List<Object?> get props => [origin, originLat, originLon, radius, destination, date, time];
+  List<Object?> get props =>
+      [origin, originLat, originLon, radius, destination, date, time];
 }
 
 String _dateTimeToJson(DateTime dateTime) => dateTime.toIso8601String();
+
+String _timeToJson(TimeOfDay time) {
+  final hour = time.hour.toString().padLeft(2, '0');
+  final minute = time.minute.toString().padLeft(2, '0');
+  return '$hour:$minute';
+}
 
 TimeOfDay _timeFromJson(String time) {
   final parts = time.split(':');

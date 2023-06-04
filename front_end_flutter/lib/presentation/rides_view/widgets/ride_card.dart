@@ -62,19 +62,21 @@ class RideCard extends StatelessWidget {
             ),
           ],
         ),
-        subtitle: const Text("Meet at 70m"), //todo get from ride
-        trailing: const Row(
+        subtitle: Text(
+            "Meet at ${(ride.meetingPoint.distance / 1000).toStringAsFixed(1)} km"),
+        //todo get from ride
+        trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "81 min", //todo get from ride
-              style: TextStyle(
+              "${(ride.meetingPoint.time / 60).round()} min",
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(width: 8),
-            Icon(Icons.arrow_forward_ios),
+            const SizedBox(width: 8),
+            const Icon(Icons.arrow_forward_ios),
           ],
         ),
       ),

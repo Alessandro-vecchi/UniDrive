@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -31,77 +29,19 @@ class SearchRidesCubit extends Cubit<SearchRidesState> {
     });
   }
 
-  void searchRides() async  {
+  void searchRides() async {
     try {
       // todo call service
-      // final result = await _rideService.getRides();
-      emit(
-        SearchRidesLoaded(
-          state.form,
-          rides: const [
-            Ride(
-                id: 'id1',
-                origin: 'origin1',
-                destination: 'destination1',
-                departDatetime: 'departDatetime1',
-                driverProfile: ShortProfile(
-                  profilePictureUrl: 'profilePictureUrl1',
-                  name: 'name1',
-                  surname: 'surname1',
-                  rating: 4.5,
-                ),
-                meetingPoint: MeetingPoint(
-                  latitude: 1.0,
-                  longitude: 1.0,
-                  distance: 1,
-                  meetingTime: 1,
-                ),
-                availableSeats: 3,
-                totSeats: 5),
-            Ride(
-                id: 'id2',
-                origin: 'origin2',
-                destination: 'destination2',
-                departDatetime: 'departDatetime2',
-                driverProfile: ShortProfile(
-                  profilePictureUrl: 'profilePictureUrl2',
-                  name: 'name2',
-                  surname: 'surname2',
-                  rating: 4.2,
-                ),
-                meetingPoint: MeetingPoint(
-                  latitude: 1.0,
-                  longitude: 1.0,
-                  distance: 1,
-                  meetingTime: 1,
-                ),
-                availableSeats: 2,
-                totSeats: 5),
-            Ride(
-                id: 'id3',
-                origin: 'origin3',
-                destination: 'destination3',
-                departDatetime: 'departDatetime3',
-                driverProfile: ShortProfile(
-                  profilePictureUrl: 'profilePictureUrl3',
-                  name: 'name3',
-                  surname: 'surname3',
-                  rating: 3.8,
-                ),
-                meetingPoint: MeetingPoint(
-                  latitude: 1.0,
-                  longitude: 1.0,
-                  distance: 1,
-                  meetingTime: 1,
-                ),
-                availableSeats: 4,
-                totSeats: 4),
-          ],
-        ),
-      );
+      final formValue = state.form.value;
+      final searchModel = SearchModel.fromForm(formValue);
+
+      final result = await _rideService.getRides(searchModel: searchModel);
+      emit(SearchRidesLoaded(
+        state.form,
+        rides: result,
+      ));
     } catch (e) {
       emit(SearchRidesError(state.form));
     }
-
   }
 }

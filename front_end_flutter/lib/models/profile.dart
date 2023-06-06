@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import "booking.dart";
 
 part 'profile.g.dart';
@@ -11,13 +12,20 @@ class Profile {
   final int age;
   final String faculty;
   final String university;
+  @JsonKey(name: 'profile_picture_url')
   final String profilePictureUrl;
   final String bio;
+  @JsonKey(name: 'total_rides_given')
   final int totalRidesGiven;
+  @JsonKey(name: 'joined_in')
   final String joinedIn;
+  @JsonKey(name: 'car_details')
   final CarDetails carDetails;
   final String city;
   final String district;
+  @JsonKey(name: 'instagram_name')
+  final String instagramName;
+  @JsonKey(name: 'instagram_url')
   final String instagramUrl;
 
   Profile({
@@ -34,10 +42,12 @@ class Profile {
     required this.carDetails,
     required this.city,
     required this.district,
+    required this.instagramName,
     required this.instagramUrl,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) =>
       _$ProfileFromJson(json);
-  // Map<String, dynamic> toJson() => _$ProfileToJson(this);
+
+  Map<String, dynamic> toJson() => _$ProfileToJson(this);
 }

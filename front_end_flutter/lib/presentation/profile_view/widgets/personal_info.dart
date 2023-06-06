@@ -21,6 +21,20 @@ class PersonalInfoWidget extends StatelessWidget {
     }
   }
 
+  Widget _buildInfoRow(String imageAsset, List<Widget> children) {
+    return Row(
+      children: [
+        Image.asset(
+          imageAsset,
+          width: 30,
+          height: 30,
+        ),
+        const SizedBox(width: 8),
+        ...children,
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,27 +42,16 @@ class PersonalInfoWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Image.asset(
-                'assets/home_icon.png',
-                width: 30,
-                height: 30,
-              ),
-              const SizedBox(width: 8),
+          _buildInfoRow(
+            'assets/home_icon.png',
+            [
               Text('$district, $city'),
             ],
           ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              // const Icon(Icons.car_crash),
-              Image.asset(
-                'assets/car_icon.png',
-                width: 30,
-                height: 30,
-              ),
-              const SizedBox(width: 8),
+          const SizedBox(height: 20),
+          _buildInfoRow(
+            'assets/car_icon.png',
+            [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -58,15 +61,10 @@ class PersonalInfoWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Image.asset(
-                'assets/instagram_icon.png',
-                width: 30,
-                height: 30,
-              ),
-              const SizedBox(width: 8),
+          const SizedBox(height: 20),
+          _buildInfoRow(
+            'assets/instagram_icon.png',
+            [
               GestureDetector(
                 onTap: _launchInstagramURL,
                 child: Text(

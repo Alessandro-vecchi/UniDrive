@@ -33,7 +33,7 @@ func ComputeDistance(originLat, originLng, destLat, destLng string) (int, int, e
 	// Build the request URL
 	queryParams := url.Values{}
 	queryParams.Set("units", "metric")
-	// queryParams.Set("mode", "walking")
+	queryParams.Set("mode", "walking")
 	queryParams.Set("origins", originLat+","+originLng)
 	queryParams.Set("destinations", destLat+","+destLng)
 	queryParams.Set("key", apiKey)

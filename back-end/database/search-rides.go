@@ -89,8 +89,9 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 			},
 			// Populate MeetingPoint and MeetingTime here
 			MeetingPointInfo: models.MeetingPoint{
-				Latitude:  tempRide.DestinationLatitude,
-				Longitude: tempRide.DestinationLongitude,
+				Latitude:  tempRide.OriginLatitude,
+				Longitude: tempRide.OriginLongitude,
+				Address:   origin_fa,
 				Distance:  distance,
 				Time:      duration,
 			},

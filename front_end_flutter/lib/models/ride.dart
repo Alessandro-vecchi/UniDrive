@@ -75,12 +75,14 @@ class ShortProfile extends Equatable {
 class MeetingPoint extends Equatable {
   final double latitude;
   final double longitude;
+  final String address;
   final String distance;
   final String time;
 
   const MeetingPoint({
     required this.latitude,
     required this.longitude,
+    required this.address,
     required this.distance,
     required this.time,
   });

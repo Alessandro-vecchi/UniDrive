@@ -6,7 +6,7 @@ import '../../../models/ride.dart';
 class RideInfo extends StatelessWidget {
   const RideInfo({Key? key}) : super(key: key);
 
-  // final String destination = 'Via dei Sommozzatori 1, 56100 Pisa PI';
+  // final String destination = 'Via dei Som 1, 56100 Pisa PI';
   // final String time = '10:00';
   // final String meetingPointAddress = 'Meeting Point Address';
   // final String meetingTime = '9:20';
@@ -35,18 +35,11 @@ class RideInfo extends StatelessWidget {
               const SizedBox(height: 20),
               _title('Meeting Point', Icons.pin_drop),
               const SizedBox(height: 8),
-              _rowData(
-                  'Address',
-                  control.value?.meetingPoint.latitude.toString() ??
-                      ''), //todo replace with address
+              _rowData('Address', control.value?.meetingPoint.address ?? ''),
               const SizedBox(height: 4),
-              _rowData(
-                  'Distance',
-                  control.value?.meetingPoint.distance ??
-                      ''), //todo format distance
+              _rowData('Distance', control.value?.meetingPoint.distance ?? ''),
               const SizedBox(height: 4),
-              _rowData('Meeting Time',
-                  control.value?.meetingPoint.time ?? ''), //todo format time
+              _rowData('Meeting Time', control.value?.meetingPoint.time ?? ''),
               const SizedBox(height: 16),
               _seats(control),
               const SizedBox(height: 16),
@@ -68,14 +61,18 @@ class RideInfo extends StatelessWidget {
           children: List.generate(
             control.value?.availableSeats ?? 0,
             (index) => Icon(
-                index < (4) - (control.value?.availableSeats ?? 0)
+                index <
+                        (control.value?.totSeats ?? 0) -
+                            (control.value?.availableSeats ?? 0) -
+                            1
                     ? Icons.person
                     : Icons.person,
-                //todo missing totSeats
-                color: index < (4) - (control.value?.availableSeats ?? 0)
+                color: index <
+                        (control.value?.totSeats ?? 0) -
+                            (control.value?.availableSeats ?? 0) -
+                            1
                     ? Colors.grey
                     : Colors.green,
-                //todo missing totSeats
                 size: 21),
           ),
         ),

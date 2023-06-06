@@ -21,6 +21,7 @@ type ShortProfile struct {
 type MeetingPoint struct {
 	Latitude  float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
+	Address   string  `json:"address"`
 	Distance  string  `json:"distance"`
 	Time      string  `json:"time"`
 }

@@ -98,7 +98,7 @@ class _MapViewState extends State<MapView> {
     }
   }
 
-  void _checkUserPosition(CameraPosition position) {
+  /* void _checkUserPosition(CameraPosition position) {
     if (_userPosition != null) {
       final distance = Geolocator.distanceBetween(
         _userPosition!.latitude,
@@ -110,7 +110,7 @@ class _MapViewState extends State<MapView> {
         _showSearchingIcon = distance > 100;
       });
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

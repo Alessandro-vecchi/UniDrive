@@ -15,6 +15,13 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        color: Color(0xFF222227),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        )
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

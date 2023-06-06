@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PersonalInfoWidget extends StatelessWidget {
-  const PersonalInfoWidget({Key? key}) : super(key: key);
+class PersonalInfo extends StatelessWidget {
+  const PersonalInfo({Key? key}) : super(key: key);
 
   final String city = 'Roma';
   final String district = 'Monteverde';
@@ -39,6 +39,13 @@ class PersonalInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        color: Color(0xFF222227),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

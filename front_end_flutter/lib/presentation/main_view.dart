@@ -1,12 +1,10 @@
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:uni_drive/presentation/reviews_view/widgets/review_header.dart';
-import 'package:uni_drive/presentation/reviews_view/widgets/review_list.dart';
-import 'package:uni_drive/presentation/reviews_view/widgets/single_review.dart';
 
 import '../models/review.dart';
 import 'map_view/map_view.dart';
+import 'profile_view/profile_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -43,26 +41,15 @@ class _MainViewState extends State<MainView> {
           ),
         ],
       ),
-      body: IndexedStack(index: _pageIndex, children: [
-        MapView(),
-        ReviewsHeader(
-            name: "Mario",
-            surname: "Rossi",
-            totalReviews: 95,
-            averageRating: 4.2),
-        // DriverInfo(),
-        ReviewCard(
-            name: "Ale",
-            surname: "Vecchi",
-            date: DateTime.now(),
-            rating: 4,
-            reviewBody:
-                "The driver was on time and got us to our destination safely. However, the car was a bit messy and had an unpleasant smell. Overall, an average experience."),
-        // RideInfo(),
-        // PersonalInfoWidget(),
-
-        ReviewsList(reviews: reviews),
-      ]),
+      body: IndexedStack(
+        index: _pageIndex,
+        children: const [
+          MapView(),
+          Placeholder(),
+          Placeholder(),
+          ProfileView(),
+        ],
+      ),
     );
   }
 }

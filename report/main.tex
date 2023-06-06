@@ -4,12 +4,26 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{comment}
 \usepackage{csquotes} % Enables quotes writing
+\usepackage{blindtext}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+    }
 
 
 \title{HCI - Project document}
 \date{May 2023}
 \begin{document}
 \maketitle
+\newpage
+
+\tableofcontents  
+\newpage
 
 \section{Introduction}
 The subject of our Human-Computer Interaction course project revolves around Urban Mobility (\textit{UM}) services: In today's fast paced world, the \textit{UM} is saturated with a multitude of ideas and solutions, making it challenging to identify innovative, functional, approaches. As we delved into the various issues plaguing public transportation, we recognized that improving its core aspects might prove to be difficult. A prevalent concern among users is the unreliability of buses and the inadequacy of their route planning. \newline
@@ -155,7 +169,7 @@ In recent years, carpooling has gained popularity as a sustainable, cost-effecti
 \end{enumerate}
 \newpage
 
-The survey was distributed to a diverse sample of students across multiple universities, encompassing various age groups, fields of study, and geographic locations. The following sections of this report will provide a detailed analysis of the survey findings, including key trends and actionable recommendations for the development of our student carpooling app. Following, we have the results: \newline \newline
+The survey was distributed through this \href{https://docs.google.com/forms/d/e/1FAIpQLSfoQUau5RHD3TZP04OesFrpqaL6gogQ5BaRBhBGRepxQMgd8g/viewform?usp=sharing}{Link} to a diverse sample of students across multiple universities, encompassing various age groups, fields of study, and geographic locations. The following sections of this report will provide a detailed analysis of the survey findings, including key trends and actionable recommendations for the development of our student carpooling app. Following, we have the results: \newline \newline
 
 In the first section of our questionnaire, we concentrated on exploring the various means of transportation students currently utilize to commute to and from their universities. Our aim was to assess the potential time savings and convenience that could be achieved by incorporating carpooling into their daily routines. Additionally, we sought to gauge their overall interest in adopting a student-focused carpooling service as part of their transportation mix. As illustrated in the graph below, the most utilized mode of transportation among respondents is the underground, accounting for 36\% of users. Coming in second and third place are cars and buses, with fairly similar percentages of usage. \newline 
 
@@ -620,11 +634,15 @@ The project review served as a platform for us to showcase our progress and rece
     \item Another crucial comment raised by the professor was the absence of address information on the map after selecting a ride.
 \end{itemize}
 
-After a rigorous iterative process for testing and refining the app, incorporating valuable feedback from the professor and conducting further iterations with users, we are pleased to announce that the app is now ready to be developed as an Android application using Flutter.
+After a rigorous iterative process for testing and refining the app, incorporating valuable feedback from the professor and conducting further iterations with users, we are pleased to announce that the app is now ready to be developed as an Android application using Flutter. The final interactive version can be found on our \href{https://www.figma.com/proto/GW9r1dxiVf3SlhVVwJSsJm/UniDrive?node-id=202-4254&starting-point-node-id=202%3A4195}{Figma page}.
 The iterative evaluation process allowed us to gather insights, identify potential issues, and implement improvements based on user feedback and the professor's advice. Through multiple iterations, we addressed various problems and made necessary adjustments to enhance the app's design, functionality, and user experience.
 By carefully considering the feedback received from users and implementing their suggestions, we have successfully created a highly usable and intuitive app. The iterative approach enabled us to iterate over design elements, user interactions, and user flows, ensuring that the app meets the needs and expectations of its target audience. With the app's user interface, features, and overall experience now refined and optimized, we are confident in proceeding with the development phase. Leveraging the Flutter framework, we will be able to create a cross-platform Android application that delivers a seamless and consistent experience to users. We are excited about the potential of the app and its ability to serve its intended purpose effectively. The iterative evaluation process played a crucial role in shaping the app's development, ensuring that it meets the highest standards of usability and user satisfaction. Moving forward, we will continue to iterate, test, and refine the app during the development process, taking into account further user feedback and conducting usability tests to ensure a successful final product. We are committed to delivering an exceptional Android app that provides a seamless and enjoyable experience for its users.
 \newpage
 
 \section{Prototype Code}
+\newpage 
+
+\section{Conclusions: Alternative solutions}
+In our quest to develop the UniDrive app, we were determined to explore various avenues and to find out new methodologies to represent our tasks (following the Delphi approach for which we tried to find out alternative solution, in such a way to not be biased on the first solution). Even if we were restricted with time and we didn't have time to go on with this alternative solution, another  diverse way we could have go through for go on with the app was to implement a populated map (instead of the listing solution) to visualize the rides found by the engine, along with their information, including driver personal and path-related information. This solution would even facilitates the users in the flow of navigation, since they would require less \textit{clicks} to move from on user to another in Task2, thus reducing the expected time of choice to pick a ride. Nonetheless, despite the actual amount of time we had, we are happy of our application and to have attended this course, as it allowed us to create a functional prototype that is somewhat close to what we experience everyday, indeed, something we didn't think was possible some months ago.
 
 \end{document}

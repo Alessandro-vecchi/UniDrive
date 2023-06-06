@@ -4,28 +4,18 @@ import 'package:uni_drive/presentation/reviews_view/widgets/single_review.dart';
 import '../../../models/review.dart';
 
 class ReviewsList extends StatelessWidget {
-  const ReviewsList({
-    Key? key,
-    required this.reviews,
-  }) : super(key: key);
-
   final List<Review> reviews;
+
+  const ReviewsList(this.reviews, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          for (final review in reviews)
-            ReviewCard(
-              name: review.name,
-              surname: review.surname,
-              date: review.date,
-              rating: review.rating,
-              reviewBody: review.reviewBody,
-            ),
-        ],
-      ),
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: reviews.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 8),
+      itemBuilder: (context, index) => ReviewCard(reviews[index]),
     );
   }
 }

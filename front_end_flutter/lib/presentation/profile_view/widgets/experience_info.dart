@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/profile.dart';
+
 class ExperienceInfo extends StatelessWidget {
-  const ExperienceInfo({Key? key}) : super(key: key);
+  final Profile profile;
+  const ExperienceInfo(this.profile, {super.key});
 
   final double rating = 4.8;
-  final int totalTrips = 150;
   final String joinedDate = 'SEPT 2022';
 
   @override
@@ -12,11 +14,11 @@ class ExperienceInfo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildInfoBox('Rating', '$rating/5'),
+        _buildInfoBox('Rating', '$rating/5'), //todo missing rating
         const SizedBox(width: 8),
-        _buildInfoBox('Completed Trips', totalTrips.toString()),
+        _buildInfoBox('Completed Trips', profile.totalRidesGiven.toString()),
         const SizedBox(width: 8),
-        _buildInfoBox('Joined', joinedDate),
+        _buildInfoBox('Joined', joinedDate), //todo missing joined date
       ],
     );
   }

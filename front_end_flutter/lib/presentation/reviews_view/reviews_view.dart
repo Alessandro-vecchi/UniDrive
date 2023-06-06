@@ -1,89 +1,57 @@
-import 'package:flutter/cupertino.dart';
-import 'package:uni_drive/presentation/reviews_view/widgets/review_header.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_header_adaptive/adaptive_height_sliver_persistent_header.dart';
+import 'package:uni_drive/presentation/reviews_view/state/review_cubit.dart';
 import 'package:uni_drive/presentation/reviews_view/widgets/review_list.dart';
 
-import '../../models/review.dart';
+import '../../models/profile.dart';
+import 'widgets/review_header.dart';
 
-class ReviewsView extends StatelessWidget {
-  const ReviewsView({super.key});
+class ReviewView extends StatelessWidget {
+  final Profile profile;
+
+  const ReviewView(this.profile, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        //color: const Color(0xFF363ABE),
-        child: ListView(
-          padding: const EdgeInsets.all(8),
-          children: [
-            ReviewsHeader(
-                name: "Mario",
-                surname: "Rossi",
-                totalReviews: 95,
-                averageRating: 4.2),
-            SizedBox(height: 16),
-            ReviewsList(reviews: reviews),
-          ],
-        ),
-      ),
-    );
+    return BlocProvider<ReviewCubit>(
+        create: (context) => ReviewCubit()..getReviews(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Reviews'),
+          ),
+          body: BlocBuilder<ReviewCubit, ReviewState>(
+            builder: (context, state) => switch (state) {
+              ReviewLoading() => const Center(child: CircularProgressIndicator()),
+              ReviewLoaded() => CustomScrollView(
+                  slivers: [
+                    AdaptiveHeightSliverPersistentHeader(
+                      floating: true,
+                      child: ReviewsHeader(
+                        fullName: '${profile.name} ${profile.surname}',
+                        totalReviews: state.reviews.length,
+                        averageRating:
+                            state.reviews.fold(0, (previousValue, element) => previousValue + element.rating.ceil()) /
+                                state.reviews.length,
+                        //todo get from profile
+                        fiveStarReviews: state.reviews.where((element) => element.rating == 5).length,
+                        fourStarReviews: state.reviews.where((element) => element.rating == 4).length,
+                        threeStarReviews: state.reviews.where((element) => element.rating == 3).length,
+                        twoStarReviews: state.reviews.where((element) => element.rating == 2).length,
+                        oneStarReviews: state.reviews.where((element) => element.rating == 1).length,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.all(8),
+                      sliver: SliverToBoxAdapter(
+                        child: ReviewsList(state.reviews),
+                      ),
+                    ),
+                  ],
+                ),
+              ReviewError() => const Center(child: Text('Error')),
+            },
+          ),
+        ));
   }
 }
-
-final List<Review> reviews = [
-  Review(
-    name: 'John',
-    surname: 'Doe',
-    date: DateTime(2023, 4, 27),
-    rating: 5,
-    reviewBody:
-        'The driver was fantastic! Very punctual, friendly, and professional. The car was spotless and great. Highly recommended and would definitely use again!',
-  ),
-  Review(
-    name: 'Jane',
-    surname: 'Smith',
-    date: DateTime(2023, 5, 15),
-    rating: 4,
-    reviewBody:
-        'The driver was friendly and the car was clean and comfortable. The only downside was that, due to the traffic, the driver took a longer route and made the ride a bit longer. But still, a good experience overall!',
-  ),
-  Review(
-      name: "Ale",
-      surname: "Vecchi",
-      date: DateTime(2023, 2, 7),
-      rating: 3,
-      reviewBody:
-          "The driver was on time and got us to our destination safely. However, the car was a bit messy and had an unpleasant smell. Overall, an average experience."),
-  Review(
-    name: 'Jane',
-    surname: 'Smith',
-    date: DateTime(2023, 5, 15),
-    rating: 4,
-    reviewBody:
-        'The driver was friendly and the car was clean and comfortable. The only downside was that, due to the traffic, the driver took a longer route and made the ride a bit longer. But still, a good experience overall!',
-  ),
-  Review(
-    name: 'Jane',
-    surname: 'Smith',
-    date: DateTime(2023, 5, 15),
-    rating: 4,
-    reviewBody:
-        'The driver was friendly and the car was clean and comfortable. The only downside was that, due to the traffic, the driver took a longer route and made the ride a bit longer. But still, a good experience overall!',
-  ),
-  Review(
-    name: 'Jane',
-    surname: 'Smith',
-    date: DateTime(2023, 5, 15),
-    rating: 4,
-    reviewBody:
-        'The driver was friendly and the car was clean and comfortable. The only downside was that, due to the traffic, the driver took a longer route and made the ride a bit longer. But still, a good experience overall!',
-  ),
-  Review(
-    name: 'Jane',
-    surname: 'Smith',
-    date: DateTime(2023, 5, 15),
-    rating: 4,
-    reviewBody:
-        'The driver was friendly and the car was clean and comfortable. The only downside was that, due to the traffic, the driver took a longer route and made the ride a bit longer. But still, a good experience overall!',
-  ),
-  // Add more reviews here...
-];

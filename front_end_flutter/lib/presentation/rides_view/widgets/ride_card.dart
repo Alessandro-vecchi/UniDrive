@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/ride.dart';
+import '../../booking_view/booking_view.dart';
 
 class RideCard extends StatelessWidget {
   final Ride ride;
@@ -43,7 +44,7 @@ class RideCard extends StatelessWidget {
       // Set the card background color
       child: ListTile(
         onTap: () {
-          Navigator.pop(context, ride);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => BookingView(ride)));
         },
         leading: CircleAvatar(
           backgroundImage: NetworkImage(ride.driverProfile.profilePictureUrl),

@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({Key? key}) : super(key: key);
+import '../../../models/profile.dart';
 
-  final String profilePhotoUrl = 'https://picsum.photos/200';
-  final String name = 'John';
-  final String surname = 'Doe';
-  final int age = 25;
-  final String faculty = 'Computer Science';
-  final String bio =
-      'Photography is one of my biggest passions. I love to travel and meet new people.';
+class ProfileHeader extends StatelessWidget {
+  final Profile profile;
+  const ProfileHeader(this.profile, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +23,7 @@ class ProfileHeader extends StatelessWidget {
           Expanded(
             flex: 2,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(profilePhotoUrl),
+              backgroundImage: NetworkImage(profile.profilePictureUrl),
               radius: 60,
             ),
           ),
@@ -39,7 +34,7 @@ class ProfileHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '$name $surname',
+                  '${profile.name} ${profile.surname}',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -47,14 +42,14 @@ class ProfileHeader extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  '$age, $faculty',
+                  '${profile.age} years old - ${profile.faculty}',
                   style: const TextStyle(
                     fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  bio,
+                  profile.bio,
                   style: const TextStyle(
                     fontStyle: FontStyle.italic,
                   ),

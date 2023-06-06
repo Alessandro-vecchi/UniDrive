@@ -1,7 +1,6 @@
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:uni_drive/presentation/reviews_view/reviews_view.dart';
 
 import 'map_view/map_view.dart';
 import 'profile_view/profile_view.dart';
@@ -45,7 +44,7 @@ class _MainViewState extends State<MainView> {
         index: _pageIndex,
         children: const [
           MapView(),
-          ReviewsView(),
+          Placeholder(),
           Placeholder(),
           ProfileView(),
         ],

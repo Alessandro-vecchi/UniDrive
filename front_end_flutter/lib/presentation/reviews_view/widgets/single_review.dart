@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../../models/review.dart';
 
 class ReviewCard extends StatelessWidget {
-  const ReviewCard({
-    Key? key,
-    required this.name,
-    required this.surname,
-    required this.date,
-    required this.rating,
-    required this.reviewBody,
-  }) : super(key: key);
-
-  final String name;
-  final String surname;
-
-  final DateTime date;
-  final double rating;
-  final String reviewBody;
+  final Review review;
+  const ReviewCard(this.review, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +26,7 @@ class ReviewCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '$name $surname',
+                      '${review.name} ${review.surname}',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -44,7 +34,7 @@ class ReviewCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 16),
                     Text(
-                      _getFormattedDate(date),
+                      _getFormattedDate(review.date),
                       style: const TextStyle(
                         fontSize: 13,
                         color: Colors.grey,
@@ -54,7 +44,7 @@ class ReviewCard extends StatelessWidget {
                 ),
                 Row(
                   children: List.generate(5, (index) {
-                    if (index < rating) {
+                    if (index < review.rating) {
                       return const Icon(
                         Icons.star,
                         color: Colors.amber,
@@ -73,7 +63,7 @@ class ReviewCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              reviewBody,
+              review.reviewBody,
               style: const TextStyle(fontSize: 14),
             ),
           ],
@@ -83,23 +73,6 @@ class ReviewCard extends StatelessWidget {
   }
 
   String _getFormattedDate(date) {
-    final monthNames = [
-      '',
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    final formattedDate = '${monthNames[date.month]} ${date.day}, ${date.year}';
-    return formattedDate;
+    return DateFormat('MMM dd yyyy').format(date);
   }
 }

@@ -1,23 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PersonalInfo extends StatelessWidget {
-  const PersonalInfo({Key? key}) : super(key: key);
+import '../../../models/profile.dart';
 
-  final String city = 'Roma';
-  final String district = 'Monteverde';
-  final String carModel = 'Citroen C3';
-  final String carColor = 'White';
+class PersonalInfo extends StatelessWidget {
+  final Profile profile;
+  const PersonalInfo(this.profile, {super.key});
+
   final String licenseSince = '2019';
-  final String instagramName = '@ale_vecchi';
-  final String instagramUrlString = 'https://www.instagram.com/john_doe/';
 
   Future<void> _launchInstagramURL() async {
-    Uri instagramUrl = Uri.parse(instagramUrlString);
+    Uri instagramUrl = Uri.parse(profile.instagramUrl);
     if (await canLaunchUrl(instagramUrl)) {
       await launchUrl(instagramUrl);
     } else {
-      throw 'Could not launch Instagram URL: $instagramUrl';
+      log('Could not launch Instagram URL: $instagramUrl');
     }
   }
 
@@ -52,7 +51,7 @@ class PersonalInfo extends StatelessWidget {
           _buildInfoRow(
             'assets/home_icon.png',
             [
-              Text('$district, $city'),
+              Text('${profile.city} - ${profile.district}'),
             ],
           ),
           const SizedBox(height: 20),
@@ -62,8 +61,8 @@ class PersonalInfo extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('$carModel - $carColor'),
-                  Text('License since $licenseSince'),
+                  Text('${profile.carDetails.carModel} - ${profile.carDetails.carColor}'),
+                  Text('License since $licenseSince'), //todo missing license since
                 ],
               ),
             ],
@@ -75,7 +74,7 @@ class PersonalInfo extends StatelessWidget {
               GestureDetector(
                 onTap: _launchInstagramURL,
                 child: Text(
-                  instagramName,
+                  profile.instagramName,
                   style: const TextStyle(
                     color: Colors.blue,
                     decoration: TextDecoration.underline,

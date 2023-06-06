@@ -1,34 +1,38 @@
 import 'package:flutter/material.dart';
 
 class ReviewsHeader extends StatelessWidget {
-  const ReviewsHeader({
-    Key? key,
-    required this.name,
-    required this.surname,
-    required this.totalReviews,
-    required this.averageRating,
-  }) : super(key: key);
-
-  final String name;
-  final String surname;
+  final String fullName;
   final int totalReviews;
   final double averageRating;
 
-  final int fiveStarReviews = 45;
-  final int fourStarReviews = 30;
-  final int threeStarReviews = 10;
-  final int twoStarReviews = 5;
-  final int oneStarReviews = 5;
+  final int fiveStarReviews;
+  final int fourStarReviews;
+  final int threeStarReviews;
+  final int twoStarReviews;
+  final int oneStarReviews;
+
+  const ReviewsHeader({
+    Key? key,
+    required this.fullName,
+    required this.totalReviews,
+    required this.averageRating,
+    required this.fiveStarReviews,
+    required this.fourStarReviews,
+    required this.threeStarReviews,
+    required this.twoStarReviews,
+    required this.oneStarReviews,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
+      color: const Color(0xFF1E1E1E),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 32),
           Text(
-            "$name $surname's reviews",
+            "$fullName's reviews",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
@@ -81,22 +85,16 @@ class ReviewsHeader extends StatelessWidget {
             child: const Text('WRITE A REVIEW'),
           ),
           const SizedBox(height: 20),
-          SizedBox(
-            width: 240, // Adjust the width as needed
-            child: Column(
-              children: [
-                _buildReviewBar('5', fiveStarReviews, totalReviews),
-                const SizedBox(height: 8),
-                _buildReviewBar('4', fourStarReviews, totalReviews),
-                const SizedBox(height: 8),
-                _buildReviewBar('3', threeStarReviews, totalReviews),
-                const SizedBox(height: 8),
-                _buildReviewBar('2', twoStarReviews, totalReviews),
-                const SizedBox(height: 8),
-                _buildReviewBar('1', oneStarReviews, totalReviews),
-              ],
-            ),
-          ),
+          _buildReviewBar('5', fiveStarReviews, totalReviews),
+          const SizedBox(height: 8),
+          _buildReviewBar('4', fourStarReviews, totalReviews),
+          const SizedBox(height: 8),
+          _buildReviewBar('3', threeStarReviews, totalReviews),
+          const SizedBox(height: 8),
+          _buildReviewBar('2', twoStarReviews, totalReviews),
+          const SizedBox(height: 8),
+          _buildReviewBar('1', oneStarReviews, totalReviews),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -104,34 +102,37 @@ class ReviewsHeader extends StatelessWidget {
 
   Widget _buildReviewBar(String rating, int reviews, int totalReviews) {
     final double percentage = (reviews / totalReviews);
-    return Row(
-      children: [
-        Text(rating),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Stack(
-            children: [
-              Container(
-                height: 12,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-              FractionallySizedBox(
-                widthFactor: percentage,
-                child: Container(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 55),
+      child: Row(
+        children: [
+          Text(rating),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Stack(
+              children: [
+                Container(
                   height: 12,
                   decoration: BoxDecoration(
-                    color: Colors.amber,
+                    color: Colors.grey,
                     borderRadius: BorderRadius.circular(6),
                   ),
                 ),
-              ),
-            ],
+                FractionallySizedBox(
+                  widthFactor: percentage,
+                  child: Container(
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

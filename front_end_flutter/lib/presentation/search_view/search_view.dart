@@ -23,7 +23,6 @@ class _SearchViewState extends State<SearchView> {
     'origin': FormControl<String>(validators: [Validators.required]),
     'date': FormControl<DateTime>(validators: [Validators.required]),
     'time': FormControl<TimeOfDay>(validators: [Validators.required]),
-    'selectedRide': FormControl<Ride>(),
   });
 
   @override
@@ -45,7 +44,6 @@ class _SearchViewState extends State<SearchView> {
                 DestinationView(),
                 StartPositionView(),
                 DateTimeView(),
-                BookingView(),
               ],
             ),
           ],

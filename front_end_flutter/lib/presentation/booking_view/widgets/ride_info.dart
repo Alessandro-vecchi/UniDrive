@@ -1,79 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../models/ride.dart';
 
 class RideInfo extends StatelessWidget {
-  const RideInfo({Key? key}) : super(key: key);
+  final Ride ride;
 
-  // final String destination = 'Via dei Som 1, 56100 Pisa PI';
-  // final String time = '10:00';
-  // final String meetingPointAddress = 'Meeting Point Address';
-  // final String meetingTime = '9:20';
-  // final String distance = '2.5 km';
-  // final int availableSeats = 2;
-  // final int totSeats = 4;
+  const RideInfo(this.ride, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveValueListenableBuilder<Ride>(
-      formControlName: 'selectedRide',
-      builder: (context, control, child) {
-        return Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _title('Ride Info', Icons.flag),
-              const SizedBox(height: 8),
-              _rowData('Destination', control.value?.destination ?? ''),
-              const SizedBox(height: 4),
-              _rowData(
-                  'Time',
-                  control.value?.departDatetime.toString() ??
-                      ''), //todo format time
-              const SizedBox(height: 20),
-              _title('Meeting Point', Icons.pin_drop),
-              const SizedBox(height: 8),
-              _rowData('Address', control.value?.meetingPoint.address ?? ''),
-              const SizedBox(height: 4),
-              _rowData('Distance', control.value?.meetingPoint.distance ?? ''),
-              const SizedBox(height: 4),
-              _rowData('Meeting Time', control.value?.meetingPoint.time ?? ''),
-              const SizedBox(height: 16),
-              _seats(control),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Book Seat'),
-              ),
-            ],
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _title('Ride Info', Icons.flag),
+          const SizedBox(height: 8),
+          _rowData('Destination', ride.destination),
+          const SizedBox(height: 4),
+          _rowData('Time', ride.departDatetime.toString()), //todo format time
+          const SizedBox(height: 20),
+          _title('Meeting Point', Icons.pin_drop),
+          const SizedBox(height: 8),
+          _rowData('Address', ride.meetingPoint.address),
+          const SizedBox(height: 4),
+          _rowData('Distance', ride.meetingPoint.distance),
+          const SizedBox(height: 4),
+          _rowData('Meeting Time', ride.meetingPoint.time),
+          const SizedBox(height: 16),
+          _seats(),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text('Book Seat'),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 
-  Row _seats(AbstractControl<Ride> control) {
+  Row _seats() {
     return Row(
       children: [
         Row(
           children: List.generate(
-            control.value?.availableSeats ?? 0,
-            (index) => Icon(
-                index <
-                        (control.value?.totSeats ?? 0) -
-                            (control.value?.availableSeats ?? 0) -
-                            1
-                    ? Icons.person
-                    : Icons.person,
-                color: index <
-                        (control.value?.totSeats ?? 0) -
-                            (control.value?.availableSeats ?? 0) -
-                            1
-                    ? Colors.grey
-                    : Colors.green,
-                size: 21),
+            ride.availableSeats,
+            (index) => Icon(index < (ride.totSeats) - (ride.availableSeats) - 1 ? Icons.person : Icons.person,
+                color: index < (ride.totSeats) - (ride.availableSeats) - 1 ? Colors.grey : Colors.green, size: 21),
           ),
         ),
       ],

@@ -1,6 +1,6 @@
 part of 'profile_cubit.dart';
 
-abstract class ProfileState extends Equatable {
+sealed class ProfileState extends Equatable {
   const ProfileState();
 }
 

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:uni_drive/presentation/profile_view/profile_view.dart';
 
 import '../../../models/ride.dart';
 
 class DriverInfo extends StatelessWidget {
   final Ride ride;
+
   const DriverInfo(this.ride, {super.key});
 
   @override
@@ -81,7 +83,7 @@ class DriverInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
-                onPressed: _onProfilePressed,
+                onPressed: () => _onProfilePressed(context),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -121,8 +123,19 @@ class DriverInfo extends StatelessWidget {
     );
   }
 
-  void _onProfilePressed() {
-    // todo
+  void _onProfilePressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            title: const Text('Profile'),
+          ),
+          body: const ProfileView(),
+        ),
+      ),
+    );
   }
 
   void _onMessagePressed() {

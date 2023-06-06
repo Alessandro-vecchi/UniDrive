@@ -2,7 +2,6 @@ package api
 
 import (
 	"UniDrive/back-end/gmaps"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -21,9 +20,11 @@ func (h *Handler) autocomplete(c *gin.Context) {
 		log.Fatalf("failed to get suggested places: %v", err)
 	}
 
-	for _, prediction := range predictions {
-		fmt.Println(prediction.Description)
+	descriptions := make([]string, len(predictions))
+	for i, prediction := range predictions {
+		descriptions[i] = prediction.Description
 	}
 
-	c.JSON(http.StatusOK, predictions)
+	c.JSON(http.StatusOK, descriptions)
+
 }

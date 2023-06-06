@@ -8,7 +8,7 @@ type Ride struct {
 	DriverProfile    ShortProfile `json:"driver_profile"`
 	AvailableSeats   int          `json:"available_seats"`
 	MeetingPointInfo MeetingPoint `json:"meeting_point"`
-	TotSeats		 int          `json:"tot_seats"`
+	TotSeats         int          `json:"tot_seats"`
 }
 
 type ShortProfile struct {
@@ -21,6 +21,6 @@ type ShortProfile struct {
 type MeetingPoint struct {
 	Latitude  float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
-	Distance  int `json:"distance"`
-	Time      int  `json:"time"`
+	Distance  string  `json:"distance"`
+	Time      string  `json:"time"`
 }

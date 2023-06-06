@@ -42,13 +42,11 @@ class RideInfo extends StatelessWidget {
               const SizedBox(height: 4),
               _rowData(
                   'Distance',
-                  control.value?.meetingPoint.distance.toString() ??
+                  control.value?.meetingPoint.distance ??
                       ''), //todo format distance
               const SizedBox(height: 4),
-              _rowData(
-                  'Meeting Time',
-                  control.value?.meetingPoint.time.toString() ??
-                      ''), //todo format time
+              _rowData('Meeting Time',
+                  control.value?.meetingPoint.time ?? ''), //todo format time
               const SizedBox(height: 16),
               _seats(control),
               const SizedBox(height: 16),

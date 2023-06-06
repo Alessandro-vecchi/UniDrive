@@ -21,7 +21,7 @@ class SearchModel extends Equatable {
   //@JsonKey(includeFromJson: true, toJson: _dateTimeToJson)
   //final DateTime dateTime;
 
-  SearchModel({
+  const SearchModel({
     this.origin,
     this.originLat,
     this.originLon,

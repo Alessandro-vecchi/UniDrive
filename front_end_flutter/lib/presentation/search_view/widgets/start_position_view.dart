@@ -37,7 +37,7 @@ class StartPositionView extends StatelessWidget {
                     .bodyMedium
                     ?.copyWith(color: Colors.white),
                 decoration: const InputDecoration(
-                  hintText: 'Enter starting position',
+                  hintText: 'Enter your starting position',
                   suffixIcon: Icon(Icons.search, color: Colors.white),
                 ),
               ),
@@ -60,11 +60,22 @@ class StartPositionView extends StatelessWidget {
       final userPosition = await _getPosition();
       final formattedAddress = await RideService()
           .getFA(userPosition.latitude, userPosition.longitude);
-      print(formattedAddress[0]);
-      return formattedAddress;
+      return formattedAddress.substring(1, formattedAddress.length - 1);
     } catch (e) {
       print('Error occurred while getting formatted address: $e');
       return ''; // todo handle the error case as needed
+    }
+  }
+
+  Future<List<String>> _getSuggestedPlaces(input) async {
+    try {
+      final userPosition = await _getPosition();
+      final suggestedPlaces = await RideService()
+          .autocomplete(input, userPosition.latitude, userPosition.longitude);
+      return suggestedPlaces;
+    } catch (e) {
+      print('Error occurred while getting suggested places: $e');
+      return ['']; // todo handle the error case as needed
     }
   }
 

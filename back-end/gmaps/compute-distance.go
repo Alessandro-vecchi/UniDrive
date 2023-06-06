@@ -26,7 +26,7 @@ type DistanceMatrixResponse struct {
 	} `json:"rows"`
 }
 
-func ComputeDistance(originLat, originLng, destLat, destLng string) (int, int, error) {
+func ComputeDistance(originLat, originLng, destLat, destLng string) (string, string, error) {
 	apiKey := os.Getenv("GOOGLE_MAPS_API_KEY")
 	baseURL := "https://maps.googleapis.com/maps/api/distancematrix/json"
 
@@ -43,31 +43,31 @@ func ComputeDistance(originLat, originLng, destLat, destLng string) (int, int, e
 	// Send the HTTP request
 	resp, err := http.Get(url)
 	if err != nil {
-		return 0, 0, err
+		return "", "", err
 	}
 	defer resp.Body.Close()
 
 	// Read the response body
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return 0, 0, err
+		return "", "", err
 	}
 
 	// Parse the JSON response
 	var response DistanceMatrixResponse
 	err = json.Unmarshal(body, &response)
 	if err != nil {
-		return 0, 0, err
+		return "", "", err
 	}
 
 	// Check if there are any elements in the response
 	if len(response.Rows) == 0 || len(response.Rows[0].Elements) == 0 {
-		return 0, 0, fmt.Errorf("no distance matrix elements found in the response")
+		return "", "", fmt.Errorf("no distance matrix elements found in the response")
 	}
 
 	// Extract the distance and duration values
-	distance := response.Rows[0].Elements[0].Distance.Value
-	duration := response.Rows[0].Elements[0].Duration.Value
+	distance := response.Rows[0].Elements[0].Distance.Text
+	duration := response.Rows[0].Elements[0].Duration.Text
 
 	return distance, duration, nil
 }

@@ -62,14 +62,13 @@ class RideCard extends StatelessWidget {
             ),
           ],
         ),
-        subtitle: Text(
-            "Meet at ${(ride.meetingPoint.distance / 1000).toStringAsFixed(1)} km"),
+        subtitle: Text("Meet at ${ride.meetingPoint.distance}"),
         //todo get from ride
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "${(ride.meetingPoint.time / 60).round()} min",
+              ride.meetingPoint.time,
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

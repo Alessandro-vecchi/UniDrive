@@ -33,9 +33,6 @@ abstract class RideService {
     @Queries() required SearchModel searchModel,
   });
 
-  @GET("/rides/{ride_id}")
-  Future<Ride> getRide(@Path('ride_id') String id);
-
   @POST("/rides/{ride_id}/booking")
   Future<void> bookRide(@Path('ride_id') String id);
 
@@ -48,5 +45,9 @@ abstract class RideService {
 
   @GET("/reverse_geocoding")
   Future<String> getFA(
+      @Query('latitude') double latitude, @Query('longitude') double longitude);
+
+  @GET("/autocomplete")
+  Future<List<String>> autocomplete(@Query('input') String input,
       @Query('latitude') double latitude, @Query('longitude') double longitude);
 }

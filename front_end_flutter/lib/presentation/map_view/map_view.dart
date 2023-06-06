@@ -19,9 +19,11 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   late GoogleMapController _mapController; //controller for Google map
   final Set<Marker> _markers = {}; //markers for google map
-  final LatLng _initialTargetPosition = const LatLng(41.92338, 12.47403);
+  final LatLng _initializeUserPosition = const LatLng(41.92338, 12.47403);
 
-  bool _isMoving = false;
+  LatLng? _userPosition;
+
+  bool _showSearchingIcon = false;
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
@@ -55,11 +57,14 @@ class _MapViewState extends State<MapView> {
       );
     }
     final userPosition = await Geolocator.getCurrentPosition();
+    setState(() {
+      _userPosition = LatLng(userPosition.latitude, userPosition.longitude);
+    });
     _mapController.moveCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(userPosition.latitude, userPosition.longitude),
-          zoom: 14.0,
+          target: _userPosition!,
+          zoom: 15.0,
         ),
       ),
     );
@@ -67,24 +72,44 @@ class _MapViewState extends State<MapView> {
 
   Widget _buildSearchingLocationButton() {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: _moveToUserPosition,
       child: const Icon(Icons.location_searching),
     );
   }
 
   Widget _buildMyLocationButton() {
     return FloatingActionButton(
-      onPressed: () async {
-        final userPosition = await Geolocator.getCurrentPosition();
-        _mapController.animateCamera(
-          CameraUpdate.newLatLngZoom(
-            LatLng(userPosition.latitude, userPosition.longitude),
-            14.0,
-          ),
-        );
-      },
+      onPressed: _moveToUserPosition,
       child: const Icon(Icons.my_location),
     );
+  }
+
+  void _moveToUserPosition() {
+    if (_userPosition != null) {
+      setState(() {
+        _showSearchingIcon = false;
+      });
+      _mapController.animateCamera(
+        CameraUpdate.newLatLngZoom(
+          _userPosition!,
+          15.0,
+        ),
+      );
+    }
+  }
+
+  void _checkUserPosition(CameraPosition position) {
+    if (_userPosition != null) {
+      final distance = Geolocator.distanceBetween(
+        _userPosition!.latitude,
+        _userPosition!.longitude,
+        position.target.latitude,
+        position.target.longitude,
+      );
+      setState(() {
+        _showSearchingIcon = distance > 100;
+      });
+    }
   }
 
   @override
@@ -108,8 +133,8 @@ class _MapViewState extends State<MapView> {
           children: [
             GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: _initialTargetPosition,
-                zoom: 13, // you can adjust this value as needed
+                target: _initializeUserPosition,
+                zoom: 14, // you can adjust this value as needed
               ),
               markers: _markers,
               mapType: MapType.normal,
@@ -120,16 +145,17 @@ class _MapViewState extends State<MapView> {
               zoomGesturesEnabled: true,
               zoomControlsEnabled: false,
               onMapCreated: _onMapCreated,
+              // method called when map is created
               onCameraMoveStarted: () {
                 setState(() {
-                  _isMoving = true;
+                  _showSearchingIcon = true;
                 });
               },
               onCameraIdle: () {
                 setState(() {
-                  _isMoving = false;
+                  _showSearchingIcon = false;
                 });
-              }, // method called when map is created
+              },
             ),
             Positioned(
               left: 16.0,
@@ -139,7 +165,7 @@ class _MapViewState extends State<MapView> {
                 transitionBuilder: (Widget child, Animation<double> animation) {
                   return ScaleTransition(scale: animation, child: child);
                 },
-                child: _isMoving
+                child: _showSearchingIcon
                     ? _buildSearchingLocationButton()
                     : _buildMyLocationButton(),
               ),

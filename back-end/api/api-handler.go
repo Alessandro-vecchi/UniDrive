@@ -25,8 +25,6 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	/* RIDES */
 	// Search for rides by origin, destination and time
 	r.GET("/rides/", h.getRides)
-	// Get a ride
-	r.GET("/rides/:id", h.getRide)
 
 	/* BOOKING */
 	// book a ride
@@ -42,6 +40,5 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 
 	/* AUTOCOMPLETE ADDRESSES*/
 	r.GET("/autocomplete", h.autocomplete)
-
 
 }

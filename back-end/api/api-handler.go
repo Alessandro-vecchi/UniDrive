@@ -40,4 +40,8 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	/* REVERSE GEOCODING */
 	r.GET("/reverse_geocoding", h.reverseGeocoding)
 
+	/* AUTOCOMPLETE ADDRESSES*/
+	r.GET("/autocomplete", h.autocomplete)
+
+
 }

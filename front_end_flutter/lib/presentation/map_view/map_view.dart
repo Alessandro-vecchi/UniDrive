@@ -19,13 +19,14 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   late GoogleMapController _mapController; //controller for Google map
   final Set<Marker> _markers = {}; //markers for google map
-  final _initialTargetPosition = const LatLng(41.92338, 12.47403);
+  final LatLng _initialTargetPosition = const LatLng(41.92338, 12.47403);
+
+  bool _isMoving = false;
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
   }
 
-  @override
   @override
   void initState() {
     super.initState();
@@ -64,6 +65,28 @@ class _MapViewState extends State<MapView> {
     );
   }
 
+  Widget _buildSearchingLocationButton() {
+    return FloatingActionButton(
+      onPressed: () {},
+      child: const Icon(Icons.location_searching),
+    );
+  }
+
+  Widget _buildMyLocationButton() {
+    return FloatingActionButton(
+      onPressed: () async {
+        final userPosition = await Geolocator.getCurrentPosition();
+        _mapController.animateCamera(
+          CameraUpdate.newLatLngZoom(
+            LatLng(userPosition.latitude, userPosition.longitude),
+            14.0,
+          ),
+        );
+      },
+      child: const Icon(Icons.my_location),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MapViewCubit>(
@@ -84,7 +107,6 @@ class _MapViewState extends State<MapView> {
         body: Stack(
           children: [
             GoogleMap(
-              zoomGesturesEnabled: true,
               initialCameraPosition: CameraPosition(
                 target: _initialTargetPosition,
                 zoom: 13, // you can adjust this value as needed
@@ -94,9 +116,33 @@ class _MapViewState extends State<MapView> {
               buildingsEnabled: true,
               myLocationEnabled: true,
               myLocationButtonEnabled: false,
-              liteModeEnabled: true,
+              liteModeEnabled: false,
+              zoomGesturesEnabled: true,
               zoomControlsEnabled: false,
-              onMapCreated: _onMapCreated, // method called when map is created
+              onMapCreated: _onMapCreated,
+              onCameraMoveStarted: () {
+                setState(() {
+                  _isMoving = true;
+                });
+              },
+              onCameraIdle: () {
+                setState(() {
+                  _isMoving = false;
+                });
+              }, // method called when map is created
+            ),
+            Positioned(
+              left: 16.0,
+              bottom: 16.0,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return ScaleTransition(scale: animation, child: child);
+                },
+                child: _isMoving
+                    ? _buildSearchingLocationButton()
+                    : _buildMyLocationButton(),
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,

@@ -16,7 +16,7 @@
 *.out
 
 # Database
-#*.db
+*.db
 
 # Dependency directories (remove the comment below to include it)
 # vendor/

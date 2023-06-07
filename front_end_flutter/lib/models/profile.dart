@@ -15,6 +15,7 @@ class Profile {
   @JsonKey(name: 'profile_picture_url')
   final String profilePictureUrl;
   final String bio;
+  final double rating;
   @JsonKey(name: 'total_rides_given')
   final int totalRidesGiven;
   @JsonKey(name: 'joined_in')
@@ -37,6 +38,7 @@ class Profile {
     required this.university,
     required this.profilePictureUrl,
     required this.bio,
+    required this.rating,
     required this.totalRidesGiven,
     required this.joinedIn,
     required this.carDetails,

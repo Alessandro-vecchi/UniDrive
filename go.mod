@@ -7,6 +7,7 @@ require (
 	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/jinzhu/gorm v1.9.16
 	github.com/sirupsen/logrus v1.9.0
+	golang.org/x/image v0.7.0
 	googlemaps.github.io/maps v1.4.0
 )
 

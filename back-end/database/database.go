@@ -14,7 +14,7 @@ func New(db *gorm.DB) gin.HandlerFunc {
 		// `DROP TABLE IF EXISTS profiles;`,
 		// `DROP TABLE IF EXISTS car_details;`,
 		// `DROP TABLE IF EXISTS reviews;`,
-		`DROP TABLE IF EXISTS ride;`,
+		// `DROP TABLE IF EXISTS ride;`,
 		// `DROP TABLE IF EXISTS booking;`,
 		`CREATE TABLE IF NOT EXISTS profile_dbs (
 			id TEXT NOT NULL PRIMARY KEY,
@@ -35,6 +35,7 @@ func New(db *gorm.DB) gin.HandlerFunc {
 			car_model TEXT NOT NULL ,
 			car_color TEXT NOT NULL,
 			car_plate TEXT,
+			license_since TEXT,
 			tot_seats INTEGER NOT NULL,
 			FOREIGN KEY (user_id)
 				REFERENCES profile_dbs(id)
@@ -73,11 +74,14 @@ func New(db *gorm.DB) gin.HandlerFunc {
 				REFERENCES ride(id)
 				ON UPDATE CASCADE ON DELETE CASCADE
 		);`,
-		`INSERT INTO ride VALUES('delta', 41.904850, 12.517000, 41.767810, 12.483150, '2023-06-07 12:20', '733ae80e-372f-4764-9cb1-d400d0cd8138');
+		/* `INSERT INTO ride VALUES('delta', 41.904850, 12.517000, 41.767810, 12.483150, '2023-06-07 12:20', '733ae80e-372f-4764-9cb1-d400d0cd8138');
 		INSERT INTO ride VALUES('gamma', 41.902340, 12.510000, 41.770110, 12.484130, '2023-06-07 12:30', '03827aaa-e229-4623-b5ec-d842d691c8ea');
 		INSERT INTO ride VALUES('bravo', 41.908341, 12.521080, 41.758114, 12.479390, '2023-06-07 11:50', '61e28f09-d297-4578-9f4e-448ed329bc63');
 		INSERT INTO ride VALUES('eta', 41.904850, 12.517000, 41.769210, 12.481950, '2023-06-07 12:22', '733ae80e-372f-4764-9cb1-d400d0cd8138');
-		INSERT INTO ride VALUES('theta', 41.904850, 12.517000, 41.764910, 12.481250, '2023-06-07 11:35', '733ae80e-372f-4764-9cb1-d400d0cd8138');`,
+		INSERT INTO ride VALUES('theta', 41.904850, 12.517000, 41.764910, 12.481250, '2023-06-07 11:35', '733ae80e-372f-4764-9cb1-d400d0cd8138');` */
+		/* `INSERT INTO car_details VALUES('03827aaa-e229-4623-b5ec-d842d691c8ea', 'Citroen C3', 'White', 'AB000CD', 'May 2019', 4);`,
+		`INSERT INTO car_details VALUES('733ae80e-372f-4764-9cb1-d400d0cd8138', 'BMW X3', 'Black', 'AB001CD', 'June 2021', 5);`,
+		`INSERT INTO car_details VALUES('61e28f09-d297-4578-9f4e-448ed329bc63', 'Tesla', 'Red', 'AB002CD', 'Dec 2020', 5);`, */
 	}
 	// Enable foreign key constraints
 	/*err := db.Exec("PRAGMA foreign_keys = 1").Error

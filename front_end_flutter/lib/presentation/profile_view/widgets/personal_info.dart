@@ -61,8 +61,9 @@ class PersonalInfo extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${profile.carDetails.carModel} - ${profile.carDetails.carColor}'),
-                  Text('License since $licenseSince'), //todo missing license since
+                  Text(
+                      '${profile.carDetails.carModel} - ${profile.carDetails.carColor}'),
+                  Text('License since ${profile.carDetails.licenseSince}'),
                 ],
               ),
             ],

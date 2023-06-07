@@ -14,7 +14,7 @@ abstract class RideService {
   factory RideService() => _RideService(Dio(
         BaseOptions(
           headers: {
-            'Authorization': 'b66c976d-606b-4d46-bbb2-f4b95d09a5d2',
+            'Authorization': '9c39b23c-7d5b-4a37-b1a7-73c96bcbcefc',
           },
         ),
       )..interceptors.add(

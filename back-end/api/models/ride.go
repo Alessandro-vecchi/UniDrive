@@ -8,7 +8,7 @@ type Ride struct {
 	DriverProfile    ShortProfile `json:"driver_profile"`
 	AvailableSeats   int          `json:"available_seats"`
 	MeetingPointInfo MeetingPoint `json:"meeting_point"`
-	TotSeats         int          `json:"tot_seats"`
+	CarDetails       CarDetails   `json:"car_details"`
 }
 
 type ShortProfile struct {

@@ -20,7 +20,8 @@ class ProfileView extends StatelessWidget {
           color: const Color(0xFF363ABE),
           child: BlocBuilder<ProfileCubit, ProfileState>(
             builder: (context, state) => switch (state) {
-              ProfileLoading() => const Center(child: CircularProgressIndicator()),
+              ProfileLoading() =>
+                const Center(child: CircularProgressIndicator()),
               ProfileLoaded() => ListView(
                   padding: const EdgeInsets.all(8),
                   children: [

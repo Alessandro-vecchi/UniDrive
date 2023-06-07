@@ -44,7 +44,8 @@ class RideCard extends StatelessWidget {
       // Set the card background color
       child: ListTile(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BookingView(ride)));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => BookingView(ride)));
         },
         leading: CircleAvatar(
           backgroundImage: NetworkImage(ride.driverProfile.profilePictureUrl),
@@ -64,7 +65,6 @@ class RideCard extends StatelessWidget {
           ],
         ),
         subtitle: Text("Meet at ${ride.meetingPoint.distance}"),
-        //todo get from ride
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

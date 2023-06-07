@@ -4,6 +4,7 @@ import '../../../models/profile.dart';
 
 class ExperienceInfo extends StatelessWidget {
   final Profile profile;
+
   const ExperienceInfo(this.profile, {super.key});
 
   final double rating = 4.8;
@@ -14,11 +15,11 @@ class ExperienceInfo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildInfoBox('Rating', '$rating/5'), //todo missing rating
+        _buildInfoBox('Rating', '${profile.rating}/5'), //todo missing rating
         const SizedBox(width: 8),
         _buildInfoBox('Completed Trips', profile.totalRidesGiven.toString()),
         const SizedBox(width: 8),
-        _buildInfoBox('Joined', joinedDate), //todo missing joined date
+        _buildInfoBox('Joined', profile.joinedIn),
       ],
     );
   }

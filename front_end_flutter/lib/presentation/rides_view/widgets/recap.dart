@@ -23,80 +23,37 @@ class Recap extends StatelessWidget {
           _buildRow(
             context,
             "From",
-            const Expanded(
-              flex: 5,
-              child: SearchBox(formControlName: 'origin'),
-            ),
+            "origin",
           ),
           const SizedBox(height: 8),
           _buildRow(
             context,
-            "to",
-            const Expanded(
-              flex: 5,
-              child: SearchBox(formControlName: 'destination'),
-            ),
+            "To",
+            'destination',
           ),
           const SizedBox(height: 8),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Arrive By',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ),
+                flex: 1,
+                child: _label(context, "At"),
               ),
               Expanded(
-                child: TimePickerField(
-                  formControlName: 'time',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.black,
-                      ),
-                  decoration: const InputDecoration(
-                    hintText: 'Enter time',
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 12),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                  label: 'Time',
-                ),
+                flex: 1,
+                child: _timePicker(context),
               ),
               Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'On',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ),
+                flex: 1,
+                child: _label(context, "On"),
+              ),
+              Expanded(
+                flex: 1,
+                child: _datePicker(context),
               ),
               Expanded(
                 flex: 2,
-                child: DatePickerField(
-                  formControlName: 'date',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.black,
-                      ),
-                  decoration: const InputDecoration(
-                    hintText: 'Enter date',
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 12),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(9999, 12, 31),
-                  label: 'Date',
-                  languageCode: 'en',
-                ),
+                child: _radius(context),
               ),
             ],
           ),
@@ -105,11 +62,12 @@ class Recap extends StatelessWidget {
     );
   }
 
-  Widget _buildRow(BuildContext context, String title, Widget child) {
+  Widget _buildRow(BuildContext context, String title, String formName) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Expanded(
+          flex: 1,
           child: Align(
             alignment: Alignment.center,
             child: Text(
@@ -121,7 +79,96 @@ class Recap extends StatelessWidget {
             ),
           ),
         ),
-        child,
+        Expanded(
+          flex: 5,
+          child: SearchBox(formControlName: formName),
+        )
+      ],
+    );
+  }
+
+  Widget _label(context, title) {
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+    );
+  }
+
+  Widget _timePicker(context) {
+    return TimePickerField(
+      formControlName: "time",
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Colors.black,
+          ),
+      decoration: const InputDecoration(
+        hintText: "Enter time",
+        hintStyle: TextStyle(color: Colors.grey, fontSize: 12),
+        filled: true,
+        fillColor: Colors.white,
+      ),
+      label: "Time",
+    );
+  }
+
+  Widget _datePicker(context) {
+    return DatePickerField(
+      formControlName: 'date',
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Colors.black,
+          ),
+      decoration: const InputDecoration(
+        hintText: 'Enter date',
+        hintStyle: TextStyle(color: Colors.grey, fontSize: 12),
+        filled: true,
+        fillColor: Colors.white,
+      ),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(9999, 12, 31),
+      label: 'Date',
+      languageCode: 'en',
+    );
+  }
+
+  Widget _radius(context) {
+    double currentSliderValue = 1.0;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "Radius",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            Text(
+              "$currentSliderValue km",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ],
+        ),
+        Slider(
+          value: currentSliderValue,
+          min: 0,
+          max: 2,
+          divisions: 20,
+          label: currentSliderValue.round().toString(),
+          onChanged: (double value) {
+            currentSliderValue = value;
+          },
+        )
       ],
     );
   }

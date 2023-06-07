@@ -45,8 +45,15 @@ class RideInfo extends StatelessWidget {
         Row(
           children: List.generate(
             ride.availableSeats,
-            (index) => Icon(index < (ride.totSeats) - (ride.availableSeats) - 1 ? Icons.person : Icons.person,
-                color: index < (ride.totSeats) - (ride.availableSeats) - 1 ? Colors.grey : Colors.green, size: 21),
+            (index) => Icon(
+                index < (ride.carDetails.totSeats) - (ride.availableSeats) - 1
+                    ? Icons.person
+                    : Icons.person,
+                color: index <
+                        (ride.carDetails.totSeats) - (ride.availableSeats) - 1
+                    ? Colors.grey
+                    : Colors.green,
+                size: 21),
           ),
         ),
       ],

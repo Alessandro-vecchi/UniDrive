@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'booking.dart';
+
 part 'ride.g.dart';
 
 @JsonSerializable()
@@ -16,8 +18,8 @@ class Ride extends Equatable {
   final MeetingPoint meetingPoint;
   @JsonKey(name: 'available_seats')
   final int availableSeats;
-  @JsonKey(name: 'tot_seats')
-  final int totSeats;
+  @JsonKey(name: 'car_details')
+  final CarDetails carDetails;
 
   const Ride({
     required this.id,
@@ -27,7 +29,7 @@ class Ride extends Equatable {
     required this.driverProfile,
     required this.meetingPoint,
     required this.availableSeats,
-    required this.totSeats,
+    required this.carDetails,
   });
 
   factory Ride.fromJson(Map<String, dynamic> json) => _$RideFromJson(json);
@@ -43,7 +45,7 @@ class Ride extends Equatable {
         driverProfile,
         meetingPoint,
         availableSeats,
-        totSeats,
+        carDetails,
       ];
 }
 

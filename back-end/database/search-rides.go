@@ -5,9 +5,11 @@ import (
 	"UniDrive/back-end/gmaps"
 	"fmt"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/jinzhu/gorm"
+	"golang.org/x/image/colornames"
 )
 
 // TempRide is a temporary structure to hold the data retrieved from the database
@@ -18,10 +20,13 @@ type TempRide struct {
 	DestinationLatitude  float64 `json:"destination_latitude"`
 	DestinationLongitude float64 `json:"destination_longitude"`
 	DepartDatetime       string  `json:"depart_datetime"`
+	DriverId             string  `json:"driver_id"`
 	Name                 string  `json:"name"`
 	Surname              string  `json:"surname"`
 	ProfilePictureUrl    string  `json:"profile_picture_url"`
 	Rating               float64 `json:"rating"`
+	CarModel             string  `json:"car_model"`
+	CarColor             string  `json:"car_color"`
 	TotSeats             int     `json:"tot_seats"`
 	AvailableSeats       int     `json:"available_seats"`
 }
@@ -44,8 +49,9 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 	tempRides := []TempRide{}
 	err = db.Debug().
 		Table("ride").
-		Select("ride.id, ride.origin_latitude, ride.origin_longitude, ride.destination_latitude, ride.destination_longitude, ride.depart_datetime, profile_dbs.name, profile_dbs.surname, profile_dbs.profile_picture_url, (SELECT AVG(rating) FROM reviews WHERE reviewed_user_id = ride.driver_id) as rating, (SELECT tot_seats FROM car_details WHERE user_id = ride.driver_id) as tot_seats, (SELECT (SELECT tot_seats FROM car_details WHERE user_id = ride.driver_id) - 1 - COUNT(*) FROM booking WHERE ride_id = ride.id) as available_seats").
+		Select("ride.id, ride.origin_latitude, ride.origin_longitude, ride.destination_latitude, ride.destination_longitude, ride.depart_datetime, ride.driver_id, profile_dbs.name, profile_dbs.surname, profile_dbs.profile_picture_url, (SELECT AVG(rating) FROM reviews WHERE reviewed_user_id = ride.driver_id) as rating, car_details.car_model, car_details.car_color, car_details.tot_seats, (SELECT (SELECT tot_seats FROM car_details WHERE user_id = ride.driver_id) - 1 - COUNT(*) FROM booking WHERE ride_id = ride.id) as available_seats").
 		Joins("JOIN profile_dbs ON ride.driver_id = profile_dbs.id").
+		Joins("JOIN car_details ON ride.driver_id = car_details.user_id").
 		Where("ride.origin_latitude BETWEEN ? AND ? AND ride.origin_longitude BETWEEN ? AND ? AND ride.destination_latitude BETWEEN ? AND ? AND ride.destination_longitude BETWEEN ? AND ? AND ride.depart_datetime BETWEEN ? AND ? AND ride.driver_id <> ?", origin_min_lat, origin_max_lat, origin_min_long, origin_max_long, destination_min_lat, destination_max_lat, destination_min_long, destination_max_long, startTime, endTime, user_id).
 		Scan(&tempRides).Error
 
@@ -74,13 +80,14 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 		fmt.Printf("Distance: %s\n", distance)
 		fmt.Printf("Duration: %s\n", duration)
 
+		hexValue := colornames.Map[strings.ToLower(tempRide.CarColor)]
+
 		rides[i] = models.Ride{
 			ID:             tempRide.ID,
 			Origin:         origin_fa,
 			Destination:    dest_fa,
 			DepartDatetime: tempRide.DepartDatetime,
 			AvailableSeats: tempRide.AvailableSeats,
-			TotSeats:       tempRide.TotSeats,
 			DriverProfile: models.ShortProfile{
 				Name:              tempRide.Name,
 				Surname:           tempRide.Surname,
@@ -94,6 +101,13 @@ func SearchRides(db *gorm.DB, origin_lat float64, origin_lng float64, origin_for
 				Address:   origin_fa,
 				Distance:  distance,
 				Time:      duration,
+			},
+			CarDetails: models.CarDetails{
+				UserID:      tempRide.DriverId,
+				TotSeats:    tempRide.TotSeats,
+				CarModel:    tempRide.CarModel,
+				CarColor:    tempRide.CarColor,
+				CarColorHex: hexValue,
 			},
 		}
 	}

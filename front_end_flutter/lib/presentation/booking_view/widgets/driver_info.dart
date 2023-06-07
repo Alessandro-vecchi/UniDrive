@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:uni_drive/presentation/profile_view/profile_view.dart';
 
 import '../../../models/ride.dart';
@@ -20,7 +21,8 @@ class DriverInfo extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(ride.driverProfile.profilePictureUrl),
+                backgroundImage:
+                    NetworkImage(ride.driverProfile.profilePictureUrl),
                 radius: 30,
               ),
               const SizedBox(width: 8),
@@ -54,24 +56,27 @@ class DriverInfo extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          const Row(
+          Row(
             children: [
-              Icon(Icons.car_rental, color: Colors.white), // todo missing car color hex in ride
-              SizedBox(width: 8),
+              Icon(Icons.car_rental,
+                  color: HexColor(ride.carDetails
+                      .carColorHex)), // todo missing car color hex in ride
+              const SizedBox(width: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'carModel', // todo missing car model in ride
-                    style: TextStyle(
+                    ride.carDetails.carModel, // todo missing car model in ride
+                    style: const TextStyle(
                       fontSize: 14,
                     ),
                   ),
                   Text(
-                    'carColorString', // todo missing car color in ride
+                    ride.carDetails.carColor, // todo missing car color in ride
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white, // todo missing car color hex in ride
+                      color: HexColor(ride.carDetails
+                          .carColorHex), // todo missing car color hex in ride
                     ),
                   ),
                 ],

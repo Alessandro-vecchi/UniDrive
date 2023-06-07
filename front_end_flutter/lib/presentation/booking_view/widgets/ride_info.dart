@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/ride.dart';
+import '../state/booking_view_cubit.dart';
 
 class RideInfo extends StatelessWidget {
   final Ride ride;
@@ -9,44 +11,82 @@ class RideInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _title('Ride Info', Icons.flag),
-              _seats(context),
-            ],
-          ),
-          const SizedBox(height: 10),
-          _rowData('Destination', ride.destination),
-          const SizedBox(height: 6),
-          _rowData('Time', ride.departDatetime.toString()),
-          const SizedBox(height: 35),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [_title('Meeting Point', Icons.pin_drop), _dropdown()],
-          ),
-          const SizedBox(height: 10),
-          _rowData('Address', ride.meetingPoint.address),
-          const SizedBox(height: 6),
-          _rowData('Distance', ride.meetingPoint.distance),
-          const SizedBox(height: 6),
-          _rowData('Meeting Time', ride.meetingPoint.time),
-          const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () => _dialogBuilder(context),
-              child: const Text('Book Seat'),
+    return BlocListener<BookingCubit, BookingState>(
+      listener: (context, state) {
+        if (state is Booked) {
+          _dialogBuilder(context);
+        }
+        if (state is BookingError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Booking failed'),
             ),
-          ),
-        ],
+          );
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _title('Ride Info', Icons.flag),
+                _seats(context),
+              ],
+            ),
+            const SizedBox(height: 10),
+            _rowData('Destination', ride.destination),
+            const SizedBox(height: 6),
+            _rowData('Time', ride.departDatetime.toString()),
+            const SizedBox(height: 35),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [_title('Meeting Point', Icons.pin_drop), _dropdown()],
+            ),
+            const SizedBox(height: 10),
+            _rowData('Address', ride.meetingPoint.address),
+            const SizedBox(height: 6),
+            _rowData('Distance', ride.meetingPoint.distance),
+            const SizedBox(height: 6),
+            _rowData('Meeting Time', ride.meetingPoint.time),
+            const SizedBox(height: 16),
+            BlocBuilder<BookingCubit, BookingState>(
+              builder: (context, state) {
+                return switch (state) {
+                  BookingIdle() =>
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => context.read<BookingCubit>().bookRide(ride.id),
+                          child: const Text('Book Seat'),
+                        ),
+                      ),
+                  BookingOperationLoading() => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  Booked() => SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => context.read<BookingCubit>().cancelBooking(state.booking.id), // todo manca booking id?
+                      child: const Text('Cancel Booking'),
+                    ),
+                  ),
+                  BookingError() => SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => context.read<BookingCubit>().bookRide(ride.id),
+                      child: const Text('Retry'),
+                    ),
+                  ),
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -55,40 +95,41 @@ class RideInfo extends StatelessWidget {
     return Row(
       children: List.generate(
         ride.availableSeats,
-        (index) => GestureDetector(
-          onTap: () {
-            _showSeatStatusDialog(context, index);
-          },
-          child: Stack(
-            children: [
-              Icon(
-                Icons.person,
-                color: index <
-                        (ride.carDetails.totSeats) - (ride.availableSeats) - 1
-                    ? Colors.grey
-                    : Colors.green,
-                size: 30,
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+            (index) =>
+            GestureDetector(
+              onTap: () {
+                _showSeatStatusDialog(context, index);
+              },
+              child: Stack(
+                children: [
+                  Icon(
+                    Icons.person,
                     color: index <
+                        (ride.carDetails.totSeats) - (ride.availableSeats) - 1
+                        ? Colors.grey
+                        : Colors.green,
+                    size: 30,
+                  ),
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: index <
                             (ride.carDetails.totSeats) -
                                 (ride.availableSeats) -
                                 1
-                        ? Colors.red
-                        : Colors.green,
+                            ? Colors.red
+                            : Colors.green,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
       ),
     );
   }

@@ -4,15 +4,23 @@ sealed class BookingState extends Equatable {
   const BookingState();
 }
 
-class BookingLoading extends BookingState {
+class BookingIdle extends BookingState {
+  const BookingIdle();
+
   @override
   List<Object> get props => [];
 }
 
-class BookingLoaded extends BookingState {
+class BookingOperationLoading extends BookingState {
+  const BookingOperationLoading();
+  @override
+  List<Object> get props => [];
+}
+
+class Booked extends BookingState {
   final Booking booking;
 
-  const BookingLoaded(this.booking);
+  const Booked(this.booking);
 
   @override
   List<Object> get props => [booking];

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:uni_drive/main.dart';
 import 'package:uni_drive/presentation/search_view/widgets/search_container.dart';
 
 import '../../../services/ride_service.dart';

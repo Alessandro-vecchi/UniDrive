@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:uni_drive/presentation/form_fields/time_picker_field.dart';
 
 import '../../form_fields/date_picker_field.dart';
@@ -20,17 +21,9 @@ class Recap extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          _buildRow(
-            context,
-            "From",
-            "origin",
-          ),
+          _buildRow(context, "From", "origin"),
           const SizedBox(height: 8),
-          _buildRow(
-            context,
-            "To",
-            'destination',
-          ),
+          _buildRow(context, "To", 'destination'),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -136,40 +129,34 @@ class Recap extends StatelessWidget {
   }
 
   Widget _radius(context) {
-    double currentSliderValue = 1.0;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "Radius",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return SizedBox(
+      height: kMinInteractiveDimension,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ReactiveValueListenableBuilder(
+            formControlName: 'radius',
+            builder: (context, control, child) {
+              return Text(
+                'Radius: ${control.value} km',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+              );
+            },
+          ),
+          Expanded(
+            child: ReactiveSlider(
+              formControlName: 'radius',
+              min: 1,
+              max: 10,
+              divisions: 10,
+              labelBuilder: (value) => '${value.toInt()} km',
             ),
-            Text(
-              "$currentSliderValue km",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-          ],
-        ),
-        Slider(
-          value: currentSliderValue,
-          min: 0,
-          max: 2,
-          divisions: 20,
-          label: currentSliderValue.round().toString(),
-          onChanged: (double value) {
-            currentSliderValue = value;
-          },
-        )
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

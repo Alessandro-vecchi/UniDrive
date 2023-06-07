@@ -13,8 +13,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void getProfile() async {
     try {
-      // userId =
-      final profile = await _rideService.getProfile(userId);
+      final profile = await _rideService.getProfile('userId');
       emit(ProfileLoaded(profile));
     } catch (e) {
       emit(const ProfileError());

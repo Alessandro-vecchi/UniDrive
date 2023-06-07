@@ -18,6 +18,7 @@ class SearchRidesCubit extends Cubit<SearchRidesState> {
           'origin': FormControl<String>(validators: [Validators.required]),
           'date': FormControl<DateTime>(validators: [Validators.required]),
           'time': FormControl<TimeOfDay>(validators: [Validators.required]),
+          'radius': FormControl<int>(value: 1, validators: [Validators.required]),
         })));
 
   void initForm(SearchModel searchModel) {
@@ -31,17 +32,17 @@ class SearchRidesCubit extends Cubit<SearchRidesState> {
 
   void searchRides() async {
     try {
-      // todo call service
       final formValue = state.form.value;
       final searchModel = SearchModel.fromForm(formValue);
-
       final result = await _rideService.getRides(searchModel: searchModel);
       emit(SearchRidesLoaded(
         state.form,
         rides: result,
       ));
     } catch (e) {
-      emit(SearchRidesError(state.form));
+      if(!isClosed) {
+        emit(SearchRidesError(state.form));
+      }
     }
   }
 }

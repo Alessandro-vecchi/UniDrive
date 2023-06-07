@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:theme_json_converter/theme_json_converter.dart';
 
 part 'booking.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class Booking {
   @JsonKey(name: 'ride_id')
   final String rideId;
@@ -19,14 +18,10 @@ class Booking {
     required this.carDetails,
   });
 
-  factory Booking.fromJson(Map<String, dynamic> json) =>
-      _$BookingFromJson(json);
-
-// Map<String, dynamic> toJson() => _$BookingToJson(this);
+  factory Booking.fromJson(Map<String, dynamic> json) => _$BookingFromJson(json);
 }
 
-@JsonSerializable(createFactory: false)
-@ColorConverter()
+@JsonSerializable()
 class CarDetails {
   @JsonKey(name: 'user_id')
   final String? userId;
@@ -34,8 +29,7 @@ class CarDetails {
   final String carModel;
   @JsonKey(name: 'car_color')
   final String carColor;
-  @JsonKey(
-      name: 'car_color_hex', includeToJson: false, fromJson: _colorFromJson)
+  @JsonKey(name: 'car_color_hex', includeToJson: false, fromJson: _colorFromJson)
   final Color carColorHex;
   @JsonKey(name: 'car_plate')
   final String? carPlate;
@@ -54,26 +48,17 @@ class CarDetails {
     required this.totSeats,
   });
 
-  factory CarDetails.fromJson(Map<String, dynamic> json) {
-    return CarDetails(
-      userId: json['user_id'] as String?,
-      carModel: json['car_model'] as String,
-      carColor: json['car_color'] as String,
-      carColorHex: _colorFromJson(json['car_color_hex']),
-      carPlate: json['car_plate'] as String?,
-      licenseSince: json['license_since'] as String?,
-      totSeats: json['tot_seats'] as int,
-    );
-  }
+  factory CarDetails.fromJson(Map<String, dynamic> json) => _$CarDetailsFromJson(json);
 
-  static Color _colorFromJson(String? colorValue) {
-    if (colorValue != null && colorValue.isNotEmpty) {
-      return Color(int.parse(colorValue, radix: 16)).withOpacity(1.0);
-    } else {
-      // Return a default color if the value is null or empty
+  static Color _colorFromJson(Map<String, int>? colorValue) {
+    if (colorValue == null) {
       return Colors.transparent;
     }
+    return Color.fromRGBO(
+      colorValue['R'] ?? 0,
+      colorValue['G'] ?? 0,
+      colorValue['B'] ?? 0,
+      (colorValue['A'] ?? 0) / 255,
+    );
   }
-
-// Map<String, dynamic> toJson() => _$CarDetailsToJson(this);
 }

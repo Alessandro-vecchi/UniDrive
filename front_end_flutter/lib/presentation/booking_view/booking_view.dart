@@ -16,7 +16,7 @@ class BookingView extends StatelessWidget {
         title: const Text('Booking'),
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height * 0.75,
+        // height: MediaQuery.of(context).size.height * 0.75,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: const Color(0xFF222227),

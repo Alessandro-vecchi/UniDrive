@@ -20,7 +20,8 @@ class DriverInfo extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(ride.driverProfile.profilePictureUrl),
+                backgroundImage:
+                    NetworkImage(ride.driverProfile.profilePictureUrl),
                 radius: 30,
               ),
               const SizedBox(width: 8),
@@ -69,9 +70,9 @@ class DriverInfo extends StatelessWidget {
                   ),
                   Text(
                     ride.carDetails.carColor,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
-                      color: ride.carDetails.carColorHex,
+                      // color: ride.carDetails.carColorHex,
                     ),
                   ),
                 ],
@@ -132,7 +133,7 @@ class DriverInfo extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Profile'),
           ),
-          body: const ProfileView(),
+          body: ProfileView(ride.carDetails.userId),
         ),
       ),
     );

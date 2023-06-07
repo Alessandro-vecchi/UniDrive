@@ -8,12 +8,11 @@ part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileLoading());
-
   final _rideService = RideService();
 
-  void getProfile() async {
+  void getProfile(userId) async {
     try {
-      final profile = await _rideService.getProfile('userId');
+      final profile = await _rideService.getProfile(userId);
       emit(ProfileLoaded(profile));
     } catch (e) {
       emit(const ProfileError());

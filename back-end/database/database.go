@@ -11,7 +11,7 @@ import (
 func New(db *gorm.DB) gin.HandlerFunc {
 	// Define the SQL statements
 	sqlStatements := []string{
-		// `DROP TABLE IF EXISTS profiles;`,
+		// `DROP TABLE IF EXISTS profile_dbs;`,
 		// `DROP TABLE IF EXISTS car_details;`,
 		// `DROP TABLE IF EXISTS reviews;`,
 		// `DROP TABLE IF EXISTS ride;`,
@@ -28,6 +28,7 @@ func New(db *gorm.DB) gin.HandlerFunc {
 			joined_in TEXT NOT NULL,
 			city TEXT,
 			district TEXT,
+			instagram_name TEXT,
 			instagram_url TEXT
 		);`,
 		`CREATE TABLE IF NOT EXISTS car_details (

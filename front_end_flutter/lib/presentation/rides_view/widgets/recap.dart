@@ -149,8 +149,8 @@ class Recap extends StatelessWidget {
           Expanded(
             child: ReactiveSlider(
               formControlName: 'radius',
-              min: 1,
-              max: 10,
+              min: 0,
+              max: 2,
               divisions: 10,
               labelBuilder: (value) => '${value.toInt()} km',
             ),

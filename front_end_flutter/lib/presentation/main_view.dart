@@ -46,7 +46,7 @@ class _MainViewState extends State<MainView> {
           MapView(),
           Placeholder(),
           Placeholder(),
-          ProfileView(),
+          ProfileView('9c39b23c-7d5b-4a37-b1a7-73c96bcbcefc'),
         ],
       ),
     );

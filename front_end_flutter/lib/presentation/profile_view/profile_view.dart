@@ -3,18 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_drive/presentation/profile_view/state/profile_cubit.dart';
 import 'package:uni_drive/presentation/profile_view/widgets/experience_info.dart';
 import 'package:uni_drive/presentation/profile_view/widgets/recent_reviews.dart';
-import 'package:uni_drive/presentation/reviews_view/widgets/review_list.dart';
 
 import 'widgets/personal_info.dart';
 import 'widgets/profile_header.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+  final String userId;
+
+  const ProfileView(this.userId, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProfileCubit>(
-      create: (context) => ProfileCubit()..getProfile(),
+      create: (context) => ProfileCubit()..getProfile(userId),
       child: SafeArea(
         child: Container(
           color: const Color(0xFF363ABE),

@@ -5,6 +5,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:uni_drive/models/ride.dart';
 import 'package:uni_drive/models/search_model.dart';
 
+import '../models/booking.dart';
 import '../models/profile.dart';
 
 part 'ride_service.g.dart';
@@ -34,7 +35,7 @@ abstract class RideService {
   });
 
   @POST("/rides/{ride_id}/booking")
-  Future<void> bookRide(@Path('ride_id') String id);
+  Future<Booking> bookRide(@Path('ride_id') String id);
 
   @DELETE("/rides/{ride_id}/booking/{booking_id}")
   Future<void> cancelBooking(

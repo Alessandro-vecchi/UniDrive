@@ -10,7 +10,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileLoading());
   final _rideService = RideService();
 
-  void getProfile(userId) async {
+  void getProfile(String userId) async {
     try {
       final profile = await _rideService.getProfile(userId);
       emit(ProfileLoaded(profile));

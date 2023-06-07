@@ -86,18 +86,14 @@ class DriverInfo extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => _onProfilePressed(context),
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                  minimumSize: const Size(120, 48), // Adjust the size as needed
                 ),
                 child: const Text('Profile'),
               ),
               ElevatedButton(
                 onPressed: _onMessagePressed,
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                  minimumSize: const Size(48, 48), // Adjust the size as needed
                 ),
                 child: const Icon(Icons.message),
               ),

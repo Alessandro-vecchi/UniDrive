@@ -14,6 +14,7 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   int _pageIndex = 0;
+  String _loggedInId = '9c39b23c-7d5b-4a37-b1a7-73c96bcbcefc';
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +43,11 @@ class _MainViewState extends State<MainView> {
       ),
       body: IndexedStack(
         index: _pageIndex,
-        children: const [
+        children: [
           MapView(),
           Placeholder(),
           Placeholder(),
-          ProfileView('9c39b23c-7d5b-4a37-b1a7-73c96bcbcefc'),
+          ProfileView(_loggedInId),
         ],
       ),
     );

@@ -24,7 +24,6 @@ class ReactiveAutocompleteField<T> extends StatefulWidget {
   final TextInputType? keyboardType;
   final int? maxLength;
   final String? hint;
-  final String? label;
   final Map<String, ValidationMessageFunction>? validationMessages;
   final ShowErrorsFunction? showErrors;
   final ValueChanged<T?>? onChanged;
@@ -37,7 +36,6 @@ class ReactiveAutocompleteField<T> extends StatefulWidget {
     this.formControl,
     this.formControlName,
     this.hint,
-    this.label,
     this.validationMessages,
     this.showErrors,
     this.onChanged,

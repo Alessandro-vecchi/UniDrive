@@ -1,5 +1,5 @@
 cartella per il REPORT
 
 RUN con maps api collegato
-export GOOGLE_MAPS_API_KEY=AIzaSyD39NGTQHm7FYO4fGdZTwWcV7l2rKlv02U
+export GOOGLE_MAPS_API_KEY=
 go run main.go

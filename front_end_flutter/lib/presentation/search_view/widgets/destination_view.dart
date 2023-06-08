@@ -17,7 +17,7 @@ class DestinationView extends StatefulWidget {
 }
 
 class _DestinationViewState extends State<DestinationView> {
-  IconData suffixIcon = Icons.search;
+  // IconData suffixIcon = Icons.search;
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +51,14 @@ class _DestinationViewState extends State<DestinationView> {
                 },
                 suggestionToString: (suggestion) => suggestion,
                 hint: 'Enter a destination',
-                suffixIcon: Icon(suffixIcon, color: Colors.white),
-                onChanged: (value) {
+                suffixIcon: const Icon(Icons.search, color: Colors.white),
+                /*onChanged: (value) {
                   if (value == null || value.isEmpty) {
                     suffixIcon = Icons.search;
                   } else {
                     suffixIcon = Icons.clear;
                   }
-                },
+                },*/
               ),
             ],
           ),

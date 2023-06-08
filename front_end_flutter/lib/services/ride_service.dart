@@ -10,7 +10,7 @@ import '../models/profile.dart';
 
 part 'ride_service.g.dart';
 
-@RestApi(baseUrl: "http://192.168.43.13:3000")
+@RestApi(baseUrl: "http://172.27.1.184:3000")
 abstract class RideService {
   factory RideService() => _RideService(Dio(
         BaseOptions(

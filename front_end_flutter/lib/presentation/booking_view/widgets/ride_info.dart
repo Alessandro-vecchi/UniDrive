@@ -59,8 +59,7 @@ class RideInfo extends StatelessWidget {
                   BookingIdle() => SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () =>
-                            context.read<BookingCubit>().bookRide(ride.id),
+                        onPressed: () => context.read<BookingCubit>().bookRide(ride.id),
                         child: const Text('Book Seat'),
                       ),
                     ),
@@ -70,17 +69,14 @@ class RideInfo extends StatelessWidget {
                   Booked() => SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () => context
-                            .read<BookingCubit>()
-                            .cancelBooking(ride.id, state.booking.bookingId),
+                        onPressed: () => context.read<BookingCubit>().cancelBooking(ride.id, state.booking.bookingId),
                         child: const Text('Cancel Booking'),
                       ),
                     ),
                   BookingError() => SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () =>
-                            context.read<BookingCubit>().bookRide(ride.id),
+                        onPressed: () => context.read<BookingCubit>().bookRide(ride.id),
                         child: const Text('Retry'),
                       ),
                     ),
@@ -105,10 +101,7 @@ class RideInfo extends StatelessWidget {
             children: [
               Icon(
                 Icons.person,
-                color: index <
-                        (ride.carDetails.totSeats) - (ride.availableSeats) - 1
-                    ? Colors.grey
-                    : Colors.green,
+                color: index < (ride.carDetails.totSeats) - (ride.availableSeats - 1) ? Colors.grey : Colors.green,
                 size: 30,
               ),
               Positioned(
@@ -119,12 +112,7 @@ class RideInfo extends StatelessWidget {
                   height: 8,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: index <
-                            (ride.carDetails.totSeats) -
-                                (ride.availableSeats) -
-                                1
-                        ? Colors.red
-                        : Colors.green,
+                    color: index < (ride.carDetails.totSeats) - (ride.availableSeats - 1) ? Colors.red : Colors.green,
                   ),
                 ),
               ),
@@ -139,8 +127,7 @@ class RideInfo extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        final bool isOccupied =
-            seatIndex < (ride.carDetails.totSeats) - (ride.availableSeats) - 1;
+        final bool isOccupied = seatIndex < (ride.carDetails.totSeats) - (ride.availableSeats) - 1;
         final String seatStatus = isOccupied ? 'Occupied' : 'Available';
         final Color dotColor = isOccupied ? Colors.red : Colors.green;
 
@@ -272,8 +259,7 @@ class RideInfo extends StatelessWidget {
           selectedOption = newValue;
         }
       },
-      items: <String>['Walking', 'Driving', 'Cycling']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>['Walking', 'Driving', 'Cycling'].map<DropdownMenuItem<String>>((String value) {
         IconData icon;
         if (value == 'Walking') {
           icon = Icons.directions_walk;

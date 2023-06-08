@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -7,11 +9,14 @@ import '../../../main.dart';
 import '../../../services/ride_service.dart';
 import '../../form_fields/autocomplete/enel_reactive_autocomplete_field.dart';
 
-class DestinationView extends StatelessWidget {
-  DestinationView({
-    super.key,
-  });
+class DestinationView extends StatefulWidget {
+  const DestinationView({Key? key}) : super(key: key);
 
+  @override
+  State<DestinationView> createState() => _DestinationViewState();
+}
+
+class _DestinationViewState extends State<DestinationView> {
   IconData suffixIcon = Icons.search;
 
   @override
@@ -82,7 +87,7 @@ class DestinationView extends StatelessWidget {
           .autocomplete(input, userPosition.latitude, userPosition.longitude);
       return suggestedPlaces;
     } catch (e) {
-      print('Error occurred while getting suggested places: $e');
+      log('Error occurred while getting suggested places: $e');
       return ['']; // todo handle the error case as needed
     }
   }

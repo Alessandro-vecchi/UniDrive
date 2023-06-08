@@ -15,8 +15,7 @@ class RideInfo extends StatelessWidget {
       listener: (context, state) {
         if (state is Booked) {
           _dialogBuilder(context);
-        }
-        if (state is BookingError) {
+        } else if (state is BookingError) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Booking failed'),
@@ -57,32 +56,35 @@ class RideInfo extends StatelessWidget {
             BlocBuilder<BookingCubit, BookingState>(
               builder: (context, state) {
                 return switch (state) {
-                  BookingIdle() =>
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () => context.read<BookingCubit>().bookRide(ride.id),
-                          child: const Text('Book Seat'),
-                        ),
+                  BookingIdle() => SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () =>
+                            context.read<BookingCubit>().bookRide(ride.id),
+                        child: const Text('Book Seat'),
                       ),
+                    ),
                   BookingOperationLoading() => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                      child: CircularProgressIndicator(),
+                    ),
                   Booked() => SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => context.read<BookingCubit>().cancelBooking(state.booking.id), // todo manca booking id?
-                      child: const Text('Cancel Booking'),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () => context
+                            .read<BookingCubit>()
+                            .cancelBooking(ride.id, state.booking.bookingId),
+                        child: const Text('Cancel Booking'),
+                      ),
                     ),
-                  ),
                   BookingError() => SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => context.read<BookingCubit>().bookRide(ride.id),
-                      child: const Text('Retry'),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () =>
+                            context.read<BookingCubit>().bookRide(ride.id),
+                        child: const Text('Retry'),
+                      ),
                     ),
-                  ),
-                }
+                };
               },
             ),
           ],
@@ -95,41 +97,40 @@ class RideInfo extends StatelessWidget {
     return Row(
       children: List.generate(
         ride.availableSeats,
-            (index) =>
-            GestureDetector(
-              onTap: () {
-                _showSeatStatusDialog(context, index);
-              },
-              child: Stack(
-                children: [
-                  Icon(
-                    Icons.person,
-                    color: index <
+        (index) => GestureDetector(
+          onTap: () {
+            _showSeatStatusDialog(context, index);
+          },
+          child: Stack(
+            children: [
+              Icon(
+                Icons.person,
+                color: index <
                         (ride.carDetails.totSeats) - (ride.availableSeats) - 1
-                        ? Colors.grey
-                        : Colors.green,
-                    size: 30,
-                  ),
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: index <
+                    ? Colors.grey
+                    : Colors.green,
+                size: 30,
+              ),
+              Positioned(
+                right: 0,
+                top: 0,
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: index <
                             (ride.carDetails.totSeats) -
                                 (ride.availableSeats) -
                                 1
-                            ? Colors.red
-                            : Colors.green,
-                      ),
-                    ),
+                        ? Colors.red
+                        : Colors.green,
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
+          ),
+        ),
       ),
     );
   }

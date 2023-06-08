@@ -49,10 +49,12 @@ class ReactiveAutocompleteField<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ReactiveAutocompleteField<T>> createState() => _ReactiveAutocompleteFieldState<T>();
+  State<ReactiveAutocompleteField<T>> createState() =>
+      _ReactiveAutocompleteFieldState<T>();
 }
 
-class _ReactiveAutocompleteFieldState<T> extends State<ReactiveAutocompleteField<T>> {
+class _ReactiveAutocompleteFieldState<T>
+    extends State<ReactiveAutocompleteField<T>> {
   double _height = kMinInteractiveDimension;
   Timer? _timer;
   StreamSubscription? _ssValue;
@@ -116,14 +118,19 @@ class _ReactiveAutocompleteFieldState<T> extends State<ReactiveAutocompleteField
             maxLength: widget.maxLength,
             decoration: InputDecoration(
               hintText: widget.hint,
-              suffixIcon: _state == AutocompleteState.loading && _resolveFormControl(context).hasFocus
+              suffixIcon: _state == AutocompleteState.loading &&
+                      _resolveFormControl(context).hasFocus
                   ? const UnconstrainedBox(
-                      child: SizedBox(height: 16.0, width: 16.0, child: CircularProgressIndicator()),
+                      child: SizedBox(
+                          height: 16.0,
+                          width: 16.0,
+                          child: CircularProgressIndicator()),
                     )
                   : widget.suffixIcon,
             ),
           ),
-          if (_state == AutocompleteState.suggestions && _resolveFormControl(context).hasFocus) ...[
+          if (_state == AutocompleteState.suggestions &&
+              _resolveFormControl(context).hasFocus) ...[
             const SizedBox(height: 8),
             _suggestions,
           ]
@@ -136,7 +143,6 @@ class _ReactiveAutocompleteFieldState<T> extends State<ReactiveAutocompleteField
     return Container(
       height: _height * min(5, _items.length),
       decoration: BoxDecoration(
-        color: Colors.white,
         border: Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(8),
       ),

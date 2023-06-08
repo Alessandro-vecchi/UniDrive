@@ -2,6 +2,7 @@ package api
 
 import (
 	"UniDrive/back-end/database"
+	"fmt"
 
 	"net/http"
 
@@ -12,7 +13,7 @@ import (
 // bookRide is an API handler for booking a ride
 func (h *Handler) bookRide(c *gin.Context) {
 
-	user_id := gin.AuthUserKey
+	user_id := c.GetHeader("Authorization")
 	ride_id := c.Param("ride_id")
 
 	db, exists := c.Get("DB")
@@ -29,7 +30,7 @@ func (h *Handler) bookRide(c *gin.Context) {
 		c.JSON(500, gin.H{"error": "Invalid database connection type"})
 		return
 	}
-
+	fmt.Println(user_id, ride_id)
 	_, err := database.GetBookedRide(gormDB, user_id, ride_id)
 	if err == nil {
 		// The booking already exists. Return 409 Conflict
@@ -39,6 +40,7 @@ func (h *Handler) bookRide(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot get from database", "message": err.Error()})
 		return
 	}
+	fmt.Println(user_id, ride_id)
 
 	// Create the booking
 	booking, err := database.BookRide(gormDB, user_id, ride_id)

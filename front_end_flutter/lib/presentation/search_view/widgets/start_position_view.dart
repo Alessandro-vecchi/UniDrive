@@ -5,11 +5,13 @@ import 'package:uni_drive/main.dart';
 import 'package:uni_drive/presentation/search_view/widgets/search_container.dart';
 
 import '../../../services/ride_service.dart';
+import '../../form_fields/autocomplete/enel_reactive_autocomplete_field.dart';
 
 class StartPositionView extends StatelessWidget {
-  const StartPositionView({
+  StartPositionView({
     super.key,
   });
+  IconData suffixIcon = Icons.search;
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +32,27 @@ class StartPositionView extends StatelessWidget {
                     ?.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 8),
-              ReactiveTextField(
+              ReactiveAutocompleteField<String>(
                 formControlName: 'origin',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white),
-                decoration: const InputDecoration(
-                  hintText: 'Enter your starting position',
-                  suffixIcon: Icon(Icons.search, color: Colors.white),
-                ),
+                suggestionItemsSearch: (pattern) async {
+                  final suggestions = await _getSuggestedPlaces(pattern);
+                  return suggestions;
+                },
+                suggestionItemsBuilder: (suggestion) {
+                  return ListTile(
+                    title: Text(suggestion),
+                  );
+                },
+                suggestionToString: (suggestion) => suggestion,
+                hint: 'Enter your starting position',
+                suffixIcon: Icon(suffixIcon, color: Colors.white),
+                onChanged: (value) {
+                  if (value == null || value.isEmpty) {
+                    suffixIcon = Icons.search;
+                  } else {
+                    suffixIcon = Icons.clear;
+                  }
+                },
               ),
             ],
           ),

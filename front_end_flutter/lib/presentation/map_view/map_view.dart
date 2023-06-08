@@ -158,8 +158,8 @@ class _MapViewState extends State<MapView> {
               },
             ),
             Positioned(
-              left: 16.0,
-              bottom: 16.0,
+              top: 16.0,
+              right: 16.0,
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 transitionBuilder: (Widget child, Animation<double> animation) {

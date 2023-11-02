@@ -18,10 +18,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/alessandro-vecchi/UniDrive">
-    <img src="" alt="Logo" width="200">
+    <img src="images.logo" alt="Logo" width="300">
   </a>
 
-  <h3 align="center">UniDrive</h3>
+  <h2 align="center">UniDrive</h2>
 
   
 </div>
@@ -72,6 +72,7 @@ Save time, money, and be safe!
 * [![Go][Go-badge]][Go-url]
 * [![Flutter][Flutter-badge]][Flutter-url]
 * [![SQLite][SQLite-badge]][SQLite-url]
+* [![Swagger][Swagger-badge]][Swagger-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -145,4 +146,5 @@ Project Link: [https://github.com/Alessandro-vecchi/UniDrive](https://github.com
 [SQLite-badge]: https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white
 [SQLite-url]: https://sqlite.org/
 
-
+[Swagger-badge]: https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white
+[Swagger-url]: https://swagger.io/

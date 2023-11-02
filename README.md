@@ -1,11 +1,3 @@
-# UniDrive
-
-Share part of the whole journey to the University with other students thanks to UniDrive!
-
-It's a carpooling application that allows users to search for a ride, to book for a ride and to make informed decisions about drivers.
-
-Save time, money, and be safe!
-
 <a name="readme-top"></a>
 <!-- PROJECT SHIELDS -->
 <!--
@@ -64,29 +56,22 @@ Save time, money, and be safe!
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The project is about a mini-autonomous vehicle that uses computer vision to drive through a built path. Moreover, it recognizes the 3D-printed STOP signal and act accordingly. Raspberry PI4 constitutes the brain of the robot. The followings are the main components of the robot:
+Share part of the whole journey to the University with other students thanks to UniDrive!
 
-<div align="center">
-  <img src="media/images/walle_description.png" alt="UniDrive description" width="80%">
-</div>
+It's a carpooling application that allows users to search for a ride, to book for a ride and to make informed decisions about drivers.
 
-While this is a demo of the model working:
+Save time, money, and be safe!
 
-https://github.com/alessandro-vecchi/UniDrive/assets/76568209/e942ceaf-0e27-458b-a2f2-76ba2d496209
-<!-- 
-
-<div align="center">
-  <video src="media/video/giro.mp4" width="400" />
-</div>
--->
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+<!-- Demo -->
+### Demo
 
 ### Built With
 
-* [![Python][Python]][Python-url]
-* [![OpenCV][OpenCV]][OpenCV-url]
+* [![Go][Go-badge]][Go-url]
+* [![Flutter][Flutter-badge]][Flutter-url]
+* [![SQLite][SQLite-badge]][SQLite-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -148,9 +133,16 @@ Project Link: [https://github.com/Alessandro-vecchi/UniDrive](https://github.com
 [linkedin-url]: https://linkedin.com/in/alessandro-v-6711
 
 [product-screenshot]: images/screenshot.png
-[Python]: https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
-[Python-url]: https://python.org/
+[Flutter-badge]: https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white
+[Flutter-url]: https://flutter.dev/
 
+[Go-badge]: https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white
+[Go-url]: https://go.dev/
 
+[Go-badge]: https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white
+[Go-url]: https://go.dev/
+
+[SQLite-badge]: https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white
+[SQLite-url]: https://sqlite.org/
 
 

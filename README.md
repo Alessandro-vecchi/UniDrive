@@ -67,6 +67,11 @@ Save time, money, and be safe!
 <!-- Demo -->
 ### Demo
 
+Here you can see a demo of the app:
+
+https://github.com/Alessandro-vecchi/UniDrive/assets/76568209/ff82d962-85ae-47e8-894b-05128f3786dc
+
+
 ### Built With
 
 * [![Go][Go-badge]][Go-url]

@@ -78,13 +78,26 @@ https://github.com/Alessandro-vecchi/UniDrive/assets/76568209/ff82d962-85ae-47e8
 * [![Flutter][Flutter-badge]][Flutter-url]
 * [![SQLite][SQLite-badge]][SQLite-url]
 * [![Swagger][Swagger-badge]][Swagger-url]
+* [![Figma][Figma-badge][Figma-url]]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Refer back to the report.pdf file.
+API Documentation in doc/api.yaml.
+
+To run the back-end:
+
+- Open a terminal
+- Run `go run main.go`
+
+To run the front-end:
+
+- Connect an android phone in debug mode or use an emulator
+- Select the device
+- Open a terminal and write `flutter run` in the `front-end-flutter` folder
+- Make sure the Flutter SDK path is right and the Dart plugin is inserted
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -147,6 +160,9 @@ Project Link: [https://github.com/Alessandro-vecchi/UniDrive](https://github.com
 
 [Go-badge]: https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white
 [Go-url]: https://go.dev/
+
+[Figma-badge]: https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white
+[Figma-url]: https://figma.com/
 
 [SQLite-badge]: https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white
 [SQLite-url]: https://sqlite.org/

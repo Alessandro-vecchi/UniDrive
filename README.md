@@ -36,14 +36,10 @@
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
+      <a href="#demo">Demo</a>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#usage">Roadmap</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -62,13 +58,6 @@ Save time, money, and be safe!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Demo -->
-### Demo
-
-Here you can see a demo of the app:
-
-https://github.com/Alessandro-vecchi/UniDrive/assets/76568209/ff82d962-85ae-47e8-894b-05128f3786dc
-
 
 ### Built With
 
@@ -77,6 +66,16 @@ https://github.com/Alessandro-vecchi/UniDrive/assets/76568209/ff82d962-85ae-47e8
 * [![SQLite][SQLite-badge]][SQLite-url]
 * [![Swagger][Swagger-badge]][Swagger-url]
 * [![Figma][Figma-badge]][Figma-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- Demo -->
+### Demo
+
+Here you can see a demo of the app:
+
+https://github.com/Alessandro-vecchi/UniDrive/assets/76568209/ff82d962-85ae-47e8-894b-05128f3786dc
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

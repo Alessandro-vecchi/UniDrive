@@ -18,7 +18,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/alessandro-vecchi/UniDrive">
-    <img src="doc/logo.png" alt="Logo" width="500">
+    <img src="assets/images/logo.png" alt="Logo" width="500">
   </a>
 
   

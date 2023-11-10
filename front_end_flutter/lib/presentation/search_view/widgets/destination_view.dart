@@ -3,12 +3,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:uni_drive/presentation/search_view/widgets/search_container.dart';
 
+import '../../../main.dart';
 import '../../../services/ride_service.dart';
+import '../../form_fields/autocomplete/enel_reactive_autocomplete_field.dart';
 
 class DestinationView extends StatelessWidget {
-  const DestinationView({
+  DestinationView({
     super.key,
   });
+
+  IconData suffixIcon = Icons.search;
 
   @override
   Widget build(BuildContext context) {
@@ -29,59 +33,28 @@ class DestinationView extends StatelessWidget {
                     ?.copyWith(color: Colors.white),
               ),
               const SizedBox(height: 8),
-              ReactiveTextField(
+              ReactiveAutocompleteField<String>(
                 formControlName: 'destination',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white),
-                decoration: const InputDecoration(
-                  hintText: 'Enter a destination',
-                  suffixIcon: Icon(Icons.search, color: Colors.white),
-                ),
-                onChanged: (value) async {
-                  // Call the backend API with the entered value
-                  // and update the suggestions list
-                  final suggestions = await _getSuggestedPlaces(value);
-                  form.control('suggestions').value = suggestions;
+                suggestionItemsSearch: (pattern) async {
+                  final suggestions = await _getSuggestedPlaces(pattern);
+                  return suggestions;
                 },
-              ),
-              StreamBuilder<List<String>>(
-                stream: form.control('suggestions').valueStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 8),
-                        Text(
-                          'Suggested Places:',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(color: Colors.white),
-                        ),
-                        const SizedBox(height: 8),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            return Text(
-                              snapshot.data![index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(color: Colors.white),
-                            );
-                          },
-                        ),
-                      ],
-                    );
+                suggestionItemsBuilder: (suggestion) {
+                  return ListTile(
+                    title: Text(suggestion),
+                  );
+                },
+                suggestionToString: (suggestion) => suggestion,
+                hint: 'Enter a destination',
+                suffixIcon: Icon(suffixIcon, color: Colors.white),
+                onChanged: (value) {
+                  if (value == null || value.isEmpty) {
+                    suffixIcon = Icons.search;
                   } else {
-                    return const SizedBox.shrink();
+                    suffixIcon = Icons.clear;
                   }
                 },
-              )
+              ),
             ],
           ),
         ),
@@ -118,7 +91,7 @@ class DestinationView extends StatelessWidget {
     return Expanded(
       child: ElevatedButton(
         onPressed: () {
-          final loggedInUser = {}; // Replace with actual user data
+          // Replace with actual user data
           ReactiveForm.of(context)?.patchValue({
             'destination': loggedInUser[label] ?? '',
           });

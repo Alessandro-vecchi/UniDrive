@@ -5,20 +5,21 @@ part 'booking.g.dart';
 
 @JsonSerializable(createToJson: false)
 class Booking {
-  @JsonKey(name: 'ride_id')
-  final String rideId;
+  @JsonKey(name: 'booking_id')
+  final String bookingId;
   @JsonKey(name: 'booking_timestamp')
   final String bookingTimestamp;
   @JsonKey(name: 'car_details', includeToJson: false)
   final CarDetails carDetails;
 
   Booking({
-    required this.rideId,
+    required this.bookingId,
     required this.bookingTimestamp,
     required this.carDetails,
   });
 
-  factory Booking.fromJson(Map<String, dynamic> json) => _$BookingFromJson(json);
+  factory Booking.fromJson(Map<String, dynamic> json) =>
+      _$BookingFromJson(json);
 }
 
 @JsonSerializable()
@@ -29,7 +30,8 @@ class CarDetails {
   final String carModel;
   @JsonKey(name: 'car_color')
   final String carColor;
-  @JsonKey(name: 'car_color_hex', includeToJson: false, fromJson: _colorFromJson)
+  @JsonKey(
+      name: 'car_color_hex', includeToJson: false, fromJson: _colorFromJson)
   final Color carColorHex;
   @JsonKey(name: 'car_plate')
   final String? carPlate;
@@ -48,7 +50,8 @@ class CarDetails {
     required this.totSeats,
   });
 
-  factory CarDetails.fromJson(Map<String, dynamic> json) => _$CarDetailsFromJson(json);
+  factory CarDetails.fromJson(Map<String, dynamic> json) =>
+      _$CarDetailsFromJson(json);
 
   static Color _colorFromJson(Map<String, dynamic> colorValue) {
     return Color.fromRGBO(

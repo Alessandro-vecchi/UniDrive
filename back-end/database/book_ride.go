@@ -3,25 +3,35 @@ package database
 import (
 	"UniDrive/back-end/api/models"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/gofrs/uuid"
 	"github.com/jinzhu/gorm"
 )
 
+type Temp struct {
+	AvailableSeats int `json:"available_seats"`
+}
+
 func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, error) {
 
-	// check if ride exists and has available seats
-	ride, err := GetRideByID(db, ride_id)
+	// Check if the user has already booked this ride
+	var temp Temp
+	err := db.Debug().
+		Table("ride").
+		Select("(SELECT car_details.tot_seats - 1 - COUNT(*) FROM booking WHERE ride_id = ?) as available_seats", ride_id).
+		Joins("JOIN car_details ON car_details.user_id = ride.driver_id").
+		Where("ride.id = ?", ride_id).
+		Scan(&temp).Error
+
 	if err != nil {
 		return models.Booking{}, err
 	}
-
-	// Check if there are available seats before booking
-	if ride.AvailableSeats <= 0 {
+	if temp.AvailableSeats <= 0 {
 		return models.Booking{}, errors.New("no seats available")
 	}
-
+	fmt.Print(temp.AvailableSeats)
 	// Create id for the booking
 	var booking models.Booking
 	raw_booking_id, err := uuid.NewV4()
@@ -50,7 +60,7 @@ func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, erro
 	}
 
 	// Update available seats from the ride
-	result = tx.Exec("UPDATE ride SET available_seats = available_seats - 1   WHERE id = ? and available_seats <> 0", ride_id)
+	/* result = tx.Exec("UPDATE ride SET available_seats = available_seats - 1   WHERE id = ? and available_seats <> 0", ride_id)
 	if result.Error != nil {
 		tx.Rollback()
 		return booking, result.Error
@@ -58,8 +68,9 @@ func BookRide(db *gorm.DB, user_id string, ride_id string) (models.Booking, erro
 	if result.RowsAffected == 0 {
 		tx.Rollback()
 		return booking, errors.New("no more seats available")
-	}
+	} */
 
+	booking.BookingId = booking_id
 	booking.RideId = ride_id
 	booking.BookingTimestamp = timestamp
 	booking.CarDetails = carDetails

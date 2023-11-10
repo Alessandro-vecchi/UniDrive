@@ -16,7 +16,6 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   final _controller = PageController(initialPage: 0);
-  final _destinationControl = FormControl<String>();
 
   final _form = FormGroup({
     'destination': FormControl<String>(validators: [Validators.required]),
@@ -31,22 +30,24 @@ class _SearchViewState extends State<SearchView> {
       formGroup: _form,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            NavigationButtons(controller: _controller),
-            ExpandablePageView(
-              controller: _controller,
-              physics: const NeverScrollableScrollPhysics(),
-              clipBehavior: Clip.none,
-              scrollDirection: Axis.horizontal,
-              children: const [
-                DestinationView(),
-                StartPositionView(),
-                DateTimeView(),
-              ],
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              NavigationButtons(controller: _controller),
+              ExpandablePageView(
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                clipBehavior: Clip.none,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  DestinationView(),
+                  StartPositionView(),
+                  const DateTimeView(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

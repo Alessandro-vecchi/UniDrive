@@ -34,7 +34,7 @@ abstract class RideService {
     @Queries() required SearchModel searchModel,
   });
 
-  @POST("/rides/{ride_id}/booking")
+  @POST("/rides/{ride_id}/booking/")
   Future<Booking> bookRide(@Path('ride_id') String id);
 
   @DELETE("/rides/{ride_id}/booking/{booking_id}")

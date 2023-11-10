@@ -105,10 +105,17 @@ class RideInfo extends StatelessWidget {
             children: [
               Icon(
                 Icons.person,
+<<<<<<< HEAD
                 color: index <
                         (ride.carDetails.totSeats) - (ride.availableSeats) - 1
                     ? Colors.grey
                     : Colors.green,
+=======
+                color:
+                    index < (ride.carDetails.totSeats) - (ride.availableSeats)
+                        ? Colors.grey
+                        : Colors.green,
+>>>>>>> f7a81f8c5a0e0928fc8fcc6a8e520668ed63d4e0
                 size: 30,
               ),
               Positioned(
@@ -120,9 +127,13 @@ class RideInfo extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: index <
+<<<<<<< HEAD
                             (ride.carDetails.totSeats) -
                                 (ride.availableSeats) -
                                 1
+=======
+                            (ride.carDetails.totSeats) - (ride.availableSeats)
+>>>>>>> f7a81f8c5a0e0928fc8fcc6a8e520668ed63d4e0
                         ? Colors.red
                         : Colors.green,
                   ),
@@ -140,7 +151,7 @@ class RideInfo extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         final bool isOccupied =
-            seatIndex < (ride.carDetails.totSeats) - (ride.availableSeats) - 1;
+            seatIndex < (ride.carDetails.totSeats) - (ride.availableSeats);
         final String seatStatus = isOccupied ? 'Occupied' : 'Available';
         final Color dotColor = isOccupied ? Colors.red : Colors.green;
 

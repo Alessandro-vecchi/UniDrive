@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -7,10 +9,22 @@ import '../../../main.dart';
 import '../../../services/ride_service.dart';
 import '../../form_fields/autocomplete/enel_reactive_autocomplete_field.dart';
 
+<<<<<<< HEAD
 class DestinationView extends StatelessWidget {
   DestinationView({
     super.key,
   });
+=======
+class DestinationView extends StatefulWidget {
+  const DestinationView({Key? key}) : super(key: key);
+
+  @override
+  State<DestinationView> createState() => _DestinationViewState();
+}
+
+class _DestinationViewState extends State<DestinationView> {
+  // IconData suffixIcon = Icons.search;
+>>>>>>> f7a81f8c5a0e0928fc8fcc6a8e520668ed63d4e0
 
   IconData suffixIcon = Icons.search;
 
@@ -46,14 +60,23 @@ class DestinationView extends StatelessWidget {
                 },
                 suggestionToString: (suggestion) => suggestion,
                 hint: 'Enter a destination',
+<<<<<<< HEAD
                 suffixIcon: Icon(suffixIcon, color: Colors.white),
                 onChanged: (value) {
+=======
+                suffixIcon: const Icon(Icons.search, color: Colors.white),
+                /*onChanged: (value) {
+>>>>>>> f7a81f8c5a0e0928fc8fcc6a8e520668ed63d4e0
                   if (value == null || value.isEmpty) {
                     suffixIcon = Icons.search;
                   } else {
                     suffixIcon = Icons.clear;
                   }
+<<<<<<< HEAD
                 },
+=======
+                },*/
+>>>>>>> f7a81f8c5a0e0928fc8fcc6a8e520668ed63d4e0
               ),
             ],
           ),
@@ -82,7 +105,7 @@ class DestinationView extends StatelessWidget {
           .autocomplete(input, userPosition.latitude, userPosition.longitude);
       return suggestedPlaces;
     } catch (e) {
-      print('Error occurred while getting suggested places: $e');
+      log('Error occurred while getting suggested places: $e');
       return ['']; // todo handle the error case as needed
     }
   }

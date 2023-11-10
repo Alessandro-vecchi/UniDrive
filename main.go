@@ -70,7 +70,7 @@ func main() {
 		Handler: r,
 	}
 	// Set the Google Maps API key
-	err := os.Setenv("GOOGLE_MAPS_API_KEY", "AIzaSyD39NGTQHm7FYO4fGdZTwWcV7l2rKlv02U")
+	err := os.Setenv("GOOGLE_MAPS_API_KEY", "")
 	if err != nil {
 		logger.Fatalf("failed to set GOOGLE_MAPS_API_KEY: %s", err)
 	}

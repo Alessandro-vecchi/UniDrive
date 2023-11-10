@@ -8,14 +8,19 @@ class Booking {
   @JsonKey(name: 'booking_id')
   final String bookingId;
   @JsonKey(name: 'booking_timestamp')
-  final String bookingTimestamp;
+  final String? bookingTimestamp;
   @JsonKey(name: 'car_details', includeToJson: false)
-  final CarDetails carDetails;
+  final CarDetails? carDetails;
 
   Booking({
     required this.bookingId,
+<<<<<<< HEAD
     required this.bookingTimestamp,
     required this.carDetails,
+=======
+    this.bookingTimestamp,
+    this.carDetails,
+>>>>>>> f7a81f8c5a0e0928fc8fcc6a8e520668ed63d4e0
   });
 
   factory Booking.fromJson(Map<String, dynamic> json) =>

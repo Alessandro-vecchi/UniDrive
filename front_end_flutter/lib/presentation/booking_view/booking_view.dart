@@ -14,7 +14,7 @@ class BookingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BookingCubit>(
-      create: (context) => BookingCubit(),
+      create: (context) => BookingCubit(), //..init(ride),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Booking'),

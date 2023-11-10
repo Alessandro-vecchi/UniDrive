@@ -10,7 +10,7 @@
 //   }) : super(builder: (ReactiveFormFieldState<Place, String> field) {
 //     // return GooglePlaceAutoCompleteTextField(
 //     //     textEditingController: controller,
-//     //     googleAPIKey: "AIzaSyD39NGTQHm7FYO4fGdZTwWcV7l2rKlv02U",
+//     //     googleAPIKey: "",
 //     //     inputDecoration: InputDecoration()
 //     //     debounceTime: 800 // default 600 ms,
 //     //     countries: ["in", "fr"], // optional by default null is set

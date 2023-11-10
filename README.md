@@ -18,10 +18,8 @@
 <br />
 <div align="center">
   <a href="https://github.com/alessandro-vecchi/UniDrive">
-    <img src="images.logo" alt="Logo" width="300">
+    <img src="doc/logo.png" alt="Logo" width="500">
   </a>
-
-  <h2 align="center">UniDrive</h2>
 
   
 </div>
@@ -78,7 +76,7 @@ https://github.com/Alessandro-vecchi/UniDrive/assets/76568209/ff82d962-85ae-47e8
 * [![Flutter][Flutter-badge]][Flutter-url]
 * [![SQLite][SQLite-badge]][SQLite-url]
 * [![Swagger][Swagger-badge]][Swagger-url]
-* [![Figma][Figma-badge][Figma-url]]
+* [![Figma][Figma-badge]][Figma-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

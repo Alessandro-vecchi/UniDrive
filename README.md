@@ -155,9 +155,6 @@ Project Link: [https://github.com/Alessandro-vecchi/UniDrive](https://github.com
 [Go-badge]: https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white
 [Go-url]: https://go.dev/
 
-[Go-badge]: https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white
-[Go-url]: https://go.dev/
-
 [Figma-badge]: https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white
 [Figma-url]: https://figma.com/
 
